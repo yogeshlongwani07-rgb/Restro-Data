@@ -1,0 +1,54 @@
+.shimmer-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+}
+
+.shimmer-card {
+  width: 18rem;
+  padding: 12px;
+  margin-left: 50px;
+  margin-top: 50px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+.shimmer-header,
+.shimmer-row {
+  background: linear-gradient(
+    90deg,
+    #eeeeee 25%,
+    #dddddd 37%,
+    #eeeeee 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.4s infinite ease-in-out;
+  border-radius: 8px;
+}
+
+/* header (restaurant name) */
+.shimmer-header {
+  height: 28px;
+  margin-bottom: 14px;
+}
+
+/* rows (rating, locality, time) */
+.shimmer-row {
+  height: 18px;
+  margin-bottom: 10px;
+}
+
+.shimmer-row.small {
+  width: 70%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}

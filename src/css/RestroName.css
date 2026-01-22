@@ -1,0 +1,18 @@
+.xyz{
+  padding: 2rem;
+  text-align: center;
+  place-items: center;
+}
+
+.card-container {
+  display: flex;
+
+  flex-wrap: wrap;          
+  gap: 16px;                
+  justify-content: space-around;   
+}
+
+.ncb{
+  text-decoration: none;
+  color: #36454F
+}

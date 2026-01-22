@@ -1,0 +1,243 @@
+/* -------- Base -------- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Arial, sans-serif;
+  background: #f7f8fb;
+  color: #1f2937;
+}
+
+.rd-root {
+  max-width: 1200px;
+  margin: auto;
+  padding: 24px;
+}
+
+/* -------- Back Button -------- */
+.rd-back {
+  background: white;
+  border: 1px solid #e5e7eb;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+/* -------- Hero -------- */
+.rd-hero {
+  background: linear-gradient(135deg, #ffffff, #fff1f5);
+  border-radius: 20px;
+  padding: 28px;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+}
+
+.rd-title {
+  font-size: 40px;
+  margin: 0;
+  font-weight: 800;
+}
+
+.rd-tagline {
+  color: #6b7280;
+  margin-top: 6px;
+}
+
+/* -------- Badges -------- */
+.rd-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.rd-badge {
+  background: white;
+  border-radius: 999px;
+  padding: 8px 14px;
+  border: 1px solid #f1f1f4;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.rd-badge.small {
+  padding: 8px 12px;
+}
+
+.rating-number {
+  color: #6b7280;
+  font-weight: 600;
+}
+
+/* -------- Pills -------- */
+.pill-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  background: #fff;
+  border: 1px solid #fde2e9;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+.pill.muted {
+  background: #f9fafb;
+  border-color: #e5e7eb;
+  color: #6b7280;
+}
+
+/* -------- Meta -------- */
+.meta {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.meta small {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.meta-strong {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+/* -------- Layout -------- */
+.rd-main {
+  display: flex;
+  gap: 24px;
+  margin-top: 28px;
+}
+
+.rd-menu-col {
+  flex: 1;
+}
+
+.rd-aside {
+  width: 300px;
+}
+
+/* -------- Category -------- */
+.category-card {
+  background: white;
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 18px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.category-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cat-rating {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+/* -------- Items -------- */
+.items-grid {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .items-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.item-card {
+  border: 1px solid #f1f1f4;
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 20px;
+  background: linear-gradient(180deg, #ffffff, #fffafa);
+}
+
+.item-card h4 {
+  margin: 0;
+}
+
+.item-price {
+  font-weight: 700;
+}
+
+/* -------- Item Right -------- */
+.item-right {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cta {
+  background: #ec4899;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+/* -------- Aside -------- */
+.aside-card {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* -------- Text Utils -------- */
+.muted {
+  color: #6b7280;
+}
+
+.small {
+  font-size: 13px;
+}
+
+/* -------- Responsive -------- */
+@media (max-width: 900px) {
+  .rd-hero {
+    flex-direction: column;
+  }
+
+  .meta {
+    text-align: left;
+  }
+
+  .rd-main {
+    flex-direction: column;
+  }
+
+  .rd-aside {
+    width: 100%;
+  }
+}
