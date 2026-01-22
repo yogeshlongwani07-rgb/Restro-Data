@@ -1,4 +1,4 @@
-import "./css/Shimmer.css";
+import "./css/shimmer.css";
 
 export default function Shimmer() {
   return (
