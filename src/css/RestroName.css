@@ -12,7 +12,95 @@
   justify-content: space-around;   
 }
 
-.ncb{
-  text-decoration: none;
-  color: #36454F
+.search-wrapper {
+  position: relative;
+  width: 280px;
+  font-family: system-ui, sans-serif;
 }
+
+/* INPUT */
+
+.search-wrapper input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1.5px solid #e1e1e1;
+  outline: none;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.search-wrapper input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 4px 12px rgba(99,102,241,0.25);
+}
+
+/* DROPDOWN */
+
+.suggestions-box {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 85%;
+  background: #fff;
+  border-radius: 12px;
+  padding: 6px;
+  list-style: none;
+  margin: 0;
+  max-height: 150px;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.32);
+  animation: fadeIn 0.15s ease-in;
+  z-index: 100;
+}
+
+/* ITEM */
+
+.suggestions-box li {
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.15s ease;
+}
+
+/* HOVER EFFECT */
+
+.suggestions-box li:hover {
+  background: #6366f1;
+  color: white;
+  transform: translateX(4px);
+}
+
+/* SCROLLBAR (Chrome) */
+
+.suggestions-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+.suggestions-box::-webkit-scrollbar-thumb {
+  background: #c7c7ff;
+  border-radius: 10px;
+}
+
+/* ANIMATION */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+

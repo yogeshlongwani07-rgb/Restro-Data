@@ -1,0 +1,66 @@
+.notfound-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+  font-family: "Segoe UI", sans-serif;
+}
+
+.glass-card {
+  padding: 50px 60px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  animation: float 3s ease-in-out infinite;
+}
+
+.error-code {
+  font-size: 90px;
+  font-weight: bold;
+  margin: 0;
+  background: linear-gradient(90deg, #2563eb, #22c55e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.error-title {
+  font-size: 28px;
+  margin-top: 10px;
+  color: #0f172a;
+}
+
+.error-text {
+  margin: 15px 0 30px;
+  color: #475569;
+}
+
+.home-btn {
+  padding: 12px 30px;
+  border-radius: 30px;
+  border: none;
+  background: linear-gradient(90deg, #2563eb, #22c55e);
+  color: #ffffff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.home-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(37, 99, 235, 0.3);
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}

@@ -1,0 +1,70 @@
+/* Page Background */
+.cities-container {
+  padding: 70px 8%;
+  background: linear-gradient(180deg, #f8fafc, #eef2ff);
+  min-height: 100vh;
+}
+
+/* Heading */
+.cities-heading {
+  text-align: center;
+  font-size: 2.4rem;
+  font-weight: 800;
+  margin-bottom: 50px;
+  color: #0f172a;
+  letter-spacing: -0.5px;
+}
+
+/* Grid */
+.cities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 24px;
+}
+
+/* Card */
+.city-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  color: #0f172a;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+
+  border: 1px solid #e5e7eb;
+
+  box-shadow: 
+    0 4px 6px rgba(0,0,0,0.05),
+    0 10px 15px rgba(0,0,0,0.04);
+
+  transition: all 0.25s ease;
+}
+
+/* Hover Effect */
+.city-card:hover {
+  transform: translateY(-6px);
+  border-color: #6366f1;
+
+  box-shadow:
+    0 10px 20px rgba(99,102,241,0.15),
+    0 4px 6px rgba(0,0,0,0.05);
+
+  color: #4f46e5;
+}
+
+/* Link Reset */
+.city-link {
+  text-decoration: none;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .cities-heading {
+    font-size: 1.8rem;
+  }
+
+  .cities-container {
+    padding: 40px 20px;
+  }
+}

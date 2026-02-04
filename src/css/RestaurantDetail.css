@@ -7,9 +7,12 @@ body {
   margin: 0;
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, Arial, sans-serif;
-  background: #f7f8fb;
+  background: #fbf9f7;
   color: #1f2937;
+
+
 }
+
 
 .rd-root {
   max-width: 1200px;
