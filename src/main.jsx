@@ -14,10 +14,10 @@ createRoot(document.getElementById("root")).render(
     }}
   >
     <Routes>
-      <Route path="*" element={<NopageFound />} />
       <Route path="/" element={<App />} />
       <Route path="/Restro/:id/:name" element={<RestroMenu />} />
       <Route path="/Restro/cities" element={<Cities />} />
+      <Route path="*" element={<NopageFound />} />
     </Routes>
   </BrowserRouter>,
 );
