@@ -1,62 +1,32 @@
-import { useState } from "react";
-import userData from "./Data/AuthData";
+import { useContext, useState } from "react";
+import { locationContext } from "./Context";
 import "./css/Navbar.css";
 
 function Navbar() {
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
   const [login, setLogin] = useState(false);
-  const [user, setUser] = useState("User");
-  let [verify, setVerify] = useState({
+  let { islocation, setIslocation } = useContext(locationContext);
+  let [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
 
-  let [signUp, setSignUp] = useState({
+  let [signUpData, setSignUpData] = useState({
     name: "",
     email: "",
     password: "",
   });
 
-  function logoutUpdate() {
-    setLogin(false);
-    setUser("User");
-  }
-
-  function storeData() {
-    setUser(signUp.name);
-    userData.push(signUp);
-    setLogin(true);
-    setShowModal2(false);
-  }
-
-  function logIn() {
-    const isValid = userData.some((el) => {
-      return el.email === verify.email && el.password === verify.password;
-    });
-    setShowModal(false);
-    if (isValid) {
-      console.log("verfied");
-      setLogin(true);
-    }
-  }
-
-  function inputHandler(e) {
-    setVerify((pre) => {
-      return {
-        ...pre,
-        [e.target.name]: e.target.value,
-      };
-    });
-  }
-
-  function inputHandler2(e) {
-    setSignUp((pre) => {
-      return {
-        ...pre,
-        [e.target.name]: e.target.value,
-      };
-    });
+  function inputHandle(state) {
+    return (e) => {
+      state((pre) => {
+        return {
+          ...pre,
+          [e.target.name]: e.target.value,
+        };
+      });
+    };
   }
 
   return (
@@ -84,15 +54,19 @@ function Navbar() {
                   700+ Cities Covered
                 </a>
               </li>
-
               <li className="nav-item">
-                <button className="btn btn-outline-info px-4 py-2 fw-semibold rounded-pill">
-                  Top Rated <i className="fa-regular fa-star"></i>
-                </button>
-              </li>
-              <li className="nav-item">
-                <button className="nav-link fw-semibold text-muted ">
-                  <i className="fa-solid fa-location-arrow"></i> Allow Location
+                <button
+                  className={
+                    islocation
+                      ? "nav-link fw-semibold text-success"
+                      : "nav-link fw-semibold text-muted"
+                  }
+                  onClick={() => {
+                    setIslocation(true);
+                  }}
+                >
+                  <i className="fa-solid fa-location-arrow fa-lg"></i>
+                  &nbsp; Allow Location
                 </button>
               </li>
             </ul>
@@ -115,10 +89,7 @@ function Navbar() {
                 </>
               )}
               {login && (
-                <button
-                  className="btn btn-success px-3 py-1 fw-semibold rounded-pill"
-                  onClick={logoutUpdate}
-                >
+                <button className="btn btn-success px-3 py-1 fw-semibold rounded-pill">
                   Logout
                 </button>
               )}
@@ -147,10 +118,8 @@ function Navbar() {
                       id="email"
                       name="email"
                       placeholder="name@example.com"
-                      value={verify.email}
-                      onChange={(el) => {
-                        inputHandler(el);
-                      }}
+                      value={loginData.email}
+                      onChange={inputHandle(setLoginData)}
                     />
                     <label>Email address</label>
                   </div>
@@ -162,10 +131,8 @@ function Navbar() {
                       id="password"
                       name="password"
                       placeholder="Password"
-                      value={verify.password}
-                      onChange={(el) => {
-                        inputHandler(el);
-                      }}
+                      value={loginData.password}
+                      onChange={inputHandle(setLoginData)}
                     />
                     <label>Password</label>
                   </div>
@@ -179,9 +146,7 @@ function Navbar() {
                     Cancel
                   </button>
 
-                  <button className="btn btn-success px-4" onClick={logIn}>
-                    Login
-                  </button>
+                  <button className="btn btn-success px-4">Login</button>
                 </div>
               </div>
             </div>
@@ -209,10 +174,8 @@ function Navbar() {
                       id="name"
                       name="name"
                       placeholder="Name"
-                      value={signUp.name}
-                      onChange={(el) => {
-                        inputHandler2(el);
-                      }}
+                      value={signUpData.name}
+                      onChange={inputHandle(setSignUpData)}
                     />
                     <label>Your Name</label>
                   </div>
@@ -223,10 +186,8 @@ function Navbar() {
                       id="email"
                       name="email"
                       placeholder="name@example.com"
-                      value={signUp.email}
-                      onChange={(el) => {
-                        inputHandler2(el);
-                      }}
+                      value={signUpData.email}
+                      onChange={inputHandle(setSignUpData)}
                     />
                     <label>Email address</label>
                   </div>
@@ -238,10 +199,8 @@ function Navbar() {
                       id="password"
                       name="password"
                       placeholder="Password"
-                      value={signUp.password}
-                      onChange={(el) => {
-                        inputHandler2(el);
-                      }}
+                      value={signUpData.password}
+                      onChange={inputHandle(setSignUpData)}
                     />
                     <label>Password</label>
                   </div>
@@ -255,9 +214,7 @@ function Navbar() {
                     Cancel
                   </button>
 
-                  <button className="btn btn-success px-4" onClick={storeData}>
-                    SignUp
-                  </button>
+                  <button className="btn btn-success px-4">SignUp</button>
                 </div>
               </div>
             </div>

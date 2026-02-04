@@ -1,8 +1,10 @@
 import RestroCards from "./RestroCards";
-function HeadingWithCards({ restaurants, city }) {
+function HeadingWithCards({ restaurants, city, headline }) {
   return (
     <div>
-      <h2 className="abc text-center fw-normal text-muted fst-italic mt-5">{`Eat What ${city} Loves`}</h2>
+      {restaurants.length === 0 ? null : (
+        <h2 className="abc text-center fw-normal text-muted fst-italic mt-5">{`${headline} ${city}`}</h2>
+      )}
       <div
         style={{
           display: "flex",

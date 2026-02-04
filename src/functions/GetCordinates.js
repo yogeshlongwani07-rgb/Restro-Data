@@ -1,15 +1,30 @@
-async function getCordinates(city) {
+export default async function getCordinates(city, islocation) {
+  if (islocation) {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          resolve({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        (error) => reject(error),
+      );
+    });
+  } else {
     let data = await fetch(
-      "https://geocoding-api.open-meteo.com/v1/search?name=" + city
+      "https://geocoding-api.open-meteo.com/v1/search?name=" + city,
     );
-    let jsonData = await data.json();
-    if (jsonData.results && jsonData.results.length > 0) {
-      return jsonData.results[0];
-    }
-    return {
-      latitude: 0,
-      longitude: 0,
-    };
-  }
 
-  export default getCordinates;
+    let jsonData = await data.json();
+
+    if (jsonData.results?.length) {
+      return {
+        latitude: jsonData.results[0].latitude,
+        longitude: jsonData.results[0].longitude,
+      };
+    }
+
+    return { latitude: 0, longitude: 0 };
+  }
+}

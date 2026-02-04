@@ -43,6 +43,7 @@ const cities = [
   "Durgapur",
   "Asansol",
   "Siliguri",
+  "Sikar",
   "Kharagpur",
   "Haldia",
   "Barrackpore",
@@ -73,6 +74,7 @@ const cities = [
   "Mau",
   "Ghazipur",
   "Varanasi",
+  "Sohna",
   "Sonbhadra",
   "Robertsganj",
   "Renukoot",
@@ -269,7 +271,6 @@ const cities = [
   "Avinashi",
   "Gobichettipalayam",
   "Sathyamangalam",
-  "Sikar",
 ];
 
 export default cities;

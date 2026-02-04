@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import getRestroData from "./functions/getRestroData";
 import "./css/RestroName.css";
 import EmptyState from "./NotSerached";
@@ -8,6 +8,10 @@ import cities from "./Data/CityData";
 import { useLocation } from "react-router-dom";
 import NotAvailableState from "./NoCitySearched";
 import HeadingWithCards from "./HeadingWithCards";
+import "./functions/FirstCapital.js";
+import { useContext } from "react";
+import { locationContext } from "./Context.jsx";
+import randomHeadline from "./Data/Heading";
 
 export default function RestroName() {
   const location = useLocation();
@@ -17,6 +21,9 @@ export default function RestroName() {
   let [serached, setSerached] = useState(false);
   const [loading, setLoading] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
+  let { islocation, setIslocation } = useContext(locationContext);
+  const [searchedCity, setSearchedCity] = useState(routeCity || "Sikar");
+  const [headline, setHeadline] = useState("");
 
   const onSubmit = useCallback(
     async (e) => {
@@ -24,19 +31,48 @@ export default function RestroName() {
       setSerached(true);
       setLoading(true);
       setSuggestions([]);
-      const data = await getRestroData(city);
-      if (!data || data.length === 0) {
+      setIslocation(false);
+      try {
+        const result = await getRestroData(city, islocation);
+        const { ans: data, cityname } = result;
+
+        if (!data || data.length === 0) {
+          setRestaurants([]);
+        } else {
+          setCity(cityname);
+          setSearchedCity(cityname);
+          setRestaurants(data);
+          setHeadline(randomHeadline());
+        }
+      } catch (error) {
         setRestaurants([]);
-      } else {
-        setRestaurants(data);
       }
+
       setLoading(false);
     },
     [city],
   );
 
+  useEffect(() => {
+    if (!islocation) return;
+
+    async function fetchLocationData() {
+      setSerached(true);
+      setLoading(true);
+
+      const result = await getRestroData(city, true);
+      const { ans: data, cityname } = result;
+      setCity(cityname);
+      setSearchedCity(cityname);
+      setRestaurants(data || []);
+      setLoading(false);
+    }
+
+    fetchLocationData();
+  }, [islocation]);
+
   function onChangehandler(e) {
-    const value = e.target.value.trim();
+    const value = e.target.value.trim().capitalizeFirstLetter();
     setCity(value);
 
     if (value.length > 0) {
@@ -54,6 +90,16 @@ export default function RestroName() {
     setSuggestions([]);
   }
 
+  // navigator.geolocation.getCurrentPosition(
+  //   (position) => {
+  //     console.log(position.coords.latitude);
+  //     console.log(position.coords.longitude);
+  //   },
+  //   (error) => {
+  //     console.log(error.message);
+  //   },
+  // );
+
   // function filterOut4Plus() {
   //   let data = restaurants.filter((el) => {
   //     return el.avgRating > 4;
@@ -65,9 +111,6 @@ export default function RestroName() {
 
   return (
     <div className="xyz">
-      {/* <Link to="/" className="ncb">
-        <h2>Restaurants Near Me</h2>
-      </Link> */}
       <form action="#" onSubmit={onSubmit}>
         <div className="input-group mb-3">
           <input
@@ -104,8 +147,12 @@ export default function RestroName() {
           <NotAvailableState />
         )}
 
-        {serached && !loading && (
-          <HeadingWithCards restaurants={restaurants} city={city} />
+        {serached && !loading && restaurants.length > 0 && (
+          <HeadingWithCards
+            restaurants={restaurants}
+            city={searchedCity}
+            headline={headline}
+          />
         )}
       </div>
     </div>
