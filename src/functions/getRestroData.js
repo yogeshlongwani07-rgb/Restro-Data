@@ -3,7 +3,7 @@ export default async function getRestroData(city) {
   try {
     let { latitude, longitude } = await getCordinates(city);
     let data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=" +
+      "https://backend-restro-data.vercel.app/api/restro?lat=" +
         latitude +
         "&lng=" +
         longitude,
