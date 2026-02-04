@@ -1,6 +1,6 @@
 import { useState } from "react";
 import userData from "./Data/AuthData";
-import "./css/NavBar.css";
+import "./css/Navbar.css";
 
 function Navbar() {
   const [showModal, setShowModal] = useState(false);
