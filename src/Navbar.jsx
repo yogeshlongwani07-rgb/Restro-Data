@@ -1,10 +1,12 @@
 import { useContext, useState } from "react";
 import { locationContext } from "./Context";
 import "./css/Navbar.css";
+import axios from "axios";
 
 function Navbar() {
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
+  let [hiUser, setHiuser] = useState(false);
   const [login, setLogin] = useState(false);
   let { islocation, setIslocation } = useContext(locationContext);
   let [loginData, setLoginData] = useState({
@@ -17,6 +19,50 @@ function Navbar() {
     email: "",
     password: "",
   });
+
+  async function register() {
+    try {
+      const res = await fetch("https://backend-restro-data.vercel.app/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(signUpData),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        console.error("Server error:", data);
+        return;
+      }
+      setSignUpData({
+        name: "",
+        email: "",
+        password: "",
+      });
+      setShowModal2(false);
+    } catch (err) {
+      console.log(err.status);
+    }
+  }
+
+  async function auth() {
+    try {
+      let ank = await axios.post(
+        "https://backend-restro-data.vercel.app/login",
+        loginData,
+      );
+      console.log(ank);
+      setShowModal(false);
+      setLoginData({
+        email: "",
+        password: "",
+      });
+    } catch (err) {
+      console.log("err");
+    }
+  }
 
   function inputHandle(state) {
     return (e) => {
@@ -33,8 +79,14 @@ function Navbar() {
     <>
       <nav className="navbar navbar-expand-lg bg-white shadow-sm py-3 border-bottom">
         <div className="container">
-          <a className="navbar-brand fw-bold fs-4 text-success" href="#">
-            Hi User,
+          <a
+            className="navbar-brand fw-bold fs-4 text-success"
+            href="#"
+            onClick={() => {
+              setHiuser(!hiUser);
+            }}
+          >
+            Hi User {hiUser ? "👋" : null},
           </a>
           <button
             className="navbar-toggler"
@@ -146,7 +198,9 @@ function Navbar() {
                     Cancel
                   </button>
 
-                  <button className="btn btn-success px-4">Login</button>
+                  <button className="btn btn-success px-4" onClick={auth}>
+                    Login
+                  </button>
                 </div>
               </div>
             </div>
@@ -159,7 +213,7 @@ function Navbar() {
             <div className="modal-dialog modal-dialog-centered">
               <div className="modal-content rounded-4 shadow">
                 <div className="modal-header">
-                  <h5 className="modal-title fw-bold">Welcome Back 👋</h5>
+                  <h5 className="modal-title fw-bold">Let’s begin 👋</h5>
                   <button
                     className="btn-close"
                     onClick={() => setShowModal2(false)}
@@ -214,7 +268,9 @@ function Navbar() {
                     Cancel
                   </button>
 
-                  <button className="btn btn-success px-4">SignUp</button>
+                  <button className="btn btn-success px-4" onClick={register}>
+                    SignUp
+                  </button>
                 </div>
               </div>
             </div>

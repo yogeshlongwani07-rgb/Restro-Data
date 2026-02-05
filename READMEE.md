@@ -22,12 +22,19 @@
 
 # mongo atlas
 
-JWT
+# JWT
 
-Cookies vs LocalStorage
+# Cookies vs LocalStorage
 
-Password hashing (bcrypt)
+# Password hashing (bcrypt)
 
-Role based access (admin/user)
+# Role based access (admin/user)
 
-# backgournd image
+# Css mobile
+
+# Redux
+
+# customer hooks
+
+yogeshlongwani07_db_user
+pass - 458YZ7DLro1OpbbQ

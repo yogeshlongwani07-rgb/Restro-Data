@@ -4,9 +4,7 @@ import { useLocation } from "react-router-dom";
 import restaurantMenu from "./Data/MenuData";
 
 export default function RestroMenu() {
-  const params = useParams();
   const { state } = useLocation();
-  const { id } = useParams();
 
   return (
     <div className="rd-root">

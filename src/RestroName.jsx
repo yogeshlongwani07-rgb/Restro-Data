@@ -118,7 +118,7 @@ export default function RestroName() {
             value={city}
             onChange={onChangehandler}
             className="form-control"
-            placeholder="Restaurants"
+            placeholder="City name here"
           />
           {suggestions.length > 0 && (
             <ul className="suggestions-box">

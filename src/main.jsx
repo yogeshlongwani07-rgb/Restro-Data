@@ -4,7 +4,6 @@ import App from "./App.jsx";
 import RestroMenu from "./RestroMenu.jsx";
 import Cities from "./Cities.jsx";
 import NopageFound from "./NoPageFound.jsx";
-import Navbar from "./Navbar.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter
