@@ -6,7 +6,7 @@ import axios from "axios";
 function Navbar() {
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
-  let [hiUser, setHiuser] = useState(false);
+  let [hiUser, setHiuser] = useState("");
   const [login, setLogin] = useState(false);
   let { islocation, setIslocation } = useContext(locationContext);
   let [xerror, setError] = useState("");
@@ -46,6 +46,9 @@ function Navbar() {
         email: "",
         password: "",
       });
+      setHiuser(signUpData.name);
+      setLogin(true);
+      setError("");
       setShowModal2(false);
     } catch (err) {
       console.log(err.status);
@@ -62,6 +65,8 @@ function Navbar() {
         email: "",
         password: "",
       });
+      setLogin(true);
+      setError("");
       setShowModal(false);
     } catch (err) {
       if (!err.response) {
@@ -100,14 +105,8 @@ function Navbar() {
     <>
       <nav className="navbar navbar-expand-lg bg-white shadow-sm py-3 border-bottom">
         <div className="container">
-          <a
-            className="navbar-brand fw-bold fs-4 text-success"
-            href="#"
-            onClick={() => {
-              setHiuser(!hiUser);
-            }}
-          >
-            Hi User {hiUser ? "👋" : null},
+          <a className="navbar-brand fw-bold fs-4 text-success" href="#">
+            Hi {hiUser.length > 0 ? hiUser : "User"},
           </a>
           <button
             className="navbar-toggler"
@@ -162,7 +161,13 @@ function Navbar() {
                 </>
               )}
               {login && (
-                <button className="btn btn-success px-3 py-1 fw-semibold rounded-pill">
+                <button
+                  className="btn btn-success px-3 py-1 fw-semibold rounded-pill"
+                  onClick={() => {
+                    setHiuser("");
+                    setLogin(false);
+                  }}
+                >
                   Logout
                 </button>
               )}

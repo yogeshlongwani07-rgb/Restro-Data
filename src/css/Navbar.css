@@ -1,3 +1,146 @@
 .ylo{
     background-color: #FAFAFA !important;
+}/* ================================
+   GLOBAL NAVBAR RESET
+================================ */
+.navbar {
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.navbar * {
+  box-shadow: none !important;
+}
+
+/* ================================
+   BRAND
+================================ */
+.navbar-brand {
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #16a34a !important;
+  white-space: nowrap;
+}
+
+/* ================================
+   TOGGLER (MOBILE ICON)
+================================ */
+.navbar-toggler {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+/* ================================
+   NAV LINKS
+================================ */
+.nav-link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+/* ================================
+   LOCATION BUTTON
+================================ */
+.nav-link button {
+  border: none;
+  background: transparent;
+  font-size: 0.9rem;
+}
+
+/* ================================
+   AUTH BUTTONS (DESKTOP)
+================================ */
+.btn-outline-success {
+  border-color: #16a34a;
+  color: #16a34a;
+}
+
+.btn-outline-success:hover {
+  background: #ecfdf5;
+  color: #16a34a;
+}
+
+/* ================================
+   MOBILE ONLY
+================================ */
+@media (max-width: 576px) {
+  /* collapse container */
+  .navbar-collapse {
+    padding-top: 10px;
+  }
+
+  /* remove 700+ cities */
+  .navbar-nav .nav-item:first-child {
+    display: none;
+  }
+
+  /* auth buttons container */
+  .ms-auto {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    padding: 10px 0;
+  }
+
+  /* premium buttons (NOT long) */
+  .ms-auto .btn {
+    width: auto;
+    min-width: 110px;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    border-radius: 999px;
+    background: transparent;
+  }
+
+  /* remove weird lines */
+  .navbar-collapse,
+  .navbar-collapse * {
+    border: none !important;
+  }
+}
+
+/* ================================
+   MODALS (LIGHT + PREMIUM)
+================================ */
+.modal-content {
+  border-radius: 14px;
+  border: none;
+}
+
+.modal-header {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.modal-footer {
+  border-top: 1px solid #f1f5f9;
+}
+
+/* inputs */
+.form-control {
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+}
+
+.form-control:focus {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 1px #16a34a;
+}
+
+/* ================================
+   NO FOUC (STYLE DELAY FIX)
+================================ */
+body {
+  visibility: visible;
 }
