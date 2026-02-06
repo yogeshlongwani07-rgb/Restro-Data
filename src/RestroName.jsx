@@ -22,7 +22,7 @@ export default function RestroName() {
   const [loading, setLoading] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   let { islocation, setIslocation } = useContext(locationContext);
-  const [searchedCity, setSearchedCity] = useState(routeCity || "Sikar");
+  const [searchedCity, setSearchedCity] = useState(routeCity || "Jaipur");
   const [headline, setHeadline] = useState("");
 
   const onSubmit = useCallback(
