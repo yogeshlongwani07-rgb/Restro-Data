@@ -16,7 +16,7 @@ import randomHeadline from "./Data/Heading";
 export default function RestroName() {
   const location = useLocation();
   const routeCity = location.state?.cityName;
-  let [city, setCity] = useState(routeCity || "Sikar");
+  let [city, setCity] = useState(routeCity || "Jaipur");
   let [restaurants, setRestaurants] = useState([]);
   let [serached, setSerached] = useState(false);
   const [loading, setLoading] = useState(false);
