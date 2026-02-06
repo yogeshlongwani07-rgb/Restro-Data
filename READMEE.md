@@ -30,12 +30,6 @@
 
 # Role based access (admin/user)
 
-# Css mobile
-
 # Redux
 
 # customer hooks
-
-# error in login or signup
-
-# form validation
