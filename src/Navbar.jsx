@@ -9,6 +9,7 @@ function Navbar() {
   let [hiUser, setHiuser] = useState(false);
   const [login, setLogin] = useState(false);
   let { islocation, setIslocation } = useContext(locationContext);
+  let [xerror, setError] = useState("");
   let [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -19,21 +20,25 @@ function Navbar() {
     email: "",
     password: "",
   });
-
+  //https://backend-restro-data.vercel.app
   async function register() {
     try {
-      const res = await fetch("https://backend-restro-data.vercel.app/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        "https://backend-restro-data.onrender.com/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(signUpData),
         },
-        body: JSON.stringify(signUpData),
-      });
+      );
 
       const data = await res.json();
 
       if (!res.ok) {
-        console.error("Server error:", data);
+        console.error(data);
+        setError(data.errors.error);
         return;
       }
       setSignUpData({
@@ -49,18 +54,34 @@ function Navbar() {
 
   async function auth() {
     try {
-      let ank = await axios.post(
-        "https://backend-restro-data.vercel.app/login",
+      const res = await axios.post(
+        "https://backend-restro-data.onrender.com/login",
         loginData,
       );
-      console.log(ank);
-      setShowModal(false);
       setLoginData({
         email: "",
         password: "",
       });
+      setShowModal(false);
     } catch (err) {
-      console.log("err");
+      if (!err.response) {
+        setError("Sorry — service temporarily unavailable.");
+        return;
+      }
+
+      const { status, data } = err.response;
+
+      if (status === 400) {
+        // Required fields missing
+        setError(data.errors.error);
+      } else if (status === 401) {
+        // Invalid email OR password
+        setError(data.error);
+      } else if (status === 500) {
+        setError(data.error);
+      } else {
+        setError("Unexpected error. You broke something.");
+      }
     }
   }
 
@@ -155,45 +176,57 @@ function Navbar() {
             <div className="modal-dialog modal-dialog-centered">
               <div className="modal-content rounded-4 shadow">
                 <div className="modal-header">
-                  <h5 className="modal-title fw-bold">Welcome Back 👋</h5>
+                  <h5 className="modal-title fw-bold">
+                    {xerror.length > 0 ? (
+                      <p style={{ color: "#EF4444" }}>{xerror}</p>
+                    ) : (
+                      "Welcome Back 👋"
+                    )}
+                  </h5>
                   <button
                     className="btn-close"
-                    onClick={() => setShowModal(false)}
+                    onClick={() => {
+                      setShowModal(false);
+                      setError("");
+                    }}
                   ></button>
                 </div>
+                <form>
+                  <div className="modal-body">
+                    <div className="form-floating mb-3">
+                      <input
+                        type="email"
+                        className="form-control"
+                        id="email"
+                        name="email"
+                        placeholder="name@example.com"
+                        value={loginData.email}
+                        onChange={inputHandle(setLoginData)}
+                      />
+                      <label>Email address</label>
+                    </div>
 
-                <div className="modal-body">
-                  <div className="form-floating mb-3">
-                    <input
-                      type="email"
-                      className="form-control"
-                      id="email"
-                      name="email"
-                      placeholder="name@example.com"
-                      value={loginData.email}
-                      onChange={inputHandle(setLoginData)}
-                    />
-                    <label>Email address</label>
+                    <div className="form-floating">
+                      <input
+                        type="password"
+                        className="form-control"
+                        id="password"
+                        name="password"
+                        placeholder="Password"
+                        value={loginData.password}
+                        onChange={inputHandle(setLoginData)}
+                      />
+                      <label>Password</label>
+                    </div>
                   </div>
-
-                  <div className="form-floating">
-                    <input
-                      type="password"
-                      className="form-control"
-                      id="password"
-                      name="password"
-                      placeholder="Password"
-                      value={loginData.password}
-                      onChange={inputHandle(setLoginData)}
-                    />
-                    <label>Password</label>
-                  </div>
-                </div>
-
+                </form>
                 <div className="modal-footer">
                   <button
                     className="btn btn-outline-secondary"
-                    onClick={() => setShowModal(false)}
+                    onClick={() => {
+                      setError("");
+                      setShowModal(false);
+                    }}
                   >
                     Cancel
                   </button>
@@ -213,10 +246,19 @@ function Navbar() {
             <div className="modal-dialog modal-dialog-centered">
               <div className="modal-content rounded-4 shadow">
                 <div className="modal-header">
-                  <h5 className="modal-title fw-bold">Let’s begin 👋</h5>
+                  <h5 className="modal-title fw-bold">
+                    {xerror.length > 0 ? (
+                      <p style={{ color: "#EF4444" }}>{xerror}</p>
+                    ) : (
+                      "Let’s begin 👋"
+                    )}
+                  </h5>
                   <button
                     className="btn-close"
-                    onClick={() => setShowModal2(false)}
+                    onClick={() => {
+                      setError("");
+                      setShowModal2(false);
+                    }}
                   ></button>
                 </div>
 
@@ -263,7 +305,10 @@ function Navbar() {
                 <div className="modal-footer">
                   <button
                     className="btn btn-outline-secondary"
-                    onClick={() => setShowModal2(false)}
+                    onClick={() => {
+                      setError("");
+                      setShowModal2(false);
+                    }}
                   >
                     Cancel
                   </button>

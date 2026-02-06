@@ -36,5 +36,6 @@
 
 # customer hooks
 
-yogeshlongwani07_db_user
-pass - 458YZ7DLro1OpbbQ
+# error in login or signup
+
+# form validation
