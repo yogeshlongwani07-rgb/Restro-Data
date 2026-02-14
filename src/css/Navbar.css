@@ -82,9 +82,9 @@
   }
 
   /* remove 700+ cities */
-  .navbar-nav .nav-item:first-child {
+  /* .navbar-nav .nav-item:first-child {
     display: none;
-  }
+  } */
 
   /* auth buttons container */
   .ms-auto {
