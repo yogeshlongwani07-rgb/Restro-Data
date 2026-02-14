@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import getRestroData from "./functions/getRestroData";
 import "./css/RestroName.css";
 import EmptyState from "./NotSerached";
@@ -24,6 +24,7 @@ export default function RestroName() {
   let { islocation, setIslocation } = useContext(locationContext);
   const [searchedCity, setSearchedCity] = useState(routeCity || "Jaipur");
   const [headline, setHeadline] = useState("");
+  let inputRef = useRef(null);
 
   const onSubmit = useCallback(
     async (e) => {
@@ -52,6 +53,10 @@ export default function RestroName() {
     },
     [city],
   );
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   useEffect(() => {
     if (!islocation) return;
@@ -90,25 +95,36 @@ export default function RestroName() {
     setSuggestions([]);
   }
 
-  // navigator.geolocation.getCurrentPosition(
-  //   (position) => {
-  //     console.log(position.coords.latitude);
-  //     console.log(position.coords.longitude);
-  //   },
-  //   (error) => {
-  //     console.log(error.message);
-  //   },
-  // );
+  useEffect(() => {
+    if (!routeCity) return;
 
-  // function filterOut4Plus() {
-  //   let data = restaurants.filter((el) => {
-  //     return el.avgRating > 4;
-  //   });
-  //   setLoading(true);
-  //   setRestaurants(data);
-  //   setLoading(false);
-  // }
+    const fetchData = async () => {
+      setSerached(true);
+      setLoading(true);
+      setSuggestions([]);
+      setIslocation(false);
 
+      try {
+        const result = await getRestroData(routeCity, false);
+        const { ans: data, cityname } = result;
+
+        if (!data || data.length === 0) {
+          setRestaurants([]);
+        } else {
+          setCity(cityname);
+          setSearchedCity(cityname);
+          setRestaurants(data);
+          setHeadline(randomHeadline());
+        }
+      } catch (error) {
+        setRestaurants([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [routeCity]);
   return (
     <div className="xyz">
       <form action="#" onSubmit={onSubmit}>
@@ -119,6 +135,7 @@ export default function RestroName() {
             onChange={onChangehandler}
             className="form-control"
             placeholder="City name here"
+            ref={inputRef}
           />
           {suggestions.length > 0 && (
             <ul className="suggestions-box">

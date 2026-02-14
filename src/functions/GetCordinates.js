@@ -1,3 +1,5 @@
+import { geocodingUrl } from "../Data/URL";
+
 export default async function getCordinates(city, islocation) {
   if (islocation) {
     return new Promise((resolve, reject) => {
@@ -12,9 +14,7 @@ export default async function getCordinates(city, islocation) {
       );
     });
   } else {
-    let data = await fetch(
-      "https://geocoding-api.open-meteo.com/v1/search?name=" + city,
-    );
+    let data = await fetch(geocodingUrl + city);
 
     let jsonData = await data.json();
 

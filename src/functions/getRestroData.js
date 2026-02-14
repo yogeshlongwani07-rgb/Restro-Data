@@ -1,13 +1,9 @@
 import getCordinates from "./GetCordinates";
+import { RestroDataAPIUrl, GetCityName } from "../Data/URL";
 export default async function getRestroData(city, islocation) {
   try {
     let { latitude, longitude } = await getCordinates(city, islocation);
-    let data = await fetch(
-      "https://backend-restro-data.onrender.com/api/restro?lat=" +
-        latitude +
-        "&lng=" +
-        longitude,
-    );
+    let data = await fetch(RestroDataAPIUrl + latitude + "&lng=" + longitude);
     let jsonData = await data.json();
     const cards = jsonData.data.cards;
 
@@ -22,14 +18,16 @@ export default async function getRestroData(city, islocation) {
     });
 
     let data2 = await fetch(
-      `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`,
+      GetCityName + `${latitude}&longitude=${longitude}&localityLanguage=en`,
     );
 
     let jsonCityname = await data2.json();
+    console.log(jsonCityname);
     let { city: cityname } = jsonCityname;
 
     return { ans, cityname };
-  } catch {
-    console.log("City name is required. Please enter a valid city");
+  } catch (error) {
+    console.log(error);
+    return { ans: [], cityname: "" };
   }
 }
