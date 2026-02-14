@@ -48,7 +48,7 @@ function Navbar() {
         email: "",
         password: "",
       });
-      setHiuser(signUpData.name);
+      setHiuser(signUpData.name.split(" ")[0]);
       setLogin(true);
       setError("");
       setShowModal2(false);
@@ -67,6 +67,7 @@ function Navbar() {
         email: "",
         password: "",
       });
+      setHiuser(res.data.userName.split(" ")[0]);
       setLogin(true);
       setError("");
       setShowModal(false);
