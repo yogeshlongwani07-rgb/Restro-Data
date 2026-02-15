@@ -29,10 +29,11 @@ export default function RestroName() {
   const onSubmit = useCallback(
     async (e) => {
       e.preventDefault();
+      setIslocation(() => false);
       setSerached(true);
       setLoading(true);
       setSuggestions([]);
-      setIslocation(false);
+
       try {
         const result = await getRestroData(city, islocation);
         const { ans: data, cityname } = result;
@@ -51,7 +52,7 @@ export default function RestroName() {
 
       setLoading(false);
     },
-    [city],
+    [city, islocation],
   );
 
   useEffect(() => {

@@ -1,148 +1,246 @@
-.ylo{
-    background-color: #FAFAFA !important;
-}/* ================================
-   GLOBAL NAVBAR RESET
-================================ */
+body {
+visibility: visible;
+background: #f8fafc;
+}
+
+/* =================================
+NAVBAR BASE (MORE COMPACT)
+================================= */
 .navbar {
-  background: #ffffff;
-  border-bottom: 1px solid #f1f5f9;
+background: transparent !important;
+border: none !important;
+padding: 35px 0 !important; /* reduced from 20px */
+border-bottom: none !important;
+box-shadow: none !important;
 }
 
-.navbar * {
-  box-shadow: none !important;
+/* =================================
+PRONTO FLOATING NAVBAR (MAIN MAGIC)
+Using your existing .container
+================================= */
+.navbar .container {
+background: #FFFFFF;
+border-radius: 999px;
+
+/* smaller height */
+padding: 8px 20px; /* reduced from 14px 28px */
+max-width: 760px; /* reduced from 900px */
+
+display: flex;
+align-items: center;
+justify-content: space-between;
+
+box-shadow: 0 8px 25px rgba(0,0,0,0.04);
 }
 
-/* ================================
-   BRAND
-================================ */
+/* =================================
+BRAND (Hi User)
+================================= */
 .navbar-brand {
-  font-weight: 600;
-  font-size: 1.05rem;
-  color: #16a34a !important;
-  white-space: nowrap;
+font-weight: 700 !important;
+font-size: 1rem !important; /* slightly smaller */
+color: #16a34a !important;
+white-space: nowrap;
+padding: 0 !important;
+margin: 0 !important;
 }
 
-/* ================================
-   TOGGLER (MOBILE ICON)
-================================ */
-.navbar-toggler {
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
-  border: 1px solid #e5e7eb;
-  background: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-
-.navbar-toggler:focus {
-  box-shadow: none;
-}
-
-/* ================================
-   NAV LINKS
-================================ */
+/* =================================
+NAV LINKS (700+ cities + location)
+================================= */
 .nav-link {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #6b7280;
+font-size: 0.9rem !important; /* slightly smaller */
+font-weight: 500 !important;
+color: #475569 !important;
+
+/* smaller height */
+padding: 6px 14px; /* reduced from 8px 18px */
+
+border-radius: 999px;
+transition: all 0.25s ease;
 }
 
-/* ================================
-   LOCATION BUTTON
-================================ */
+.nav-link:hover {
+color: #16a34a !important;
+background: #f1f5f9;
+}
+
+/* location button fix */
 .nav-link button {
-  border: none;
-  background: transparent;
-  font-size: 0.9rem;
+border: none;
+background: transparent;
+font-size: 0.9rem;
+color: #475569;
+padding: 0;
 }
 
-/* ================================
-   AUTH BUTTONS (DESKTOP)
-================================ */
+/* =================================
+ALIGN NAV ITEMS LIKE PRONTO
+================================= */
+.navbar-nav {
+gap: 16px !important; /* reduced from 25px */
+align-items: center;
+}
+
+/* =================================
+AUTH BUTTONS (PRONTO STYLE - COMPACT)
+================================= */
 .btn-outline-success {
-  border-color: #16a34a;
-  color: #16a34a;
+border-color: #16a34a !important;
+color: #16a34a !important;
+border-radius: 999px !important;
+
+/* smaller buttons */
+padding: 5px 16px !important; /* reduced from 7px 20px */
+
+font-weight: 500 !important;
+background: transparent;
+font-size: 0.9rem;
 }
 
 .btn-outline-success:hover {
-  background: #ecfdf5;
-  color: #16a34a;
+background: #ecfdf5 !important;
+color: #16a34a !important;
 }
 
-/* ================================
-   MOBILE ONLY
-================================ */
-@media (max-width: 576px) {
-  /* collapse container */
-  .navbar-collapse {
-    padding-top: 10px;
-  }
-
-  /* remove 700+ cities */
-  /* .navbar-nav .nav-item:first-child {
-    display: none;
-  } */
-
-  /* auth buttons container */
-  .ms-auto {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    padding: 10px 0;
-  }
-
-  /* premium buttons (NOT long) */
-  .ms-auto .btn-success {
-    width: auto;
-    min-width: 110px;
-    padding: 6px 14px;
-    font-size: 0.85rem;
-    border-radius: 999px;
-    background-color: #198754;
-    color: #fff;
-  }
-
-  /* remove weird lines */
-  .navbar-collapse,
-  .navbar-collapse * {
-    border: none !important;
-  }
+.btn-success {
+border-radius: 999px !important;
+padding: 5px 16px !important; /* reduced */
+font-weight: 500 !important;
+background-color: #16a34a !important;
+border: none !important;
+font-size: 0.9rem;
 }
 
+/* =================================
+RIGHT BUTTON AREA
+================================= */
+.ms-auto {
+display: flex;
+align-items: center;
+gap: 8px; /* reduced from 10px */
+}
 
-/* ================================
-   MODALS (LIGHT + PREMIUM)
-================================ */
+/* =================================
+TOGGLER ICON
+================================= */
+.navbar-toggler {
+width: 38px; /* slightly smaller */
+height: 38px;
+border-radius: 10px;
+border: 1px solid #e5e7eb;
+background: #ffffff;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.navbar-toggler:focus {
+box-shadow: none;
+}
+
+/* =================================
+MOBILE RESPONSIVE
+================================= */
+@media (max-width: 992px) {
+
+.navbar .container {
+border-radius: 20px;
+padding: 14px; /* reduced */
+}
+
+.navbar-collapse {
+margin-top: 12px;
+}
+
+.navbar-nav {
+gap: 12px !important;
+align-items: center;
+}
+
+.ms-auto {
+justify-content: center;
+padding-top: 8px;
+}
+}
+
+/* =================================
+MODALS (UNCHANGED)
+================================= */
 .modal-content {
-  border-radius: 14px;
-  border: none;
+border-radius: 14px;
+border: none;
 }
 
 .modal-header {
-  border-bottom: 1px solid #f1f5f9;
+border-bottom: 1px solid #f1f5f9;
 }
 
 .modal-footer {
-  border-top: 1px solid #f1f5f9;
+border-top: 1px solid #f1f5f9;
 }
 
-/* inputs */
 .form-control {
-  border-radius: 10px;
-  border: 1px solid #e5e7eb;
+border-radius: 10px;
+border: 1px solid #e5e7eb;
 }
 
 .form-control:focus {
-  border-color: #16a34a;
-  box-shadow: 0 0 0 1px #16a34a;
+border-color: #16a34a;
+box-shadow: 0 0 0 1px #16a34a;
 }
 
-/* ================================
-   NO FOUC (STYLE DELAY FIX)
-================================ */
-body {
-  visibility: visible;
+/* =================================
+LOGIN BUTTON (btn-outline-success)
+Subtle ghost style
+================================= */
+.navbar .btn-outline-success {
+  background: transparent !important;
+  color: #475569 !important;
+  border: none !important;
+  border-radius: 999px !important;
+  padding: 6px 14px !important;
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+  transition: all 0.25s ease;
 }
+
+.navbar .btn-outline-success:hover {
+  background: #f1f5f9 !important;
+  color: #16a34a !important;
+  transform: translateY(-1px);
+}
+
+
+/* =================================
+SIGN UP / LOGOUT BUTTON (btn-success)
+Primary CTA style
+================================= */
+.navbar .btn-success {
+  background: #16a34a !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 999px !important;
+  padding: 6px 18px !important;
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
+  transition: all 0.25s ease;
+}
+
+.navbar .btn-success:hover {
+  background: #15803d !important;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(22, 163, 74, 0.35);
+}
+
+
+/* =================================
+BETTER SPACING BETWEEN BUTTONS
+================================= */
+.navbar .ms-auto {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
