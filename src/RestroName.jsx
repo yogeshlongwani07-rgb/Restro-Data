@@ -16,13 +16,13 @@ import randomHeadline from "./Data/Heading";
 export default function RestroName() {
   const location = useLocation();
   const routeCity = location.state?.cityName;
-  let [city, setCity] = useState(routeCity || "Jaipur");
+  let [city, setCity] = useState(routeCity || "");
   let [restaurants, setRestaurants] = useState([]);
   let [serached, setSerached] = useState(false);
   const [loading, setLoading] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   let { islocation, setIslocation } = useContext(locationContext);
-  const [searchedCity, setSearchedCity] = useState(routeCity || "Jaipur");
+  const [searchedCity, setSearchedCity] = useState(routeCity || "");
   const [headline, setHeadline] = useState("");
   let inputRef = useRef(null);
 

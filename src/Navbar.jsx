@@ -22,7 +22,6 @@ function Navbar() {
     email: "",
     password: "",
   });
-  //https://backend-restro-data.vercel.app
   async function register() {
     try {
       const res = await fetch(
@@ -40,7 +39,7 @@ function Navbar() {
 
       if (!res.ok) {
         console.error(data);
-        setError(data.errors.error);
+        setError(data?.errors?.error || "Signup failed");
         return;
       }
       setSignUpData({

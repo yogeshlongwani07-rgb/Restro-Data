@@ -5,6 +5,7 @@ export default async function getRestroData(city, islocation) {
     let { latitude, longitude } = await getCordinates(city, islocation);
     let data = await fetch(RestroDataAPIUrl + latitude + "&lng=" + longitude);
     let jsonData = await data.json();
+    console.log(jsonData);
     const cards = jsonData.data.cards;
 
     const restaurantCard = cards.find(
@@ -22,8 +23,7 @@ export default async function getRestroData(city, islocation) {
     );
 
     let jsonCityname = await data2.json();
-    console.log(jsonCityname);
-    let { city: cityname } = jsonCityname;
+    let cityname = jsonCityname.city;
 
     return { ans, cityname };
   } catch (error) {
