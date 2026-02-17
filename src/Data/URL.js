@@ -1,5 +1,5 @@
 export const RestroDataAPIUrl =
-  "https://www.swiggy.com/dapi/restaurants/list/v5?lat="; //"https://backend-restro-data.onrender.com/api/restro?lat="; //; //
+  "https://backend-restro-data.onrender.com/api/restro?lat="; //"https://www.swiggy.com/dapi/restaurants/list/v5?lat=";
 
 export const GetCityName =
   "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=";
