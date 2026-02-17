@@ -1,6 +1,7 @@
 body {
 visibility: visible;
 background: #f8fafc;
+padding-top: 110px;
 }
 
 /* =================================
@@ -12,6 +13,12 @@ border: none !important;
 padding: 35px 0 !important; /* reduced from 20px */
 border-bottom: none !important;
 box-shadow: none !important;
+
+position: fixed;   /* makes navbar stick */
+  top: 0;            /* stick to top */
+  left: 0;
+  width: 100%;       /* full width */
+  z-index: 1000;     /* keeps it above everything */
 }
 
 /* =================================

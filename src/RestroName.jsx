@@ -12,6 +12,7 @@ import "./functions/FirstCapital.js";
 import { useContext } from "react";
 import { locationContext } from "./Context.jsx";
 import randomHeadline from "./Data/Heading";
+import CitySearchInput from "./CitySearchInput.jsx";
 
 export default function RestroName() {
   const location = useLocation();
@@ -128,34 +129,14 @@ export default function RestroName() {
   }, [routeCity]);
   return (
     <div className="xyz">
-      <form action="#" onSubmit={onSubmit}>
-        <div className="input-group mb-3">
-          <input
-            type="text"
-            value={city}
-            onChange={onChangehandler}
-            className="form-control"
-            placeholder="City name here"
-            ref={inputRef}
-          />
-          {suggestions.length > 0 && (
-            <ul className="suggestions-box">
-              {suggestions.map((item, index) => (
-                <li key={index} onClick={() => suggClickHandler(item)}>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          )}
-          <button
-            id="button-addon2"
-            className="btn btn-secondary"
-            type="submit"
-          >
-            <i className="fa-solid fa-magnifying-glass"></i>
-          </button>
-        </div>
-      </form>
+      <CitySearchInput
+        onSubmit={onSubmit}
+        city={city}
+        onChangehandler={onChangehandler}
+        inputRef={inputRef}
+        suggestions={suggestions}
+        suggClickHandler={suggClickHandler}
+      />
       <div className="card-container">
         {!serached && <EmptyState />}
 
