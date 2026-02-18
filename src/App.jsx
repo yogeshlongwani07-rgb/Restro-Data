@@ -1,9 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import RestroName from "./RestroName";
+import RestroName from "./Restro/RestroName";
 import "./css/App.css";
-import { locationContext } from "./Context";
+import { locationContext } from "./functions/Context";
 import { useState } from "react";
-import Navbar from "./Navbar";
+import Navbar from "./Nav/Navbar";
 
 function App() {
   let [islocation, setIslocation] = useState(false);

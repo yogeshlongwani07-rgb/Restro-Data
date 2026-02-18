@@ -1,5 +1,5 @@
 import axios from "axios";
-import { backendUrl } from "./Data/URL";
+import { backendUrl } from "../Data/URL";
 
 export default function useAuthUtility({
   loginData,

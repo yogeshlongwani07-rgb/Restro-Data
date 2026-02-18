@@ -1,18 +1,18 @@
 import { useEffect, useState, useRef } from "react";
-import getRestroData from "./functions/getRestroData";
-import "./css/RestroName.css";
-import EmptyState from "./NotSerached";
-import Shimmer from "./Shimmer";
+import getRestroData from "../functions/getRestroData.js";
+import "../css/RestroName.css";
+import EmptyState from "../Pages/NotSerached.jsx";
+import Shimmer from "../Pages/Shimmer.jsx";
 import { useCallback } from "react";
-import cities from "./Data/CityData";
+import cities from "../Data/CityData.js";
 import { useLocation } from "react-router-dom";
-import NotAvailableState from "./NoCitySearched";
-import HeadingWithCards from "./HeadingWithCards";
-import "./functions/FirstCapital.js";
+import NotAvailableState from "../Pages/NoCitySearched.jsx";
+import HeadingWithCards from "../HeadingWithCards.jsx";
+import "../functions/FirstCapital.js";
 import { useContext } from "react";
-import { locationContext } from "./Context.jsx";
-import randomHeadline from "./Data/Heading";
-import CitySearchInput from "./CitySearchInput.jsx";
+import { locationContext } from "../functions/Context.jsx";
+import randomHeadline from "../Data/Heading.js";
+import CitySearchInput from "../CitySearchInput.jsx";
 
 export default function RestroName() {
   const location = useLocation();

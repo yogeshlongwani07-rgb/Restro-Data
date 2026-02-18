@@ -1,4 +1,4 @@
-import RestroCards from "./RestroCards";
+import RestroCards from "./Restro/RestroCards";
 function HeadingWithCards({ restaurants, city, headline }) {
   return (
     <div>

@@ -1,9 +1,9 @@
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App.jsx";
-import RestroMenu from "./RestroMenu.jsx";
+import RestroMenu from "./Restro/RestroMenu.jsx";
 import Cities from "./Cities.jsx";
-import NopageFound from "./NoPageFound.jsx";
+import NopageFound from "./Pages/NoPageFound.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter

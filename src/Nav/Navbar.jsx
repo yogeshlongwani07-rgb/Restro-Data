@@ -1,15 +1,15 @@
 import { useContext } from "react";
-import { locationContext } from "./Context";
-import "./css/Navbar.css";
+import { locationContext } from "../functions/Context";
+import "../css/Navbar.css";
 
-import LoginDia from "./LoginDia";
-import SignUpDai from "./SignUpDia";
+import LoginDia from "../Dialog/LoginDia";
+import SignUpDai from "../Dialog/SignUpDia";
 
 import useNavUtility from "./NavUtility";
-import useAuthUtility from "./AuthenticationUtitlity";
+import useAuthUtility from "../Auth/AuthenticationUtitlity";
 import NavbarBrand from "./NavbarBrand";
 import NavBarLinks from "./NavBarLinks";
-import AuthButtons from "./AuthButton";
+import AuthButtons from "../Auth/AuthButton";
 
 function Navbar() {
   let { islocation, setIslocation } = useContext(locationContext);

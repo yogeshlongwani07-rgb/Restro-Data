@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
-import "./css/RestaurantDetail.css";
+import "../css/RestaurantDetail.css";
 import { useLocation } from "react-router-dom";
-import restaurantMenu from "./Data/MenuData";
+import restaurantMenu from "../Data/MenuData";
 
 export default function RestroMenu() {
   const { state } = useLocation();

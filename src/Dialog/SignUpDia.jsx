@@ -1,4 +1,4 @@
-import "./css/Navbar.css";
+import "../css/Navbar.css";
 export default function SignUpDai({
   xerror,
   setError,

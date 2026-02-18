@@ -1,4 +1,4 @@
-import "./css/RestroCards.css";
+import "../css/RestroCards.css";
 import { Link } from "react-router-dom";
 export default function RestroCards({ restro }) {
   return (

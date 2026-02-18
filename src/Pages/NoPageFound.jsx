@@ -1,4 +1,4 @@
-import "./css/PageNotFound.css";
+import "../css/PageNotFound.css";
 function NoPageFound() {
   return (
     <div className="notfound-container">
