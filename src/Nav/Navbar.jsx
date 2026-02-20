@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { locationContext } from "../functions/Context";
 import "../css/Navbar.css";
 
@@ -15,6 +15,7 @@ function Navbar() {
   let { islocation, setIslocation } = useContext(locationContext);
 
   const nav = useNavUtility();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const {
     loginData,
@@ -40,7 +41,19 @@ function Navbar() {
       <nav className="navbar navbar-expand-lg bg-white shadow-sm py-3 border-bottom">
         <div className="container">
           <NavbarBrand hiUser={hiUser} />
-          <div className="collapse navbar-collapse" id="navbarNav">
+          <button
+            className="navbar-toggler"
+            type="button"
+            onClick={() => setMenuOpen(!menuOpen)}
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className={`collapse navbar-collapse ${menuOpen ? "show" : ""}`}>
             <NavBarLinks
               setIslocation={setIslocation}
               islocation={islocation}

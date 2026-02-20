@@ -4,6 +4,7 @@ import App from "./App.jsx";
 import RestroMenu from "./Restro/RestroMenu.jsx";
 import Cities from "./Cities.jsx";
 import NopageFound from "./Pages/NoPageFound.jsx";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter
