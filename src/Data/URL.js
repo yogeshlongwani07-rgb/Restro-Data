@@ -7,4 +7,5 @@ export const GetCityName =
 export const geocodingUrl =
   "https://geocoding-api.open-meteo.com/v1/search?name=";
 
-export const backendUrl = "https://backend-restro-data.onrender.com"; //"http://localhost:5000"; //"https://beginners-boutique-accuracy-developers.trycloudflare.com";
+export const backendUrl =
+  "https://beginners-boutique-accuracy-developers.trycloudflare.com"; //"https://backend-restro-data.onrender.com"; //"http://localhost:5000"; //;
