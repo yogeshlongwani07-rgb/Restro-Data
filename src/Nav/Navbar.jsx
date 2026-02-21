@@ -51,7 +51,16 @@ function Navbar() {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span className="navbar-toggler-icon"></span>
+            <span>
+              {menuOpen ? (
+                <i
+                  className="fa-solid fa-x"
+                  style={{ color: "rgb(25, 135, 84)" }}
+                ></i>
+              ) : (
+                <span className="navbar-toggler-icon"></span>
+              )}
+            </span>
           </button>
           <div className={`collapse navbar-collapse ${menuOpen ? "show" : ""}`}>
             <NavBarLinks
