@@ -34,7 +34,7 @@ function Navbar() {
     showModal2,
     setShowModal2,
   } = nav;
-  const { auth, register } = useAuthUtility(nav);
+  const { auth, register, logout } = useAuthUtility(nav);
 
   return (
     <>
@@ -74,6 +74,7 @@ function Navbar() {
               setHiuser={setHiuser}
               setShowModal={setShowModal}
               setShowModal2={setShowModal2}
+              logout={logout}
             />
           </div>
         </div>

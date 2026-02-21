@@ -1,6 +1,8 @@
 import axios from "axios";
 import { backendUrl } from "../Data/URL";
 axios.defaults.withCredentials = true;
+import { useContext } from "react";
+import { AuthContext } from "../main";
 
 export default function useAuthUtility({
   loginData,
@@ -13,6 +15,7 @@ export default function useAuthUtility({
   setShowModal,
   setShowModal2,
 }) {
+  const { setUser } = useContext(AuthContext);
   // -------- REGISTER --------
   async function register() {
     try {
@@ -35,6 +38,11 @@ export default function useAuthUtility({
 
       // store name before clearing state
       const name = signUpData.name;
+
+      setUser({
+        id: data.userId,
+        name: data.userName,
+      });
 
       setSignUpData({
         name: "",
@@ -65,6 +73,11 @@ export default function useAuthUtility({
         password: "",
       });
 
+      setUser({
+        id: res.data.userId,
+        name: res.data.userName,
+      });
+
       setHiuser(res.data?.userName?.split(" ")[0] || "");
       setLogin(true);
       setError("");
@@ -85,7 +98,23 @@ export default function useAuthUtility({
     }
   }
 
-  async function logout() {}
+  async function logout() {
+    try {
+      const resp = await axios.post(
+        `${backendUrl}/logout`,
+        {},
+        {
+          withCredentials: true,
+        },
+      );
+      console.log(resp);
+      setUser(null);
+      setHiuser("");
+      setLogin(false);
+    } catch (err) {
+      console.log("error", err);
+    }
+  }
 
-  return { auth, register };
+  return { auth, register, logout };
 }

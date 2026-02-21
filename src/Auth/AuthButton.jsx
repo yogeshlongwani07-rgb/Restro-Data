@@ -1,13 +1,17 @@
+import { useContext } from "react";
+import { AuthContext } from "../main";
 function AuthButtons({
   login,
   setLogin,
   setHiuser,
   setShowModal,
   setShowModal2,
+  logout,
 }) {
+  const { user } = useContext(AuthContext);
   return (
     <div className="ms-auto">
-      {!login ? (
+      {!user ? (
         <>
           <button
             className="btn btn-outline-success px-3 py-1 mx-2 fw-semibold rounded-pill"
@@ -28,7 +32,7 @@ function AuthButtons({
           className="btn btn-success px-3 py-1 fw-semibold rounded-pill"
           onClick={() => {
             setHiuser("");
-            setLogin(false);
+            logout();
           }}
         >
           Logout
