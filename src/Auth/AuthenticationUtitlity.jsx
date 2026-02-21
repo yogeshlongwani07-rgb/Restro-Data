@@ -1,5 +1,6 @@
 import axios from "axios";
 import { backendUrl } from "../Data/URL";
+axios.defaults.withCredentials = true;
 
 export default function useAuthUtility({
   loginData,
@@ -20,6 +21,7 @@ export default function useAuthUtility({
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(signUpData),
       });
 
@@ -54,7 +56,9 @@ export default function useAuthUtility({
   // -------- LOGIN --------
   async function auth() {
     try {
-      const res = await axios.post(`${backendUrl}/login`, loginData);
+      const res = await axios.post(`${backendUrl}/login`, loginData, {
+        withCredentials: true,
+      });
 
       setLoginData({
         email: "",
@@ -80,6 +84,8 @@ export default function useAuthUtility({
       else setError("Unexpected error occurred.");
     }
   }
+
+  async function logout() {}
 
   return { auth, register };
 }
