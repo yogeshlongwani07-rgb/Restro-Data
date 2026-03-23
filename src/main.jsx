@@ -7,7 +7,6 @@ import NopageFound from "./Pages/NoPageFound.jsx";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
-import { backendUrl } from "./Data/URL.js";
 
 axios.defaults.withCredentials = true;
 
@@ -22,17 +21,32 @@ function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get(`${backendUrl}/session`)
-      .then((res) => {
-        if (res.data.loggedIn) {
-          setUser(res.data.user);
-        } else {
-          setUser(null);
-        }
-      })
-      .catch(() => setUser(null))
-      .finally(() => setLoading(false));
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      setUser(null);
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+
+      // if (payload.exp * 1000 < Date.now()) {
+      //   localStorage.removeItem("token");
+      //   setUser(null);
+      // } else {
+      setUser({
+        id: payload.id,
+        name: payload.name,
+      });
+      //}
+    } catch (err) {
+      localStorage.removeItem("token");
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   // keep localStorage synced

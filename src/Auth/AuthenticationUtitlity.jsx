@@ -35,8 +35,6 @@ export default function useAuthUtility({
         setError(data?.errors?.error || "Signup failed");
         return;
       }
-
-      // store name before clearing state
       const name = signUpData.name;
 
       setUser({
@@ -54,10 +52,12 @@ export default function useAuthUtility({
       setLogin(true);
       setError("");
 
+      localStorage.setItem("token", data.token);
+
       if (setShowModal2) setShowModal2(false);
     } catch (err) {
       console.error(err);
-      setError("Signup failed. Try again.");
+      setError("Signup failed. Try again.", err);
     }
   }
 
@@ -67,6 +67,8 @@ export default function useAuthUtility({
       const res = await axios.post(`${backendUrl}/login`, loginData, {
         withCredentials: true,
       });
+
+      localStorage.setItem("token", res.data.token);
 
       setLoginData({
         email: "",
@@ -111,6 +113,7 @@ export default function useAuthUtility({
       setUser(null);
       setHiuser("");
       setLogin(false);
+      localStorage.removeItem("token");
     } catch (err) {
       console.log("error", err);
     }
