@@ -2,126 +2,125 @@ const restaurantMenu = {
   items: [
     {
       id: "item_001",
-      name: "Margherita Pizza",
-      description: "Classic cheese & tomato pizza",
-      price: 249
+      name: "Butter Chicken",
+      description: "Creamy tomato-based chicken curry",
+      price: 349,
     },
     {
       id: "item_002",
-      name: "Pepperoni Pizza",
-      description: "Loaded with spicy pepperoni & mozzarella",
-      price: 299
+      name: "Paneer Butter Masala",
+      description: "Soft paneer cubes in rich buttery gravy",
+      price: 299,
     },
     {
       id: "item_003",
-      name: "Veggie Supreme",
-      description: "Onions, capsicum, olives & sweet corn",
-      price: 279
+      name: "Veg Biryani",
+      description: "Aromatic basmati rice with mixed vegetables",
+      price: 259,
     },
     {
       id: "item_004",
-      name: "BBQ Chicken Pizza",
-      description: "BBQ chicken with smoky sauce",
-      price: 329
+      name: "Chicken Biryani",
+      description: "Spicy chicken layered with fragrant rice",
+      price: 329,
     },
     {
       id: "item_005",
-      name: "Hawaiian Pizza",
-      description: "Cheese pizza topped with pineapple",
-      price: 289
+      name: "Masala Dosa",
+      description: "Crispy dosa stuffed with spiced potato filling",
+      price: 149,
     },
     {
       id: "item_006",
-      name: "Four Cheese Pizza",
-      description: "Mozzarella, cheddar, parmesan & gouda",
-      price: 349
+      name: "Chole Bhature",
+      description: "Spicy chickpea curry with fluffy fried bread",
+      price: 179,
     },
     {
       id: "item_007",
-      name: "Mexican Green Wave",
-      description: "Spicy jalapenos with crunchy veggies",
-      price: 299
+      name: "Pav Bhaji",
+      description: "Spicy mashed veggies served with buttered pav",
+      price: 159,
     },
     {
       id: "item_008",
-      name: "Paneer Tikka Pizza",
-      description: "Tandoori paneer with Indian spices",
-      price: 319
+      name: "Rajma Chawal",
+      description: "Kidney beans curry served with steamed rice",
+      price: 199,
     },
     {
       id: "item_009",
-      name: "Spicy Italian",
-      description: "Italian herbs with spicy toppings",
-      price: 309
+      name: "Grilled Chicken Sandwich",
+      description: "Grilled chicken with veggies and mayo",
+      price: 229,
     },
     {
       id: "item_010",
-      name: "Garlic Breadsticks",
-      description: "Crispy garlic-flavoured breadsticks",
-      price: 149
+      name: "Veg Hakka Noodles",
+      description: "Stir-fried noodles with vegetables",
+      price: 179,
     },
     {
       id: "item_011",
-      name: "Chicken Wings (6 pcs)",
-      description: "Juicy fried chicken wings",
-      price: 229
+      name: "Chicken Fried Rice",
+      description: "Rice tossed with chicken and sauces",
+      price: 249,
     },
     {
       id: "item_012",
-      name: "Cheese Burst Pizza",
-      description: "Extra cheesy burst crust pizza",
-      price: 339
+      name: "Spring Rolls",
+      description: "Crispy rolls stuffed with veggies",
+      price: 149,
     },
     {
       id: "item_013",
-      name: "Mediterranean Pizza",
-      description: "Olives, feta & sun-dried tomatoes",
-      price: 299
+      name: "Paneer Tikka",
+      description: "Grilled paneer cubes with spices",
+      price: 279,
     },
     {
       id: "item_014",
-      name: "Tandoori Paneer Pizza",
-      description: "Spicy tandoori paneer toppings",
-      price: 329
+      name: "Tandoori Chicken",
+      description: "Chicken marinated in spices and roasted",
+      price: 349,
     },
     {
       id: "item_015",
-      name: "Veggie Calzone",
-      description: "Stuffed folded pizza with veggies",
-      price: 279
+      name: "Dal Makhani",
+      description: "Creamy black lentils cooked overnight",
+      price: 239,
     },
     {
       id: "item_016",
-      name: "Stuffed Crust Pizza",
-      description: "Cheese-filled crust pizza",
-      price: 349
+      name: "Jeera Rice",
+      description: "Basmati rice flavored with cumin seeds",
+      price: 129,
     },
     {
       id: "item_017",
-      name: "Classic Margherita (S)",
-      description: "Small classic cheese pizza",
-      price: 199
+      name: "Garlic Naan",
+      description: "Soft naan topped with garlic butter",
+      price: 79,
     },
     {
       id: "item_018",
-      name: "Coca Cola 500ml",
-      description: "Chilled soft drink",
-      price: 60
+      name: "Mango Lassi",
+      description: "Sweet yogurt drink with mango pulp",
+      price: 99,
     },
     {
       id: "item_019",
-      name: "Chocolate Lava Cake",
-      description: "Warm chocolate cake with molten center",
-      price: 149
+      name: "Gulab Jamun",
+      description: "Soft milk-solid balls soaked in sugar syrup",
+      price: 119,
     },
     {
       id: "item_020",
-      name: "Veg Sandwich",
-      description: "Fresh veggies with toasted bread",
-      price: 129
-    }
-  ]
+      name: "Chocolate Milkshake",
+      description: "Rich and creamy chocolate shake",
+      price: 149,
+    },
+  ],
 };
-
 
 export default restaurantMenu;

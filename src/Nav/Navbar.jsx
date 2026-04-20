@@ -96,7 +96,6 @@ function Navbar() {
                   <div className="more-dropdown-header">
                     <span>Quick Access</span>
                   </div>
-
                   <button
                     className={`more-dropdown-item${islocation ? " active" : ""}`}
                     onClick={() => {
@@ -108,45 +107,45 @@ function Navbar() {
                       <i className="fa-solid fa-location-arrow"></i>
                     </span>
                     <div>
-                      <div className="more-item-title">
-                        Allow Location
-                        {islocation && (
-                          <span className="more-badge">Active</span>
-                        )}
-                      </div>
+                      <div className="more-item-title">Allow Location</div>
                     </div>
                   </button>
-
                   <div className="more-divider" />
-                  {/* <button className="more-dropdown-item">
-                    <span className="more-item-icon">
-                      <i class="fa-solid fa-burger"></i>
-                    </span>
-                    <div>
-                      <div className="more-item-title">Your Order</div>
-                      <div className="more-item-sub">Order Summary</div>
-                    </div>
-                  </button>
-
-                  <button className="more-dropdown-item">
-                    <span className="more-item-icon">
-                      <i className="fa-solid fa-user-circle"></i>
-                    </span>
-                    <div>
-                      <div className="more-item-title">Profile</div>
-                      <div className="more-item-sub">Manage account</div>
-                    </div>
-                  </button>
-
-                  <button className="more-dropdown-item">
-                    <span className="more-item-icon">
-                      <i className="fa-solid fa-headset"></i>
-                    </span>
-                    <div>
-                      <div className="more-item-title">Help</div>
-                      <div className="more-item-sub">Support & assistance</div>
-                    </div>
-                  </button> */}
+                  <Link to={"/orders"}>
+                    <button className="more-dropdown-item">
+                      <span className="more-item-icon">
+                        <i className="fa-solid fa-burger"></i>
+                      </span>
+                      <div>
+                        <div className="more-item-title">Your Order</div>
+                        <div className="more-item-sub">Order Summary</div>
+                      </div>
+                    </button>
+                  </Link>
+                  <Link to={"/profile"}>
+                    <button className="more-dropdown-item">
+                      <span className="more-item-icon">
+                        <i className="fa-solid fa-user-circle"></i>
+                      </span>
+                      <div>
+                        <div className="more-item-title">Profile</div>
+                        <div className="more-item-sub">Manage account</div>
+                      </div>
+                    </button>
+                  </Link>
+                  <Link to={"/orders"}>
+                    <button className="more-dropdown-item">
+                      <span className="more-item-icon">
+                        <i className="fa-solid fa-headset"></i>
+                      </span>
+                      <div>
+                        <div className="more-item-title">Help</div>
+                        <div className="more-item-sub">
+                          Support & assistance
+                        </div>
+                      </div>
+                    </button>
+                  </Link>
                 </div>
               )}
             </div>

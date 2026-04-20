@@ -8,6 +8,10 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { backendUrl } from "./Data/URL.js";
+import Cart from "./cart.jsx";
+import OnTheWay from "./onTheWay.jsx";
+import Profile from "./profile.jsx";
+import Orders from "./orders.jsx";
 
 axios.defaults.withCredentials = true;
 
@@ -64,6 +68,10 @@ createRoot(document.getElementById("root")).render(
         <Route path="/Restro/:id/:name" element={<RestroMenu />} />
         <Route path="/Restro/cities" element={<Cities />} />
         <Route path="*" element={<NopageFound />} />
+        <Route path="/cart" element={<Cart />}></Route>
+        <Route path="/onTheWay" element={<OnTheWay />}></Route>
+        <Route path="/profile" element={<Profile />}></Route>
+        <Route path="/orders" element={<Orders />}></Route>
       </Routes>
     </BrowserRouter>
   </AuthProvider>,

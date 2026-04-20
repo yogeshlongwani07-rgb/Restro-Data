@@ -492,3 +492,185 @@ body {
   border-color: #FF4D00;
   transform: translateY(-2px);
 }
+
+.cart-fab {
+  position: fixed;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+  z-index: 999;
+}
+
+.cart-fab.visible {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+  pointer-events: all;
+}
+
+.cart-fab-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: linear-gradient(135deg, #1db954, #1a7f4b);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 16px 24px;
+  width: 320px;
+  cursor: pointer;
+  box-shadow: 0 8px 30px rgba(26, 127, 75, 0.5), 0 2px 8px rgba(0,0,0,0.15);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.cart-fab-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 14px 36px rgba(26, 127, 75, 0.55), 0 4px 12px rgba(0,0,0,0.18);
+}
+
+.cart-fab-btn:active {
+  transform: scale(0.97);
+}
+
+.cart-fab-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cart-fab-left i {
+  font-size: 20px;
+  opacity: 0.92;
+}
+
+.cart-fab-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.2;
+}
+
+.cart-fab-text span:first-child {
+  font-size: 11px;
+  opacity: 0.78;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.cart-fab-text span:last-child {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.cart-fab-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cart-fab-count {
+  background: rgba(255, 255, 255, 0.22);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  padding: 4px 13px;
+  font-size: 14px;
+  font-weight: 700;
+  min-width: 32px;
+  text-align: center;
+}
+
+.cart-fab-arrow {
+  font-size: 18px;
+  opacity: 0.85;
+}
+
+.menu-add-btn {
+  min-width: 80px;
+  padding: 7px 18px;
+  border-radius: var(--radius-pill);   /* pill, not square */
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--surface-card);
+  color: var(--brand);
+  border: 1.5px solid var(--brand);
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: background var(--transition), color var(--transition),
+              transform var(--transition), box-shadow var(--transition);
+}
+
+.menu-add-btn:hover {
+  background: var(--brand);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(232, 87, 42, 0.28);
+}
+
+.menu-add-btn:active {
+  transform: scale(0.95);
+}
+
+/* Stepper that replaces the Add button */
+.menu-stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid var(--brand);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  background: var(--brand-subtle);
+  animation: stepperPop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  min-width: 80px;               /* same footprint as Add btn */
+  justify-content: space-between;
+}
+
+@keyframes stepperPop {
+  from { transform: scale(0.82); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+.menu-step-btn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--brand);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  line-height: 1;
+  transition: background var(--transition), color var(--transition);
+  flex-shrink: 0;
+}
+
+.menu-step-btn:hover {
+  background: rgba(232, 87, 42, 0.12);
+}
+
+.menu-step-plus:hover {
+  background: var(--brand);
+  color: #fff;
+}
+
+.menu-step-btn:active {
+  transform: scale(0.88);
+}
+
+.menu-step-val {
+  min-width: 22px;
+  text-align: center;
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--brand-deep);
+  /* no border lines — clean pill look */
+}

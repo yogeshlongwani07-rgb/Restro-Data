@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../css/RestaurantDetail.css";
 import { useLocation } from "react-router-dom";
 import restaurantMenu from "../Data/MenuData";
@@ -8,12 +8,37 @@ export default function RestroMenu() {
   const { state } = useLocation();
   const [helpOpen, setHelpOpen] = useState(false);
 
+  const [qtys, setQtys] = useState({});
+
+  function increment(item) {
+    setQtys((prev) => ({ ...prev, [item.id]: (prev[item.id] || 0) + 1 }));
+  }
+
+  function decrement(item) {
+    setQtys((prev) => {
+      const next = (prev[item.id] || 0) - 1;
+      if (next <= 0) {
+        const copy = { ...prev };
+        delete copy[item.id];
+        return copy;
+      }
+      return { ...prev, [item.id]: next };
+    });
+  }
+
+  /* Build flat cart array from qtys map (Cart.jsx expects array of items) */
+  const cart = restaurantMenu.items.flatMap((item) =>
+    Array(qtys[item.id] || 0).fill(item),
+  );
+
+  const totalItems = cart.length;
+
   return (
     <div className="rd-root">
       <Link to={`/`}>
-        <button className="rd-back"> Back</button>
+        <button className="rd-back">Back</button>
       </Link>
-      {console.log(restaurantMenu.items[0].id)}
+
       <header className="rd-hero">
         <div>
           <h1 className="rd-title">{state.restro.name}</h1>
@@ -38,13 +63,14 @@ export default function RestroMenu() {
             <div className="rd-badge small">
               <strong>Cuisines</strong>
               <div className="pill-row">
-                {state.restro.cuisines.map((el, index) => {
-                  return (
-                    <span className="pill" key={restaurantMenu.items[index].id}>
-                      {el}
-                    </span>
-                  );
-                })}
+                {state.restro.cuisines.map((el, index) => (
+                  <span
+                    className="pill"
+                    key={restaurantMenu.items[index]?.id ?? index}
+                  >
+                    {el}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
@@ -65,17 +91,20 @@ export default function RestroMenu() {
           </div>
         </div>
       </header>
-      {/* Menu */}
+
+      {/* ── Menu ── */}
       <main className="rd-main">
         <section className="rd-menu-col">
           <div className="category-card">
             <div className="category-head">
-              <h3>Chef’s Choice</h3>
+              <h3>Chef's Choice</h3>
               <div className="cat-rating">⭐ 4.5</div>
             </div>
 
             <div className="items-grid">
               {restaurantMenu.items.map((el) => {
+                const qty = qtys[el.id] || 0;
+
                 return (
                   <div className="item-card" key={el.id}>
                     <div>
@@ -85,7 +114,35 @@ export default function RestroMenu() {
 
                     <div className="item-right">
                       <div className="item-price">₹{el.price}</div>
-                      <button className="cta">Add</button>
+
+                      {qty === 0 ? (
+                        /* ── First tap: plain Add button ── */
+                        <button
+                          className="cta menu-add-btn"
+                          onClick={() => increment(el)}
+                        >
+                          Add
+                        </button>
+                      ) : (
+                        /* ── After first tap: stepper replaces the button ── */
+                        <div className="menu-stepper">
+                          <button
+                            className="menu-step-btn"
+                            onClick={() => decrement(el)}
+                            aria-label="remove one"
+                          >
+                            −
+                          </button>
+                          <span className="menu-step-val">{qty}</span>
+                          <button
+                            className="menu-step-btn menu-step-plus"
+                            onClick={() => increment(el)}
+                            aria-label="add one"
+                          >
+                            +
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 );
@@ -94,7 +151,7 @@ export default function RestroMenu() {
           </div>
         </section>
 
-        {/* Aside */}
+        {/* ── Aside ── */}
         <aside className="rd-aside">
           <div className="aside-card">
             <h4>About</h4>
@@ -102,6 +159,7 @@ export default function RestroMenu() {
               A popular place known for quick service and great taste.
             </p>
           </div>
+
           <div className="aside-card" style={{ marginTop: 16 }}>
             <h4>Need Help?</h4>
             <p className="muted" style={{ fontSize: 13 }}>
@@ -114,6 +172,7 @@ export default function RestroMenu() {
         </aside>
       </main>
 
+      {/* ── Help modal ── */}
       {helpOpen && (
         <div className="help-overlay" onClick={() => setHelpOpen(false)}>
           <div className="help-modal" onClick={(e) => e.stopPropagation()}>
@@ -123,25 +182,41 @@ export default function RestroMenu() {
             >
               ✕
             </button>
-
             <h3>We're here for you</h3>
             <p className="muted">Our support team is available 24/7.</p>
-
             <div className="help-options">
-              <a href="" className="help-option">
+              <a href="/orders" className="help-option">
                 Email Us
               </a>
-
-              <a
-                href="#"
-                className="help-option"
-                onClick={(e) => e.preventDefault()}
-              >
+              <a href="/orders" className="help-option">
                 Live Chat
               </a>
             </div>
           </div>
         </div>
+      )}
+
+      {/* ── Cart FAB ── */}
+      {totalItems > 0 && (
+        <Link to={"/cart"} state={cart}>
+          <div className="cart-fab visible">
+            <button className="cart-fab-btn">
+              <div className="cart-fab-left">
+                <i className="fa-solid fa-cart-arrow-down"></i>
+                <div className="cart-fab-text">
+                  <span>Your Cart</span>
+                  <span>
+                    {totalItems} item{totalItems > 1 ? "s" : ""} added
+                  </span>
+                </div>
+              </div>
+              <div className="cart-fab-right">
+                <span className="cart-fab-count">{totalItems}</span>
+                <span className="cart-fab-arrow">›</span>
+              </div>
+            </button>
+          </div>
+        </Link>
       )}
     </div>
   );
