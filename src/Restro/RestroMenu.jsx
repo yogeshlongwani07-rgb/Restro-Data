@@ -2,14 +2,16 @@ import { Link, useParams } from "react-router-dom";
 import "../css/RestaurantDetail.css";
 import { useLocation } from "react-router-dom";
 import restaurantMenu from "../Data/MenuData";
+import { useState } from "react";
 
 export default function RestroMenu() {
   const { state } = useLocation();
+  const [helpOpen, setHelpOpen] = useState(false);
 
   return (
     <div className="rd-root">
       <Link to={`/`}>
-        <button className="rd-back">← Back</button>
+        <button className="rd-back"> Back</button>
       </Link>
       {console.log(restaurantMenu.items[0].id)}
       <header className="rd-hero">
@@ -100,8 +102,47 @@ export default function RestroMenu() {
               A popular place known for quick service and great taste.
             </p>
           </div>
+          <div className="aside-card" style={{ marginTop: 16 }}>
+            <h4>Need Help?</h4>
+            <p className="muted" style={{ fontSize: 13 }}>
+              Have a question about your order or this restaurant?
+            </p>
+            <button className="help-btn" onClick={() => setHelpOpen(true)}>
+              Contact Support
+            </button>
+          </div>
         </aside>
       </main>
+
+      {helpOpen && (
+        <div className="help-overlay" onClick={() => setHelpOpen(false)}>
+          <div className="help-modal" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="help-modal-close"
+              onClick={() => setHelpOpen(false)}
+            >
+              ✕
+            </button>
+
+            <h3>We're here for you</h3>
+            <p className="muted">Our support team is available 24/7.</p>
+
+            <div className="help-options">
+              <a href="" className="help-option">
+                Email Us
+              </a>
+
+              <a
+                href="#"
+                className="help-option"
+                onClick={(e) => e.preventDefault()}
+              >
+                Live Chat
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

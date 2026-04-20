@@ -13,6 +13,7 @@ import { useContext } from "react";
 import { locationContext } from "../functions/Context.jsx";
 import randomHeadline from "../Data/Heading.js";
 import CitySearchInput from "../CitySearchInput.jsx";
+// import { staticResult } from "../Data/Backup.js";
 
 export default function RestroName() {
   const location = useLocation();
@@ -37,6 +38,7 @@ export default function RestroName() {
 
       try {
         const result = await getRestroData(city, islocation);
+        // const result = staticResult;
         const { ans: data, cityname } = result;
 
         if (!data || data.length === 0) {
@@ -66,8 +68,8 @@ export default function RestroName() {
     async function fetchLocationData() {
       setSerached(true);
       setLoading(true);
-
-      const result = await getRestroData(city, true);
+      // const result = staticResult;
+      const result = await getRestroData(city, islocation);
       const { ans: data, cityname } = result;
       setCity(cityname);
       setSearchedCity(cityname);

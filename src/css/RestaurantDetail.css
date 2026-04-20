@@ -1,239 +1,376 @@
-/* -------- Base -------- */
-* {
-  box-sizing: border-box;
-}
+/* ═══════════════════════════════════════════════
+   RESTAURANTDETAIL.CSS — Restaurant Detail Page
+═══════════════════════════════════════════════ */
+
+/* ── Base ── */
+* { box-sizing: border-box; }
 
 body {
-  margin: 0;
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Arial, sans-serif;
-  background: #fbf9f7;
-  color: #1f2937;
-
-
+  font-family: var(--font-body);
+  background: var(--surface);
+  color: var(--ink);
 }
 
-
+/* ── Page root ── */
 .rd-root {
-  max-width: 1200px;
-  margin: auto;
-  padding: 24px;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
 }
 
-/* -------- Back Button -------- */
+/* ── Back button ── */
 .rd-back {
-  background: white;
-  border: 1px solid #e5e7eb;
-  padding: 8px 14px;
-  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface-card);
+  border: 1px solid var(--border-med);
+  padding: 9px 18px;
+  border-radius: var(--radius-pill);
   cursor: pointer;
-  margin-bottom: 16px;
-  font-size: 14px;
+  margin-bottom: 24px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ink-mid);
+  font-family: var(--font-body);
+  transition: background var(--transition), color var(--transition), border-color var(--transition), box-shadow var(--transition);
 }
 
-/* -------- Hero -------- */
+.rd-back:hover {
+  background: var(--surface-muted);
+  color: var(--ink);
+  border-color: var(--border-med);
+  box-shadow: 0 2px 8px rgba(28, 19, 9, 0.06);
+}
+
+.rd-back::before {
+  content: '←';
+  font-size: 1rem;
+}
+
+/* ── Hero section ── */
 .rd-hero {
-  background: linear-gradient(135deg, #ffffff, #fff1f5);
-  border-radius: 20px;
-  padding: 28px;
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 36px;
   display: flex;
   justify-content: space-between;
-  gap: 24px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  align-items: flex-start;
+  gap: 32px;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
 }
 
+/* Subtle decorative blob */
+.rd-hero::after {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,87,42,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Restaurant title ── */
 .rd-title {
-  font-size: 40px;
-  margin: 0;
+  font-family: var(--font-display) !important;
+  font-size: clamp(2rem, 4vw, 2.8rem);
   font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--ink);
+  margin-bottom: 8px !important;
 }
 
 .rd-tagline {
-  color: #6b7280;
-  margin-top: 6px;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  margin-top: 8px;
+  line-height: 1.5;
 }
 
-/* -------- Badges -------- */
+/* ── Badges row ── */
 .rd-badges {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 18px;
+  gap: 10px;
+  margin-top: 20px;
 }
 
 .rd-badge {
-  background: white;
-  border-radius: 999px;
-  padding: 8px 14px;
-  border: 1px solid #f1f1f4;
-  display: flex;
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 8px 16px;
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-size: 14px;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--ink-mid);
+  transition: background var(--transition), border-color var(--transition);
 }
 
-.rd-badge.small {
-  padding: 8px 12px;
+.rd-badge:hover {
+  background: var(--surface-card);
+  border-color: var(--border-brand);
 }
 
-.rating-number {
-  color: #6b7280;
+/* Rating badge gets accent */
+.rd-badge:first-child {
+  background: var(--brand-subtle);
+  border-color: var(--border-brand);
+  color: var(--brand-deep);
   font-weight: 600;
 }
 
-/* -------- Pills -------- */
+.rating-number {
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+/* ── Pill row (cuisine tags) ── */
 .pill-row {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  margin-top: 14px;
 }
 
 .pill {
-  background: #fff;
-  border: 1px solid #fde2e9;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 13px;
+  background: var(--surface-card);
+  border: 1px solid var(--border-med);
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--ink-mid);
 }
 
 .pill.muted {
-  background: #f9fafb;
-  border-color: #e5e7eb;
-  color: #6b7280;
+  background: var(--surface-muted);
+  border-color: var(--border);
+  color: var(--ink-soft);
 }
 
-/* -------- Meta -------- */
+/* ── Meta (right side) ── */
 .meta {
   text-align: right;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
+  flex-shrink: 0;
 }
 
 .meta small {
-  color: #6b7280;
-  font-size: 12px;
+  color: var(--ink-soft);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: block;
+  margin-bottom: 2px;
 }
 
 .meta-strong {
   font-weight: 700;
-  font-size: 16px;
+  font-size: 1rem;
+  color: var(--ink);
 }
 
-/* -------- Layout -------- */
+/* ── Main layout (menu + aside) ── */
 .rd-main {
   display: flex;
-  gap: 24px;
-  margin-top: 28px;
+  gap: 28px;
+  margin-top: 32px;
+  align-items: flex-start;
 }
 
 .rd-menu-col {
   flex: 1;
+  min-width: 0;
 }
 
 .rd-aside {
   width: 300px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 90px;
 }
 
-/* -------- Category -------- */
+/* ── Category card ── */
 .category-card {
-  background: white;
-  border-radius: 16px;
-  padding: 18px;
-  margin-bottom: 18px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px 22px 18px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--transition);
+}
+
+.category-card:hover {
+  box-shadow: var(--shadow-hover);
 }
 
 .category-head {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.category-head h3,
+.category-head h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: -0.01em;
+  color: var(--ink);
 }
 
 .cat-rating {
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
-  padding: 6px 10px;
-  border-radius: 10px;
-  font-size: 13px;
+  background: var(--brand-subtle);
+  border: 1px solid var(--border-brand);
+  color: var(--brand-deep);
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
-/* -------- Items -------- */
+/* ── Items grid ── */
 .items-grid {
-  margin-top: 14px;
+  margin-top: 4px;
   display: grid;
   grid-template-columns: 1fr;
   gap: 12px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 640px) {
   .items-grid {
     grid-template-columns: 1fr 1fr;
   }
 }
 
+/* ── Item card ── */
 .item-card {
-  border: 1px solid #f1f1f4;
-  border-radius: 12px;
-  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px;
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  margin: 20px;
-  background: linear-gradient(180deg, #ffffff, #fffafa);
+  background: var(--surface);
+  transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
+  margin: 0 !important;
+}
+
+.item-card:hover {
+  border-color: var(--border-brand);
+  background: var(--surface-card);
+  box-shadow: 0 4px 12px rgba(232, 87, 42, 0.06);
 }
 
 .item-card h4 {
-  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 4px !important;
+  line-height: 1.3;
+}
+
+.item-card p,
+.item-card span {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
 }
 
 .item-price {
-  font-weight: 700;
+  font-weight: 700 !important;
+  color: var(--ink) !important;
+  font-size: 0.95rem !important;
 }
 
-/* -------- Item Right -------- */
+/* ── Item right ── */
 .item-right {
   text-align: right;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  align-items: flex-end;
+  flex-shrink: 0;
 }
 
+/* ── CTA (Add to cart) button ── */
 .cta {
-  background: #ec4899;
+  background: var(--brand);
   color: white;
   border: none;
-  padding: 6px 14px;
-  border-radius: 8px;
+  padding: 7px 16px;
+  border-radius: var(--radius-md);
   cursor: pointer;
-  font-size: 13px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  letter-spacing: 0.02em;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  white-space: nowrap;
 }
 
-/* -------- Aside -------- */
+.cta:hover {
+  background: var(--brand-deep);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(232, 87, 42, 0.30);
+}
+
+.cta:active {
+  transform: translateY(0);
+}
+
+/* ── Aside card ── */
 .aside-card {
-  background: white;
-  border-radius: 16px;
-  padding: 16px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-card);
 }
 
-/* -------- Text Utils -------- */
-.muted {
-  color: #6b7280;
+.aside-card h4,
+.aside-card h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--ink);
 }
 
-.small {
-  font-size: 13px;
-}
+/* ── Text utils ── */
+.muted { color: var(--ink-soft) !important; }
+.small { font-size: 0.82rem !important; }
 
-/* -------- Responsive -------- */
+/* ── Responsive ── */
 @media (max-width: 900px) {
   .rd-hero {
     flex-direction: column;
+    gap: 24px;
   }
 
   .meta {
     text-align: left;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
   }
 
   .rd-main {
@@ -242,5 +379,116 @@ body {
 
   .rd-aside {
     width: 100%;
+    position: static;
   }
+
+  .rd-root {
+    padding: 24px 16px 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rd-hero {
+    padding: 24px 20px;
+  }
+
+  .rd-title {
+    font-size: 1.8rem;
+  }
+}
+
+/* ================================
+   HELP BUTTON
+================================ */
+.help-btn {
+  width: 100%;
+  padding: 10px 16px;
+  background: #FF4D00;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.help-btn:hover {
+  background: #e04300;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(255,77,0,0.30);
+}
+
+/* ================================
+   HELP MODAL
+================================ */
+.help-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.40);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.help-modal {
+  background: #fff;
+  border-radius: 24px;
+  padding: 40px 32px 32px;
+  max-width: 380px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+}
+
+.help-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: #f5f5f5;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 13px;
+  cursor: pointer;
+  color: #666;
+}
+
+.help-modal-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.help-options {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  justify-content: center;
+}
+
+.help-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 20px;
+  border-radius: 16px;
+  background: #fff7f4;
+  color: #FF4D00;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  flex: 1;
+  border: 1.5px solid #ffe5d9;
+  transition: all 0.18s ease;
+}
+
+.help-option:hover {
+  background: #FF4D00;
+  color: #fff;
+  border-color: #FF4D00;
+  transform: translateY(-2px);
 }

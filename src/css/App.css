@@ -1,18 +1,112 @@
-body {
-  background-color: #F8FAFD !important;
-}
-html, body {
-  height: 100%;
-  margin: 0;
+/* ═══════════════════════════════════════════════
+   APP.CSS — GLOBAL DESIGN TOKENS & BASE
+   Premium Food Delivery · Dark Culinary Theme
+   Fonts: Playfair Display (display) + DM Sans (body)
+═══════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap');
+
+/* ── Design Tokens ── */
+:root {
+  --brand:        #E8572A;       /* saffron-ember — primary accent    */
+  --brand-deep:   #C43D12;       /* pressed state                     */
+  --brand-glow:   rgba(232, 87, 42, 0.18);
+  --brand-subtle: rgba(232, 87, 42, 0.08);
+
+  --surface:      #FDFBF8;       /* warm off-white                    */
+  --surface-card: #FFFFFF;
+  --surface-muted:#F5F1EB;       /* very warm grey                    */
+  --surface-dark: #1A1410;       /* for accents                       */
+
+  --ink:          #1C1309;       /* near-black                        */
+  --ink-mid:      #5C4E3D;       /* mid-tone text                     */
+  --ink-soft:     #9C8E7F;       /* muted labels                      */
+  --ink-ghost:    #C8BDB0;       /* placeholders / dividers           */
+
+  --border:       rgba(28, 19, 9, 0.08);
+  --border-med:   rgba(28, 19, 9, 0.14);
+  --border-brand: rgba(232, 87, 42, 0.30);
+
+  --radius-sm:    8px;
+  --radius-md:    14px;
+  --radius-lg:    20px;
+  --radius-xl:    28px;
+  --radius-pill:  999px;
+
+  --shadow-card:  0 2px 8px rgba(28, 19, 9, 0.06), 0 8px 24px rgba(28, 19, 9, 0.05);
+  --shadow-hover: 0 4px 16px rgba(28, 19, 9, 0.10), 0 16px 40px rgba(28, 19, 9, 0.09);
+  --shadow-brand: 0 6px 20px rgba(232, 87, 42, 0.28);
+
+  --ease-out:     cubic-bezier(0.22, 1, 0.36, 1);
+  --transition:   0.25s var(--ease-out);
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
 }
 
+/* ── Reset & Base ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body) !important;
+  background-color: var(--surface) !important;
+  color: var(--ink) !important;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+html, body {
+  height: 100%;
+}
+
+/* ── Layout Shell ── */
 .app {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background:
+    radial-gradient(ellipse 80% 50% at 0% 0%, rgba(232,87,42,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(232,87,42,0.03) 0%, transparent 60%),
+    var(--surface);
 }
 
 .content {
   flex: 1;
 }
 
+/* ── Typography helpers ── */
+.display-heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar        { width: 6px; height: 6px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: var(--ink-ghost); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ink-soft); }
+
+/* ── Focus ring (accessibility) ── */
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ── Utility classes ── */
+.text-brand  { color: var(--brand); }
+.text-muted  { color: var(--ink-soft); }
+.font-serif  { font-family: var(--font-display); }

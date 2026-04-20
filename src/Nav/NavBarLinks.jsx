@@ -7,19 +7,19 @@ export default function NavBarLinks({ setIslocation, islocation }) {
         </a>
       </li>
 
-      <li className="nav-item">
+      {/* <li className="nav-item">
         <button
-          className={
-            islocation
-              ? "nav-link fw-semibold text-success"
-              : "nav-link fw-semibold text-muted"
-          }
-          onClick={() => setIslocation(true)}
-        >
-          <i className="fa-solid fa-location-arrow fa-lg"></i>
-          &nbsp; Allow Location
-        </button>
-      </li>
+        //   className={
+        //     islocation
+        //       ? "nav-link fw-semibold text-success"
+        //       : "nav-link fw-semibold text-muted"
+        //   }
+        //   onClick={() => setIslocation(true)}
+        // >
+        //   <i className="fa-solid fa-location-arrow fa-lg"></i>
+        //   &nbsp; Allow Location
+        // </button>
+      </li> */}
     </ul>
   );
 }

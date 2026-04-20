@@ -6,7 +6,7 @@ function Cities() {
   return (
     <div className="cities-container">
       <Link to={`/`}>
-        <button className="rd-back">← Back</button>
+        <button className="rd-back">Back</button>
       </Link>
       <h1 className="cities-heading">
         Serving & Delivering to 700+ Cities with Fast Delivery

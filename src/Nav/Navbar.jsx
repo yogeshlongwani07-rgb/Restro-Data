@@ -1,6 +1,7 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import { locationContext } from "../functions/Context";
 import "../css/Navbar.css";
+import { Link } from "react-router-dom";
 
 import LoginDia from "../Dialog/LoginDia";
 import SignUpDai from "../Dialog/SignUpDia";
@@ -16,6 +17,8 @@ function Navbar() {
 
   const nav = useNavUtility();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
+  const moreRef = useRef(null);
 
   const {
     loginData,
@@ -35,6 +38,16 @@ function Navbar() {
     setShowModal2,
   } = nav;
   const { auth, register, logout } = useAuthUtility(nav);
+
+  useEffect(() => {
+    function handleClick(e) {
+      if (moreRef.current && !moreRef.current.contains(e.target)) {
+        setMoreOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
 
   return (
     <>
@@ -67,6 +80,76 @@ function Navbar() {
               setIslocation={setIslocation}
               islocation={islocation}
             />
+
+            <div className="ms-3 more-menu-wrapper" ref={moreRef}>
+              {/* BUTTON */}
+              <button
+                className="more-menu-btn"
+                onClick={() => setMoreOpen(!moreOpen)}
+              >
+                <i className="fa-solid fa-grip"></i>
+              </button>
+
+              {/* 👇 THIS IS WHERE YOUR CODE GOES */}
+              {moreOpen && (
+                <div className="more-dropdown">
+                  <div className="more-dropdown-header">
+                    <span>Quick Access</span>
+                  </div>
+
+                  <button
+                    className={`more-dropdown-item${islocation ? " active" : ""}`}
+                    onClick={() => {
+                      setIslocation(true);
+                      setMoreOpen(false);
+                    }}
+                  >
+                    <span className="more-item-icon">
+                      <i className="fa-solid fa-location-arrow"></i>
+                    </span>
+                    <div>
+                      <div className="more-item-title">
+                        Allow Location
+                        {islocation && (
+                          <span className="more-badge">Active</span>
+                        )}
+                      </div>
+                    </div>
+                  </button>
+
+                  <div className="more-divider" />
+                  {/* <button className="more-dropdown-item">
+                    <span className="more-item-icon">
+                      <i class="fa-solid fa-burger"></i>
+                    </span>
+                    <div>
+                      <div className="more-item-title">Your Order</div>
+                      <div className="more-item-sub">Order Summary</div>
+                    </div>
+                  </button>
+
+                  <button className="more-dropdown-item">
+                    <span className="more-item-icon">
+                      <i className="fa-solid fa-user-circle"></i>
+                    </span>
+                    <div>
+                      <div className="more-item-title">Profile</div>
+                      <div className="more-item-sub">Manage account</div>
+                    </div>
+                  </button>
+
+                  <button className="more-dropdown-item">
+                    <span className="more-item-icon">
+                      <i className="fa-solid fa-headset"></i>
+                    </span>
+                    <div>
+                      <div className="more-item-title">Help</div>
+                      <div className="more-item-sub">Support & assistance</div>
+                    </div>
+                  </button> */}
+                </div>
+              )}
+            </div>
 
             <AuthButtons
               login={login}

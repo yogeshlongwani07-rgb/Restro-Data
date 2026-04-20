@@ -3,7 +3,11 @@ function HeadingWithCards({ restaurants, city, headline }) {
   return (
     <div>
       {restaurants.length === 0 ? null : (
-        <h2 className="abc text-center fw-normal text-muted fst-italic mt-5">{`${headline} ${city}`}</h2>
+        <h2 className="abc text-center fw-normal text-muted fst-italic mt-5">
+          <p>
+            {headline} <strong>{city}</strong>
+          </p>
+        </h2>
       )}
       <div
         style={{
