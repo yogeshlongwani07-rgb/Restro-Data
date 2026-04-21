@@ -7,7 +7,6 @@
     var(--surface);
 }
 
-/* ── Page heading ── */
 .cities-heading {
   text-align: center;
   font-family: var(--font-display) !important;
