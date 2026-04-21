@@ -1,7 +1,4 @@
-/* ═══════════════════════════════════════════════
-   CART.CSS — Premium Cart Page
-   Matches RestaurantDetail theme tokens
-═══════════════════════════════════════════════ */
+
 
 /* ── Root layout ── */
 .cart-root {
@@ -420,9 +417,7 @@
   background: var(--brand-subtle);
 }
 
-/* ════════════════════════════════
-   BILL CARD
-════════════════════════════════ */
+
 .bill-card {
   background: var(--surface-card);
   border: 1px solid var(--border);

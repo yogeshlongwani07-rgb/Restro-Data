@@ -1,7 +1,4 @@
-/* ═══════════════════════════════════════════════
-   PROFILE.CSS — User Profile Page
-   Matches app design system (CSS variables from theme)
-═══════════════════════════════════════════════ */
+
 
 /* ── Root ── */
 .pf-root {
@@ -10,9 +7,6 @@
   padding: 0 24px 80px;
 }
 
-/* ══════════════════════════════════
-   HERO
-══════════════════════════════════ */
 .pf-hero {
   background: var(--surface-card);
   border: 1px solid var(--border);
@@ -177,9 +171,6 @@
   background: var(--border-med);
 }
 
-/* ══════════════════════════════════
-   TOAST
-══════════════════════════════════ */
 .pf-toast {
   position: fixed;
   bottom: 32px;
@@ -204,9 +195,7 @@
   to   { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
 }
 
-/* ══════════════════════════════════
-   SECTIONS
-══════════════════════════════════ */
+
 .pf-section {
   background: var(--surface-card);
   border: 1px solid var(--border);
@@ -243,9 +232,6 @@
   margin: 0;
 }
 
-/* ══════════════════════════════════
-   PERSONAL INFO FIELDS
-══════════════════════════════════ */
 .pf-fields-list {
   display: flex;
   flex-direction: column;
@@ -331,9 +317,6 @@
   color: var(--brand-deep);
 }
 
-/* ══════════════════════════════════
-   ADD BUTTON
-══════════════════════════════════ */
 .pf-add-btn {
   display: inline-flex;
   align-items: center;
@@ -358,9 +341,7 @@
   box-shadow: 0 4px 14px rgba(232, 87, 42, 0.28);
 }
 
-/* ══════════════════════════════════
-   ADDRESS CARDS
-══════════════════════════════════ */
+
 .pf-address-list {
   display: flex;
   flex-direction: column;
@@ -466,9 +447,7 @@
   color: #991B1B;
 }
 
-/* ══════════════════════════════════
-   PREFERENCES / TOGGLES
-══════════════════════════════════ */
+
 .pf-prefs-list {
   display: flex;
   flex-direction: column;
@@ -550,9 +529,6 @@
   left: 3px;
 }
 
-/* ══════════════════════════════════
-   DANGER ZONE
-══════════════════════════════════ */
 .danger-zone {
   border-color: #FECACA;
   background: #FFFAFAFA;
@@ -611,9 +587,6 @@
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.18);
 }
 
-/* ══════════════════════════════════
-   OVERLAY / MODALS
-══════════════════════════════════ */
 .pf-overlay {
   position: fixed;
   inset: 0;
