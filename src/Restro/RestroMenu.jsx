@@ -1,11 +1,241 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../css/RestaurantDetail.css";
+import "../css/orders.css";
 import { useLocation } from "react-router-dom";
 import restaurantMenu from "../Data/MenuData";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+
+// Smart support chat for RestroMenu page
+function RestroSupportChat({ onClose, restaurantName }) {
+  const chatBodyRef = useRef(null);
+  const QUICK = [
+    "What are your opening hours?",
+    "Is this restaurant vegetarian-friendly?",
+    "How long is delivery?",
+    "Do you offer discounts?",
+  ];
+
+  const [messages, setMessages] = useState([
+    {
+      from: "support",
+      text: `Hi there! 👋 I'm here to help you with ${restaurantName}. Ask me anything about the menu, delivery, or your order!`,
+      time: new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+    },
+  ]);
+  const [input, setInput] = useState("");
+  const [typing, setTyping] = useState(false);
+
+  useEffect(() => {
+    if (chatBodyRef.current) {
+      chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
+    }
+  }, [messages, typing]);
+
+  function getSmartReply(text) {
+    const t = text.toLowerCase();
+    if (
+      t.includes("hour") ||
+      t.includes("open") ||
+      t.includes("close") ||
+      t.includes("time")
+    )
+      return `${restaurantName} is open daily from 10:00 AM to 11:00 PM. Orders placed before 10:45 PM will be accepted for same-day delivery.`;
+    if (
+      t.includes("veg") ||
+      t.includes("vegetarian") ||
+      t.includes("vegan") ||
+      t.includes("jain")
+    )
+      return `Yes! ${restaurantName} offers a wide range of vegetarian options. All vegetarian items are clearly marked with a green dot on the menu. Jain options are available on request.`;
+    if (
+      t.includes("delivery") ||
+      t.includes("long") ||
+      t.includes("time") ||
+      t.includes("eta") ||
+      t.includes("fast")
+    )
+      return `Delivery from ${restaurantName} typically takes 25–40 minutes depending on your distance and current order volume. You'll see a live ETA once your order is confirmed.`;
+    if (
+      t.includes("discount") ||
+      t.includes("offer") ||
+      t.includes("coupon") ||
+      t.includes("promo") ||
+      t.includes("deal")
+    )
+      return `🎉 Current offers: Use code FIRST50 for 50% off your first order (up to ₹100). Members also get 10% cashback every weekend!`;
+    if (
+      t.includes("minimum") ||
+      t.includes("min order") ||
+      t.includes("order value")
+    )
+      return `The minimum order value for ${restaurantName} is ₹149. Free delivery is available on orders above ₹299.`;
+    if (
+      t.includes("allerg") ||
+      t.includes("nut") ||
+      t.includes("gluten") ||
+      t.includes("dairy")
+    )
+      return `For allergen information, please check individual item descriptions or contact the restaurant directly. You can add allergy notes in your order before checkout.`;
+    if (t.includes("cancel") || t.includes("refund"))
+      return `You can cancel your order within 2 minutes of placing it for a full refund. After that, please go to Orders > Chat Support for assistance.`;
+    if (t.includes("track") || t.includes("where") || t.includes("order"))
+      return `Once you place your order, you can track it live on the "On The Way" page. You'll also get SMS and in-app notifications at each stage.`;
+    if (
+      t.includes("thanks") ||
+      t.includes("thank") ||
+      t.includes("ok") ||
+      t.includes("great")
+    )
+      return `Happy to help! 😊 Enjoy your meal from ${restaurantName}! Is there anything else you'd like to know?`;
+    return `Thanks for your question! Our support team will get back to you within 30 minutes. You can also browse the menu or check our FAQ for quick answers. Anything else I can help with?`;
+  }
+
+  const sendMsg = (text) => {
+    if (!text.trim()) return;
+    const now = new Date().toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    setMessages((m) => [...m, { from: "user", text, time: now }]);
+    setInput("");
+    setTyping(true);
+    setTimeout(
+      () => {
+        setTyping(false);
+        setMessages((m) => [
+          ...m,
+          {
+            from: "support",
+            text: getSmartReply(text),
+            time: new Date().toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            }),
+          },
+        ]);
+      },
+      900 + Math.random() * 700,
+    );
+  };
+
+  return (
+    <div className="help-overlay" onClick={onClose}>
+      <div
+        className="help-modal restro-chat-modal"
+        onClick={(e) => e.stopPropagation()}
+        style={{ padding: 0, maxWidth: 420, width: "95vw" }}
+      >
+        {/* Header */}
+        <div
+          className="chat-header"
+          style={{ padding: "14px 16px", borderBottom: "1px solid #f0f0f0" }}
+        >
+          <div className="chat-header-left">
+            <div className="chat-avatar">🎧</div>
+            <div>
+              <div className="chat-title">Support Chat</div>
+              <div className="chat-status">
+                <span className="chat-dot"></span> Online · Fast replies
+              </div>
+            </div>
+          </div>
+          <button
+            className="help-modal-close od-modal-close"
+            onClick={onClose}
+            style={{ position: "static" }}
+          >
+            ✕
+          </button>
+        </div>
+
+        {/* Body */}
+        <div
+          className="chat-body"
+          ref={chatBodyRef}
+          style={{
+            height: 260,
+            overflowY: "auto",
+            padding: "12px 14px",
+            display: "flex",
+            flexDirection: "column",
+            gap: 10,
+          }}
+        >
+          {messages.map((m, i) => (
+            <div key={i} className={`chat-bubble-wrap ${m.from}`}>
+              {m.from === "support" && (
+                <div className="chat-bubble-avatar">🎧</div>
+              )}
+              <div className={`chat-bubble ${m.from}`}>{m.text}</div>
+            </div>
+          ))}
+          {typing && (
+            <div className="chat-bubble-wrap support">
+              <div className="chat-bubble-avatar">🎧</div>
+              <div className="chat-bubble support typing-bubble">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Quick replies */}
+        <div className="chat-quick-row" style={{ padding: "6px 14px" }}>
+          {QUICK.map((q) => (
+            <button
+              key={q}
+              className="chat-quick-pill"
+              onClick={() => sendMsg(q)}
+            >
+              {q}
+            </button>
+          ))}
+        </div>
+
+        {/* Input */}
+        <div
+          className="chat-input-row"
+          style={{ padding: "10px 14px", borderTop: "1px solid #f0f0f0" }}
+        >
+          <input
+            className="chat-input"
+            placeholder="Type a message…"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && sendMsg(input)}
+          />
+          <button className="chat-send-btn" onClick={() => sendMsg(input)}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M22 2L11 13"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M22 2L15 22L11 13L2 9L22 2Z"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function RestroMenu() {
   const { state } = useLocation();
+  const navigate = useNavigate();
   const [helpOpen, setHelpOpen] = useState(false);
 
   const [qtys, setQtys] = useState({});
@@ -35,9 +265,9 @@ export default function RestroMenu() {
 
   return (
     <div className="rd-root">
-      <Link to={`/`}>
-        <button className="rd-back">Back</button>
-      </Link>
+      <button className="rd-back" onClick={() => navigate(-1)}>
+        Back
+      </button>
       <header className="rd-hero">
         <div>
           <h1 className="rd-title">{state.restro.name}</h1>
@@ -171,28 +401,11 @@ export default function RestroMenu() {
         </aside>
       </main>
 
-      {/* ── Help modal ── */}
       {helpOpen && (
-        <div className="help-overlay" onClick={() => setHelpOpen(false)}>
-          <div className="help-modal" onClick={(e) => e.stopPropagation()}>
-            <button
-              className="help-modal-close"
-              onClick={() => setHelpOpen(false)}
-            >
-              ✕
-            </button>
-            <h3>We're here for you</h3>
-            <p className="muted">Our support team is available 24/7.</p>
-            <div className="help-options">
-              <a href="/orders" className="help-option">
-                Email Us
-              </a>
-              <a href="/orders" className="help-option">
-                Live Chat
-              </a>
-            </div>
-          </div>
-        </div>
+        <RestroSupportChat
+          restaurantName={state.restro.name}
+          onClose={() => setHelpOpen(false)}
+        />
       )}
 
       {/* ── Cart FAB ── */}

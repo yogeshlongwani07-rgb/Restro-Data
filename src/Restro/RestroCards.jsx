@@ -4,7 +4,7 @@ export default function RestroCards({ restro }) {
   return (
     <div>
       <Link
-        to={`/restro/${restro.id}/${restro.name}`}
+        to={`/Restro/${restro.id}/${restro.name}`}
         state={{ restro }}
         style={{ textDecoration: "none" }}
       >

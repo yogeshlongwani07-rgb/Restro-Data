@@ -13,6 +13,7 @@ import OnTheWay from "./onTheWay.jsx";
 import Profile from "./profile.jsx";
 import Orders from "./orders.jsx";
 import Layout from "./Layout.jsx";
+import Terms from "./terms.jsx";
 
 axios.defaults.withCredentials = true;
 
@@ -81,6 +82,7 @@ function Root() {
           <Route path="/onTheWay" element={<OnTheWay />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/orders" element={<Orders />} />
+          <Route path="/terms" element={<Terms />}></Route>
         </Routes>
       </Layout>
     </BrowserRouter>

@@ -3,53 +3,25 @@ import "./css/footer.css";
 
 export default function Footer() {
   return (
-    <footer className="footer">
-      <div className="footer-inner">
-        {/* Explore */}
-        <div className="footer-col">
-          <h5>Explore</h5>
-          <ul>
-            <li>
-              <Link to="/Restro/cities">Cities</Link>
-            </li>
-            <li>
-              <a href="#">Restaurants</a>
-            </li>
-            <li>
-              <a href="#">Offers</a>
-            </li>
-          </ul>
+    <footer className="ft-root">
+      <div className="ft-wrap">
+        {/* Navigation Links */}
+        <div className="ft-links">
+          <Link to="/">🏠 Home</Link>
+          <Link to="#">👤 Profile</Link>
+          <Link to="/orders">📦 Orders</Link>
+          <Link to="/orders">💬 Help</Link>
+          <Link to="/terms">📄 Terms</Link>
+          <a
+            href="https://wonder-list-nine.vercel.app/listings"
+            target="_blank"
+          >
+            🏠 Find Your Stay
+          </a>
         </div>
 
-        {/* Account */}
-        <div className="footer-col">
-          <h5>Account</h5>
-          <ul>
-            <li>
-              <a href="#">Profile</a>
-            </li>
-            <li>
-              <a href="#">Orders</a>
-            </li>
-          </ul>
-        </div>
-
-        {/* Support */}
-        <div className="footer-col">
-          <h5>Support</h5>
-          <ul>
-            <li>
-              <a href="#">Help</a>
-            </li>
-            <li>
-              <a href="#">Contact</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div className="footer-bottom">
-        <span>© 2025 All rights reserved</span>
+        {/* Copyright */}
+        <div className="ft-bottom">© 2025 All rights reserved.</div>
       </div>
     </footer>
   );

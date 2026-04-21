@@ -1,58 +1,55 @@
-.footer {
-  background: #0f0f0f;
-  color: #fff;
-  margin-top: 60px;
-  font-family: 'DM Sans', sans-serif;
+/* Root */
+.ft-root {
+  margin-top: auto;
+  font-family: var(--font-body);
 }
 
-/* Layout */
-.footer-inner {
-  max-width: 1000px;
-  margin: auto;
-  padding: 40px 20px;
+/* Wrapper */
+.ft-wrap {
+  background: #f8f6f2; /* light theme */
+  padding: 24px 20px;
+  border-top: 1px solid #e5e5e5;
+}
+
+/* Links */
+.ft-links {
   display: flex;
-  justify-content: space-between;
-  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 16px;
 }
 
-/* Columns */
-.footer-col h5 {
-  font-size: 14px;
-  margin-bottom: 10px;
-}
-
-.footer-col ul {
-  list-style: none;
-  padding: 0;
-}
-
-.footer-col ul li {
-  margin-bottom: 8px;
-}
-
-.footer-col ul li a {
-  color: #aaa;
+.ft-links a {
   text-decoration: none;
-  font-size: 14px;
+  font-size: 0.85rem;
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: #ffffff;
+  color: #444;
+  border: 1px solid #eee;
+  transition: all 0.2s ease;
 }
 
-.footer-col ul li a:hover {
-  color: #FF4D00;
+.ft-links a:hover {
+  background: #f1f1f1;
+  color: #000;
+}
+
+/* Highlight button */
+.ft-links .highlight {
+  background: rgba(232, 87, 42, 0.1);
+  color: #e8572a;
+  border: 1px solid rgba(232, 87, 42, 0.3);
+}
+
+.ft-links .highlight:hover {
+  background: rgba(232, 87, 42, 0.2);
 }
 
 /* Bottom */
-.footer-bottom {
+.ft-bottom {
   text-align: center;
-  border-top: 1px solid #222;
-  padding: 15px;
-  font-size: 13px;
-  color: #777;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  .footer-inner {
-    flex-direction: column;
-    text-align: center;
-  }
+  font-size: 0.75rem;
+  color: #888;
 }

@@ -1,10 +1,12 @@
+import { Link } from "react-router-dom";
+
 export default function NavBarLinks({ setIslocation, islocation }) {
   return (
     <ul className="navbar-nav ms-4 align-items-center gap-3">
       <li className="nav-item">
-        <a className="nav-link fw-semibold text-muted" href="/Restro/cities">
+        <Link className="nav-link fw-semibold text-muted" to="/Restro/cities">
           700+ Cities Covered
-        </a>
+        </Link>
       </li>
 
       {/* <li className="nav-item">

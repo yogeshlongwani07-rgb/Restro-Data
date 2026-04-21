@@ -1,16 +1,17 @@
 import { useState } from "react";
 import "./css/profile.css";
+import { useLocation } from "react-router-dom";
 
 const USER = {
-  name: "Arjun Mehta",
-  initials: "AM",
-  email: "arjun.mehta@gmail.com",
-  mobile: "+91 98765 43210",
-  gender: "Male",
-  dob: "14 March 1995",
-  memberSince: "Jan 2023",
-  totalOrders: 47,
-  totalSaved: 1840,
+  name: "Yogesh Longwani",
+  initials: "YL",
+  email: "Yogesh@gmail.com",
+  mobile: "+91 98765XXXX",
+  gender: "Not specified",
+  dob: "Not provided",
+  memberSince: "Recently joined",
+  totalOrders: 4,
+  totalSaved: 840,
   addresses: [
     {
       id: 1,
@@ -113,6 +114,8 @@ export default function Profile() {
   const [prefs, setPrefs] = useState(USER.preferences);
   const [logoutConfirm, setLogoutConfirm] = useState(false);
   const [saved, setSaved] = useState(false);
+  const { state } = useLocation();
+  console.log(state?.hiUser);
 
   const handleSave = (field, value) => {
     setUser((u) => ({ ...u, [field]: value }));
@@ -171,9 +174,7 @@ export default function Profile() {
             <h1 className="pf-name">{user.name}</h1>
             <p className="pf-email-display">{user.email}</p>
             <div className="pf-hero-badges">
-              <span className="pf-badge member">
-                🥇 Member since {user.memberSince}
-              </span>
+              <span className="pf-badge member">🥇 {user.memberSince}</span>
               <span className="pf-badge earned">{user.recentBadge}</span>
             </div>
           </div>

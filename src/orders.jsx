@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./css/orders.css";
 
@@ -154,10 +154,11 @@ function RatingModal({ order, onClose }) {
 }
 
 function ChatModal({ order, onClose }) {
+  const chatBodyRef = useRef(null);
   const [messages, setMessages] = useState([
     {
       from: "support",
-      text: `Hi! I'm here to help with your order #${order.id} from ${order.restaurant}. What can I assist you with?`,
+      text: `Hi! I'm your support assistant for order #${order.id} from ${order.restaurant}. How can I help you today?`,
       time: "now",
     },
   ]);
@@ -171,22 +172,115 @@ function ChatModal({ order, onClose }) {
     "Change delivery address",
   ];
 
+  // Scroll to bottom whenever messages update
+  useEffect(() => {
+    if (chatBodyRef.current) {
+      chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
+    }
+  }, [messages, typing]);
+
+  function getSmartReply(text) {
+    const t = text.toLowerCase();
+    if (
+      t.includes("where") ||
+      t.includes("track") ||
+      t.includes("location") ||
+      t.includes("status")
+    ) {
+      if (order.status === "delivered")
+        return `Your order #${order.id} was successfully delivered on ${order.date} in ${order.deliveryTime}. You can rate your experience below!`;
+      return `Your order #${order.id} is currently on its way! Our delivery partner is heading to your address. Estimated arrival is within 20–30 minutes.`;
+    }
+    if (
+      t.includes("missing") ||
+      t.includes("wrong") ||
+      t.includes("incorrect") ||
+      t.includes("item")
+    ) {
+      return `Sorry to hear that! For order #${order.id}, please describe which item was missing or incorrect. We'll arrange a replacement or refund within 24 hours. You can also email us at support@restro.com.`;
+    }
+    if (
+      t.includes("refund") ||
+      t.includes("money") ||
+      t.includes("charge") ||
+      t.includes("payment")
+    ) {
+      return `For order #${order.id} (paid via ${order.paymentMode}), refunds are processed within 5–7 business days. If you paid by card/UPI, the amount returns to your original payment method. Shall I initiate a refund request?`;
+    }
+    if (t.includes("cancel")) {
+      if (order.status === "delivered" || order.status === "cancelled")
+        return `Order #${order.id} is already ${order.status} and cannot be cancelled. If you have a concern, I can help you with a refund instead.`;
+      return `I can request a cancellation for order #${order.id}. Please note that if the restaurant has already started preparing your food, a cancellation fee may apply. Shall I proceed?`;
+    }
+    if (
+      t.includes("address") ||
+      t.includes("location") ||
+      t.includes("deliver")
+    ) {
+      return `Your order #${order.id} is set to be delivered to: "${order.address}". If the order hasn't been picked up yet, I can try to update the address. Please provide the new address.`;
+    }
+    if (
+      t.includes("late") ||
+      t.includes("delay") ||
+      t.includes("slow") ||
+      t.includes("time")
+    ) {
+      return `We apologize for the delay with order #${order.id}! Our delivery partner may be experiencing traffic. Your order should arrive soon. As a goodwill gesture, we'll add ₹50 credits to your account.`;
+    }
+    if (
+      t.includes("quality") ||
+      t.includes("bad") ||
+      t.includes("cold") ||
+      t.includes("stale") ||
+      t.includes("taste")
+    ) {
+      return `We're really sorry about the food quality for order #${order.id}. This is not the experience we want for you. I've flagged this to the restaurant and our team. Would you like a partial refund or replacement?`;
+    }
+    if (
+      t.includes("partner") ||
+      t.includes("rider") ||
+      t.includes("driver") ||
+      t.includes("delivery boy")
+    ) {
+      return `If you have a concern about your delivery partner for order #${order.id}, please describe the issue. We take all feedback seriously and will review the matter with our team.`;
+    }
+    if (
+      t.includes("thanks") ||
+      t.includes("thank you") ||
+      t.includes("ok") ||
+      t.includes("great") ||
+      t.includes("fine")
+    ) {
+      return `You're welcome! 😊 Happy to help. Is there anything else I can assist you with for order #${order.id}?`;
+    }
+    // fallback
+    return `Thanks for reaching out about order #${order.id}. I've noted your concern: "${text}". Our support team will review this and get back to you within 2 hours. Is there anything else I can help with?`;
+  }
+
   const sendMsg = (text) => {
     if (!text.trim()) return;
-    setMessages((m) => [...m, { from: "user", text, time: "now" }]);
+    const now = new Date().toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    setMessages((m) => [...m, { from: "user", text, time: now }]);
     setInput("");
     setTyping(true);
+    const delay = 1000 + Math.random() * 800;
     setTimeout(() => {
       setTyping(false);
       setMessages((m) => [
         ...m,
         {
           from: "support",
-          text: `Got it! I'm looking into "${text}" for your order #${order.id}. Our team will update you shortly. Is there anything else I can help with?`,
-          time: "now",
+          text: getSmartReply(text),
+          time: new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
         },
       ]);
-    }, 1600);
+    }, delay);
   };
 
   return (
@@ -215,7 +309,7 @@ function ChatModal({ order, onClose }) {
           </span>
         </div>
 
-        <div className="chat-body">
+        <div className="chat-body" ref={chatBodyRef}>
           {messages.map((m, i) => (
             <div key={i} className={`chat-bubble-wrap ${m.from}`}>
               {m.from === "support" && (

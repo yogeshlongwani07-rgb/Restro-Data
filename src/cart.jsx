@@ -1,17 +1,19 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import "./css/cart.css";
-
-/* ── mock customer (replace with real auth context) ── */
-const CUSTOMER = {
-  name: "Rahul Sharma",
-  phone: "XXXXXX4821",
-  address: "B-204, Emerald Heights, Sector 65, Gurugram, Haryana – 122018",
-};
+import { AuthContext } from "./main";
 
 export default function Cart() {
   const { state } = useLocation();
   const navigate = useNavigate();
+  const { user: authUser } = useContext(AuthContext);
+
+  /* Use real logged-in user if available, otherwise fallback */
+  const CUSTOMER = {
+    name: authUser?.name || "Guest",
+    phone: authUser?.phone || "XXXXXXXXXX",
+    address: "B-204, Emerald Heights, Sector 65, Gurugram, Haryana – 122018",
+  };
 
   /* normalise incoming items — each item may appear multiple times */
   const buildCart = (items) => {

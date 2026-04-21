@@ -127,7 +127,23 @@ function Navbar() {
                       </div>
                     </button>
                   </Link>
-                  <Link to={"/profile"}>
+                  <Link to={"/terms"}>
+                    <button
+                      className="more-dropdown-item"
+                      onClick={() => {
+                        setMoreOpen(false);
+                      }}
+                    >
+                      <span className="more-item-icon">
+                        <i class="fa-solid fa-file-contract"></i>
+                      </span>
+                      <div>
+                        <div className="more-item-title">T&C</div>
+                        <div className="more-item-sub">Terms & Conditions</div>
+                      </div>
+                    </button>
+                  </Link>
+                  {/* <Link to={"/profile"} state={{ hiUser }}>
                     <button
                       className="more-dropdown-item"
                       onClick={() => {
@@ -142,8 +158,8 @@ function Navbar() {
                         <div className="more-item-sub">Manage account</div>
                       </div>
                     </button>
-                  </Link>
-                  <Link to={"/orders"}>
+                  </Link> */}
+                  {/* <Link to={"/orders"}>
                     <button
                       className="more-dropdown-item"
                       onClick={() => {
@@ -160,7 +176,7 @@ function Navbar() {
                         </div>
                       </div>
                     </button>
-                  </Link>
+                  </Link> */}
                 </div>
               )}
             </div>
