@@ -74,6 +74,9 @@ export default function RestroName() {
       setCity(cityname);
       setSearchedCity(cityname);
       setRestaurants(data || []);
+      if (data && data.length > 0) {
+        setHeadline(randomHeadline());
+      }
       setLoading(false);
     }
 

@@ -12,6 +12,7 @@ import Cart from "./cart.jsx";
 import OnTheWay from "./onTheWay.jsx";
 import Profile from "./profile.jsx";
 import Orders from "./orders.jsx";
+import Layout from "./Layout.jsx";
 
 axios.defaults.withCredentials = true;
 
@@ -55,24 +56,39 @@ function AuthProvider({ children }) {
   );
 }
 
-createRoot(document.getElementById("root")).render(
-  <AuthProvider>
+function Root() {
+  const [islocation, setIslocation] = useState(false);
+
+  return (
     <BrowserRouter
       future={{
         v7_startTransition: true,
         v7_relativeSplatPath: true,
       }}
     >
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/Restro/:id/:name" element={<RestroMenu />} />
-        <Route path="/Restro/cities" element={<Cities />} />
-        <Route path="*" element={<NopageFound />} />
-        <Route path="/cart" element={<Cart />}></Route>
-        <Route path="/onTheWay" element={<OnTheWay />}></Route>
-        <Route path="/profile" element={<Profile />}></Route>
-        <Route path="/orders" element={<Orders />}></Route>
-      </Routes>
+      <Layout islocation={islocation} setIslocation={setIslocation}>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <App islocation={islocation} setIslocation={setIslocation} />
+            }
+          />
+          <Route path="/Restro/:id/:name" element={<RestroMenu />} />
+          <Route path="/Restro/cities" element={<Cities />} />
+          <Route path="*" element={<NopageFound />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/onTheWay" element={<OnTheWay />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/orders" element={<Orders />} />
+        </Routes>
+      </Layout>
     </BrowserRouter>
+  );
+}
+
+createRoot(document.getElementById("root")).render(
+  <AuthProvider>
+    <Root />
   </AuthProvider>,
 );

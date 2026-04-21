@@ -112,7 +112,12 @@ function Navbar() {
                   </button>
                   <div className="more-divider" />
                   <Link to={"/orders"}>
-                    <button className="more-dropdown-item">
+                    <button
+                      className="more-dropdown-item"
+                      onClick={() => {
+                        setMoreOpen(false);
+                      }}
+                    >
                       <span className="more-item-icon">
                         <i className="fa-solid fa-burger"></i>
                       </span>
@@ -123,7 +128,12 @@ function Navbar() {
                     </button>
                   </Link>
                   <Link to={"/profile"}>
-                    <button className="more-dropdown-item">
+                    <button
+                      className="more-dropdown-item"
+                      onClick={() => {
+                        setMoreOpen(false);
+                      }}
+                    >
                       <span className="more-item-icon">
                         <i className="fa-solid fa-user-circle"></i>
                       </span>
@@ -134,7 +144,12 @@ function Navbar() {
                     </button>
                   </Link>
                   <Link to={"/orders"}>
-                    <button className="more-dropdown-item">
+                    <button
+                      className="more-dropdown-item"
+                      onClick={() => {
+                        setMoreOpen(false);
+                      }}
+                    >
                       <span className="more-item-icon">
                         <i className="fa-solid fa-headset"></i>
                       </span>

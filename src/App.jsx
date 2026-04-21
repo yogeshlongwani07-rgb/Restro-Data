@@ -2,20 +2,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import RestroName from "./Restro/RestroName";
 import "./css/App.css";
-import { locationContext } from "./functions/Context";
-import { useState } from "react";
-import Navbar from "./Nav/Navbar";
 
+// Navbar and locationContext.Provider are now handled by Layout.jsx
+// App just renders the home-page content
 function App() {
-  let [islocation, setIslocation] = useState(false);
-  return (
-    <>
-      <locationContext.Provider value={{ islocation, setIslocation }}>
-        <Navbar />
-        <RestroName />
-      </locationContext.Provider>
-    </>
-  );
+  return <RestroName />;
 }
 
 export default App;

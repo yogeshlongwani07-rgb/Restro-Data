@@ -38,7 +38,6 @@ export default function RestroMenu() {
       <Link to={`/`}>
         <button className="rd-back">Back</button>
       </Link>
-
       <header className="rd-hero">
         <div>
           <h1 className="rd-title">{state.restro.name}</h1>

@@ -125,11 +125,22 @@ export default function OnTheWay() {
 
   return (
     <div className="otw-root">
+      {/* ══════════ BACK BUTTON ══════════ */}
+      <button className="otw-back-btn" onClick={() => navigate(-1)}>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M19 12H5M5 12L12 19M5 12L12 5"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+        Back
+      </button>
+
       {/* ══════════ HERO HEADER ══════════ */}
       <header className="otw-header">
-        <button className="rd-back otw-back" onClick={() => navigate(-1)}>
-          Back
-        </button>
         <div className="otw-header-center">
           <div className="otw-live-pill">
             <span className="otw-live-dot" />
@@ -489,10 +500,7 @@ export default function OnTheWay() {
                 <div className="otw-sheet-avatar">{PARTNER.avatar}</div>
                 <p className="otw-sheet-name">{PARTNER.name}</p>
                 <p className="otw-sheet-phone">{PARTNER.phone}</p>
-                <a
-                  href={`tel:${PARTNER.phone}`}
-                  className="otw-sheet-cta otw-sheet-call"
-                >
+                <a href="#" className="otw-sheet-cta otw-sheet-call">
                   📞 Call Now
                 </a>
                 <button

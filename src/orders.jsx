@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./css/orders.css";
 
 const ORDERS = [
@@ -350,14 +351,34 @@ function OrderCard({ order }) {
           </div>
         </div>
 
-        {/* Expand toggle */}
-        <button
-          className="od-expand-btn"
-          onClick={() => setExpanded(!expanded)}
-        >
-          <span>{expanded ? "Hide details" : "View details"}</span>
-          <span className={`od-chevron ${expanded ? "up" : ""}`}>›</span>
-        </button>
+        {/* Expand toggle + always-visible chat button */}
+        <div className="od-card-footer">
+          <button
+            className="od-expand-btn"
+            onClick={() => setExpanded(!expanded)}
+          >
+            <span>{expanded ? "Hide details" : "View details"}</span>
+            <span className={`od-chevron ${expanded ? "up" : ""}`}>›</span>
+          </button>
+
+          {/* Chat is always visible — never hidden behind "View details" */}
+          <button
+            className="od-chat-always-btn"
+            onClick={() => setChatOpen(true)}
+            title="Chat Support"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            Chat Support
+          </button>
+        </div>
 
         {/* Expanded panel */}
         {expanded && (
@@ -418,7 +439,7 @@ function OrderCard({ order }) {
               </div>
             </div>
 
-            {/* Actions */}
+            {/* Actions — Rate and Reorder only (Chat is always visible above) */}
             <div className="od-actions-row">
               {order.status === "delivered" && (
                 <button
@@ -428,12 +449,6 @@ function OrderCard({ order }) {
                   <span>⭐</span> Rate Order
                 </button>
               )}
-              <button
-                className="od-action-btn chat-btn"
-                onClick={() => setChatOpen(true)}
-              >
-                <span>💬</span> Chat Support
-              </button>
               <button
                 className={`od-action-btn reorder-btn ${reordered ? "reordered" : ""}`}
                 onClick={handleReorder}
@@ -465,6 +480,7 @@ function OrderCard({ order }) {
 
 export default function Orders() {
   const [activeTab, setActiveTab] = useState("All Orders");
+  const navigate = useNavigate();
 
   const filtered = ORDERS.filter((o) => {
     if (activeTab === "All Orders") return true;
@@ -475,6 +491,20 @@ export default function Orders() {
 
   return (
     <div className="od-root">
+      {/* Back button */}
+      <button className="od-back-btn" onClick={() => navigate(-1)}>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M19 12H5M5 12L12 19M5 12L12 5"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+        Back
+      </button>
+
       {/* Header */}
       <div className="od-header">
         <div className="od-header-left">
