@@ -11,7 +11,24 @@ import useAuthUtility from "../Auth/AuthenticationUtitlity";
 import NavbarBrand from "./NavbarBrand";
 import NavBarLinks from "./NavBarLinks";
 import AuthButtons from "../Auth/AuthButton";
-import ThemeToggle from "./ThemeToggle";
+
+// Inline theme logic so we can embed it in the More dropdown
+const THEMES = [
+  { key: "light", label: "Light", icon: "☀️" },
+  { key: "dark", label: "Dark", icon: "🌙" },
+  { key: "system", label: "System Default", icon: "💻" },
+];
+
+function getSystemTheme() {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}
+
+function applyTheme(pref) {
+  const resolved = pref === "system" ? getSystemTheme() : pref;
+  document.documentElement.setAttribute("data-theme", resolved);
+}
 
 function Navbar() {
   let { islocation, setIslocation } = useContext(locationContext);
@@ -19,7 +36,27 @@ function Navbar() {
   const nav = useNavUtility();
   const [menuOpen, setMenuOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
+  const [themeHovered, setThemeHovered] = useState(false);
   const moreRef = useRef(null);
+  const themeLeaveTimer = useRef(null);
+
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("theme-pref") || "system";
+  });
+
+  useEffect(() => {
+    applyTheme(theme);
+    localStorage.setItem("theme-pref", theme);
+  }, [theme]);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const handler = () => {
+      if (theme === "system") applyTheme("system");
+    };
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, [theme]);
 
   const {
     loginData,
@@ -44,11 +81,23 @@ function Navbar() {
     function handleClick(e) {
       if (moreRef.current && !moreRef.current.contains(e.target)) {
         setMoreOpen(false);
+        setThemeHovered(false);
       }
     }
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
+
+  const currentThemeIcon = THEMES.find((t) => t.key === theme)?.icon || "💻";
+
+  const handleThemeMouseEnter = () => {
+    clearTimeout(themeLeaveTimer.current);
+    setThemeHovered(true);
+  };
+
+  const handleThemeMouseLeave = () => {
+    themeLeaveTimer.current = setTimeout(() => setThemeHovered(false), 150);
+  };
 
   return (
     <>
@@ -59,10 +108,6 @@ function Navbar() {
             className="navbar-toggler"
             type="button"
             onClick={() => setMenuOpen(!menuOpen)}
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
             aria-label="Toggle navigation"
           >
             <span>
@@ -83,20 +128,22 @@ function Navbar() {
             />
 
             <div className="ms-3 more-menu-wrapper" ref={moreRef}>
-              {/* BUTTON */}
               <button
                 className="more-menu-btn"
-                onClick={() => setMoreOpen(!moreOpen)}
+                onClick={() => {
+                  setMoreOpen(!moreOpen);
+                  setThemeHovered(false);
+                }}
               >
                 <i className="fa-solid fa-grip"></i>
               </button>
 
-              {/* 👇 THIS IS WHERE YOUR CODE GOES */}
               {moreOpen && (
                 <div className="more-dropdown">
                   <div className="more-dropdown-header">
                     <span>Quick Access</span>
                   </div>
+
                   <button
                     className={`more-dropdown-item${islocation ? " active" : ""}`}
                     onClick={() => {
@@ -111,45 +158,13 @@ function Navbar() {
                       <div className="more-item-title">Allow Location</div>
                     </div>
                   </button>
+
                   <div className="more-divider" />
-                  <Link to={"/orders"}>
+
+                  <Link to="/profile" state={{ hiUser }}>
                     <button
                       className="more-dropdown-item"
-                      onClick={() => {
-                        setMoreOpen(false);
-                      }}
-                    >
-                      <span className="more-item-icon">
-                        <i className="fa-solid fa-burger"></i>
-                      </span>
-                      <div>
-                        <div className="more-item-title">Your Order</div>
-                        <div className="more-item-sub">Order Summary</div>
-                      </div>
-                    </button>
-                  </Link>
-                  <Link to={"/terms"}>
-                    <button
-                      className="more-dropdown-item"
-                      onClick={() => {
-                        setMoreOpen(false);
-                      }}
-                    >
-                      <span className="more-item-icon">
-                        <i class="fa-solid fa-file-contract"></i>
-                      </span>
-                      <div>
-                        <div className="more-item-title">T&C</div>
-                        <div className="more-item-sub">Terms & Conditions</div>
-                      </div>
-                    </button>
-                  </Link>
-                  <Link to={"/profile"} state={{ hiUser }}>
-                    <button
-                      className="more-dropdown-item"
-                      onClick={() => {
-                        setMoreOpen(false);
-                      }}
+                      onClick={() => setMoreOpen(false)}
                     >
                       <span className="more-item-icon">
                         <i className="fa-solid fa-user-circle"></i>
@@ -160,12 +175,44 @@ function Navbar() {
                       </div>
                     </button>
                   </Link>
-                  <Link to={"/support"}>
+
+                  <Link to="/orders">
                     <button
                       className="more-dropdown-item"
-                      onClick={() => {
-                        setMoreOpen(false);
-                      }}
+                      onClick={() => setMoreOpen(false)}
+                    >
+                      <span className="more-item-icon">
+                        <i className="fa-solid fa-burger"></i>
+                      </span>
+                      <div>
+                        <div className="more-item-title">Your Order</div>
+                        <div className="more-item-sub">Order Summary</div>
+                      </div>
+                    </button>
+                  </Link>
+
+                  <a
+                    href="https://wonder-list-nine.vercel.app/listings"
+                    target="_blank"
+                  >
+                    <button
+                      className="more-dropdown-item"
+                      onClick={() => setMoreOpen(false)}
+                    >
+                      <span className="more-item-icon">
+                        <i class="fa-solid fa-house"></i>
+                      </span>
+                      <div>
+                        <div className="more-item-title">Find Your Stay</div>
+                        <div className="more-item-sub">Search. Book. Stay.</div>
+                      </div>
+                    </button>
+                  </a>
+
+                  <Link to="/support">
+                    <button
+                      className="more-dropdown-item"
+                      onClick={() => setMoreOpen(false)}
                     >
                       <span className="more-item-icon">
                         <i className="fa-solid fa-headset"></i>
@@ -178,29 +225,70 @@ function Navbar() {
                       </div>
                     </button>
                   </Link>
-
-                  <button
-                    className="more-dropdown-item"
-                    onClick={() => {
-                      setMoreOpen(false);
-                    }}
-                  >
-                    <span className="more-item-icon">
-                      <i class="fa-solid fa-circle-half-stroke"></i>
-                    </span>
-                    <div>
-                      <div className="more-item-title">Theme Control</div>
-                      <div className="more-item-sub">
-                        Theme Management System
+                  <Link to="/terms">
+                    <button
+                      className="more-dropdown-item"
+                      onClick={() => setMoreOpen(false)}
+                    >
+                      <span className="more-item-icon">
+                        <i className="fa-solid fa-file-contract"></i>
+                      </span>
+                      <div>
+                        <div className="more-item-title">T&C</div>
+                        <div className="more-item-sub">Terms & Conditions</div>
                       </div>
-                    </div>
-                  </button>
+                    </button>
+                  </Link>
+
+                  <div className="more-divider" />
+
+                  {/* Theme control inside More */}
+                  <div
+                    className="more-theme-wrapper"
+                    onMouseEnter={handleThemeMouseEnter}
+                    onMouseLeave={handleThemeMouseLeave}
+                  >
+                    <button className="more-dropdown-item more-theme-trigger">
+                      <span className="more-item-icon">{currentThemeIcon}</span>
+                      <div>
+                        <div className="more-item-title">Theme</div>
+                        <div className="more-item-sub">
+                          {THEMES.find((t) => t.key === theme)?.label}
+                        </div>
+                      </div>
+                      <span className="more-theme-chevron">›</span>
+                    </button>
+
+                    {themeHovered && (
+                      <div className="more-theme-submenu">
+                        <div className="more-dropdown-header">
+                          <span>Appearance</span>
+                        </div>
+                        {THEMES.map((t) => (
+                          <button
+                            key={t.key}
+                            className={
+                              "more-dropdown-item" +
+                              (theme === t.key ? " active" : "")
+                            }
+                            onClick={() => {
+                              setTheme(t.key);
+                            }}
+                          >
+                            <span className="more-item-icon">{t.icon}</span>
+                            <div>
+                              <div className="more-item-title">{t.label}</div>
+                            </div>
+                            {theme === t.key && (
+                              <span className="more-theme-check">✓</span>
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
               )}
-            </div>
-
-            <div className="ms-2">
-              <ThemeToggle />
             </div>
 
             <AuthButtons
