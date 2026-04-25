@@ -135,43 +135,52 @@ export default function RestroName() {
   return (
     <div className="xyz">
       {/* ── Hero ── */}
-      <div className="home-hero">
-        <div className="home-hero-eyebrow">
-          <i className="fa-solid fa-fire" style={{ fontSize: "11px" }}></i>
-          Discover restaurants near you
+      {!serached && (
+        <div className="home-hero">
+          <div className="home-hero-eyebrow">
+            <i className="fa-solid fa-fire" style={{ fontSize: "11px" }}></i>
+            Discover restaurants near you
+          </div>
+
+          <h1 className="home-hero-title">
+            Great food,
+            <br />
+            <span className="accent">delivered fast</span>
+          </h1>
+
+          <p className="home-hero-sub">
+            Search any city and explore the top-rated restaurants — from street
+            bites to fine dining.
+          </p>
+
+          <CitySearchInput
+            onSubmit={onSubmit}
+            city={city}
+            onChangehandler={onChangehandler}
+            inputRef={inputRef}
+            suggestions={suggestions}
+            suggClickHandler={suggClickHandler}
+          />
+
+          <div className="home-trust-chips">
+            <span className="trust-chip">⭐ Top-rated picks</span>
+            <span className="trust-chip">⚡ Live delivery times</span>
+            <span className="trust-chip">📍 Any city, anytime</span>
+          </div>
         </div>
-        <h1 className="home-hero-title">
-          Great food,
-          <br />
-          <span className="accent">delivered fast</span>
-        </h1>
-        <p className="home-hero-sub">
-          Search any city and explore the top-rated restaurants — from street
-          bites to fine dining.
-        </p>
-
-        <CitySearchInput
-          onSubmit={onSubmit}
-          city={city}
-          onChangehandler={onChangehandler}
-          inputRef={inputRef}
-          suggestions={suggestions}
-          suggClickHandler={suggClickHandler}
-        />
-
-        <div className="home-trust-chips">
-          <span className="trust-chip">
-            <span>⭐</span> Top-rated picks
-          </span>
-          <span className="trust-chip">
-            <span>⚡</span> Live delivery times
-          </span>
-          <span className="trust-chip">
-            <span>📍</span> Any city, anytime
-          </span>
+      )}
+      {serached && (
+        <div className="top-search-bar">
+          <CitySearchInput
+            onSubmit={onSubmit}
+            city={city}
+            onChangehandler={onChangehandler}
+            inputRef={inputRef}
+            suggestions={suggestions}
+            suggClickHandler={suggClickHandler}
+          />
         </div>
-      </div>
-
+      )}
       {/* ── Results ── */}
       <div className="card-container">
         {!serached && <EmptyState />}
