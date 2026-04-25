@@ -214,9 +214,9 @@
 
 .top-search-bar {
   position: sticky;
-  top: 0;
+  top: 70px;
   z-index: 1000;
-  background: white;
+  background: transparent;
   padding: 16px;
   display: flex;
   justify-content: center;

@@ -8,7 +8,7 @@ export default function Footer() {
         {/* Navigation Links */}
         <div className="ft-links">
           <Link to="/">🏠 Home</Link>
-          <Link to="#">👤 Profile</Link>
+          <Link to="/profile">👤 Profile</Link>
           <Link to="/orders">📦 Orders</Link>
           <Link to="/orders">💬 Help</Link>
           <Link to="/terms">📄 Terms</Link>

@@ -15,6 +15,7 @@ import Orders from "./orders.jsx";
 import Layout from "./Layout.jsx";
 import Terms from "./terms.jsx";
 import Support from "./Support.jsx";
+import ScrollToTop from "./ScrollToTop.jsx";
 
 axios.defaults.withCredentials = true;
 
@@ -68,6 +69,7 @@ function Root() {
         v7_relativeSplatPath: true,
       }}
     >
+      <ScrollToTop />
       <Layout islocation={islocation} setIslocation={setIslocation}>
         <Routes>
           <Route
