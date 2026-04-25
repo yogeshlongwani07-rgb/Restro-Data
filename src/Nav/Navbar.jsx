@@ -178,6 +178,23 @@ function Navbar() {
                       </div>
                     </button>
                   </Link>
+
+                  <button
+                    className="more-dropdown-item"
+                    onClick={() => {
+                      setMoreOpen(false);
+                    }}
+                  >
+                    <span className="more-item-icon">
+                      <i class="fa-solid fa-circle-half-stroke"></i>
+                    </span>
+                    <div>
+                      <div className="more-item-title">Theme Control</div>
+                      <div className="more-item-sub">
+                        Theme Management System
+                      </div>
+                    </div>
+                  </button>
                 </div>
               )}
             </div>
