@@ -144,7 +144,7 @@ function Navbar() {
                       </div>
                     </button>
                   </Link>
-                  {/* <Link to={"/profile"} state={{ hiUser }}>
+                  <Link to={"/profile"} state={{ hiUser }}>
                     <button
                       className="more-dropdown-item"
                       onClick={() => {
@@ -159,8 +159,8 @@ function Navbar() {
                         <div className="more-item-sub">Manage account</div>
                       </div>
                     </button>
-                  </Link> */}
-                  {/* <Link to={"/orders"}>
+                  </Link>
+                  <Link to={"/support"}>
                     <button
                       className="more-dropdown-item"
                       onClick={() => {
@@ -177,7 +177,7 @@ function Navbar() {
                         </div>
                       </div>
                     </button>
-                  </Link> */}
+                  </Link>
                 </div>
               )}
             </div>

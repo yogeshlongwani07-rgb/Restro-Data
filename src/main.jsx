@@ -14,6 +14,7 @@ import Profile from "./profile.jsx";
 import Orders from "./orders.jsx";
 import Layout from "./Layout.jsx";
 import Terms from "./terms.jsx";
+import Support from "./Support.jsx";
 
 axios.defaults.withCredentials = true;
 
@@ -83,6 +84,7 @@ function Root() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/terms" element={<Terms />}></Route>
+          <Route path="/support" element={<Support />}></Route>
         </Routes>
       </Layout>
     </BrowserRouter>
