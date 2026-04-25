@@ -8,57 +8,73 @@ export default function LoginDia({
   auth,
 }) {
   return (
-    <div className="modal fade show d-block">
-      <div className="modal-dialog modal-dialog-centered">
-        <div className="modal-content rounded-4 shadow">
-          <div className="modal-header">
-            <h5 className="modal-title fw-bold">
-              {xerror.length > 0 ? (
-                <p style={{ color: "#EF4444" }}>{xerror}</p>
-              ) : (
-                "Welcome Back 👋"
-              )}
-            </h5>
+    <>
+      {/* Backdrop */}
+      <div
+        className="dia-backdrop"
+        onClick={() => {
+          setShowModal(false);
+          setError("");
+        }}
+      />
+
+      {/* Dialog */}
+      <div className="dia-wrapper">
+        <div className="dia-box" onClick={(e) => e.stopPropagation()}>
+          {/* Header */}
+          <div className="dia-header">
+            <div>
+              <div className="dia-eyebrow">Welcome back</div>
+              <h2 className="dia-title">
+                {xerror.length > 0 ? (
+                  <span className="dia-error">{xerror}</span>
+                ) : (
+                  "Sign in to your account"
+                )}
+              </h2>
+            </div>
             <button
-              className="btn-close"
+              className="dia-close"
               onClick={() => {
                 setShowModal(false);
                 setError("");
               }}
-            ></button>
+              aria-label="Close"
+            >
+              <i className="fa-solid fa-xmark"></i>
+            </button>
           </div>
-          <form>
-            <div className="modal-body">
-              <div className="form-floating mb-3">
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  name="email"
-                  placeholder="name@example.com"
-                  value={loginData.email}
-                  onChange={inputHandle(setLoginData)}
-                />
-                <label>Email address</label>
-              </div>
 
-              <div className="form-floating">
-                <input
-                  type="password"
-                  className="form-control"
-                  id="password"
-                  name="password"
-                  placeholder="Password"
-                  value={loginData.password}
-                  onChange={inputHandle(setLoginData)}
-                />
-                <label>Password</label>
-              </div>
+          {/* Body */}
+          <div className="dia-body">
+            <div className="dia-field">
+              <label className="dia-label">Email address</label>
+              <input
+                type="email"
+                className="dia-input"
+                name="email"
+                placeholder="you@example.com"
+                value={loginData.email}
+                onChange={inputHandle(setLoginData)}
+              />
             </div>
-          </form>
-          <div className="modal-footer">
+            <div className="dia-field">
+              <label className="dia-label">Password</label>
+              <input
+                type="password"
+                className="dia-input"
+                name="password"
+                placeholder="Your password"
+                value={loginData.password}
+                onChange={inputHandle(setLoginData)}
+              />
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div className="dia-footer">
             <button
-              className="btn btn-outline-secondary"
+              className="dia-btn-ghost"
               onClick={() => {
                 setError("");
                 setShowModal(false);
@@ -66,13 +82,13 @@ export default function LoginDia({
             >
               Cancel
             </button>
-
-            <button className="btn btn-success px-4" onClick={auth}>
+            <button className="dia-btn-primary" onClick={auth}>
+              <i className="fa-solid fa-arrow-right-to-bracket"></i>
               Login
             </button>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

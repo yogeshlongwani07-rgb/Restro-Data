@@ -594,9 +594,6 @@
   font-size: 0.95rem;
 }
 
-/* ══════════════════════════════════
-   OVERLAY / MODAL BASE
-══════════════════════════════════ */
 .od-overlay {
   position: fixed;
   inset: 0;

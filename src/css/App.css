@@ -3,20 +3,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap');
 
 :root {
-  --brand:        #E8572A;       /* saffron-ember — primary accent    */
-  --brand-deep:   #C43D12;       /* pressed state                     */
+  --brand:        #E8572A;
+  --brand-deep:   #C43D12;
   --brand-glow:   rgba(232, 87, 42, 0.18);
   --brand-subtle: rgba(232, 87, 42, 0.08);
 
-  --surface:      #FDFBF8;       /* warm off-white                    */
+  --surface:      #FDFBF8;
   --surface-card: #FFFFFF;
-  --surface-muted:#F5F1EB;       /* very warm grey                    */
-  --surface-dark: #1A1410;       /* for accents                       */
+  --surface-muted:#F5F1EB;
+  --surface-dark: #1A1410;
 
-  --ink:          #1C1309;       /* near-black                        */
-  --ink-mid:      #5C4E3D;       /* mid-tone text                     */
-  --ink-soft:     #9C8E7F;       /* muted labels                      */
-  --ink-ghost:    #C8BDB0;       /* placeholders / dividers           */
+  --ink:          #1C1309;
+  --ink-mid:      #5C4E3D;
+  --ink-soft:     #9C8E7F;
+  --ink-ghost:    #C8BDB0;
 
   --border:       rgba(28, 19, 9, 0.08);
   --border-med:   rgba(28, 19, 9, 0.14);
@@ -39,6 +39,107 @@
   --font-body:    'DM Sans', system-ui, sans-serif;
 }
 
+/* ── Dark Mode Variables ── */
+[data-theme="dark"] {
+  --surface:      #0F0D0B;
+  --surface-card: #1C1814;
+  --surface-muted:#252017;
+  --surface-dark: #FDFBF8;
+
+  --ink:          #F5EFE6;
+  --ink-mid:      #B8A99A;
+  --ink-soft:     #7D6E5E;
+  --ink-ghost:    #3D342C;
+
+  --border:       rgba(245, 239, 230, 0.07);
+  --border-med:   rgba(245, 239, 230, 0.12);
+  --border-brand: rgba(232, 87, 42, 0.35);
+
+  --shadow-card:  0 2px 8px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.25);
+  --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.4), 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* ── Theme Toggle Button ── */
+.theme-toggle-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border-med);
+  background: var(--surface-card);
+  color: var(--ink-mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+  position: relative;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--surface-muted);
+  color: var(--ink);
+  border-color: var(--border-brand);
+}
+
+/* ── Theme Dropdown ── */
+.theme-dropdown-wrapper {
+  position: relative;
+}
+
+.theme-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 180px;
+  background: var(--surface-card);
+  border: 1px solid var(--border-med);
+  border-radius: var(--radius-md);
+  padding: 6px;
+  box-shadow: var(--shadow-hover);
+  z-index: 1001;
+  animation: themeDropFadeIn 0.15s var(--ease-out);
+}
+
+@keyframes themeDropFadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.theme-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ink-mid);
+  transition: background var(--transition), color var(--transition);
+}
+
+.theme-dropdown-item:hover {
+  background: var(--surface-muted);
+  color: var(--ink);
+}
+
+.theme-dropdown-item.active {
+  background: var(--brand-subtle);
+  color: var(--brand);
+}
+
+.theme-dropdown-item .theme-icon {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -58,6 +159,7 @@ body {
   color: var(--ink) !important;
   line-height: 1.6;
   min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 html, body {

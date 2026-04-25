@@ -7,16 +7,29 @@ export default function CitySearchInput({
   suggClickHandler,
 }) {
   return (
-    <form action="#" onSubmit={onSubmit}>
-      <div className="input-group mb-3">
+    <form
+      action="#"
+      onSubmit={onSubmit}
+      style={{ display: "flex", justifyContent: "center" }}
+    >
+      <div className="search-bar-outer">
+        <span className="search-bar-icon">
+          <i className="fa-solid fa-location-dot"></i>
+        </span>
         <input
           type="text"
           value={city}
           onChange={onChangehandler}
-          className="form-control"
-          placeholder="City name here"
+          className="search-bar-input"
+          placeholder="Search a city…"
           ref={inputRef}
+          autoComplete="off"
         />
+        <button className="search-bar-btn" type="submit">
+          <i className="fa-solid fa-magnifying-glass"></i>
+          <span>Search</span>
+        </button>
+
         {suggestions.length > 0 && (
           <ul className="suggestions-box">
             {suggestions.map((item, index) => (
@@ -26,9 +39,6 @@ export default function CitySearchInput({
             ))}
           </ul>
         )}
-        <button id="button-addon2" className="btn btn-secondary" type="submit">
-          <i className="fa-solid fa-magnifying-glass"></i>
-        </button>
       </div>
     </form>
   );

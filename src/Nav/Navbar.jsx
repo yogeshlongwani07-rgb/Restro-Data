@@ -11,6 +11,7 @@ import useAuthUtility from "../Auth/AuthenticationUtitlity";
 import NavbarBrand from "./NavbarBrand";
 import NavBarLinks from "./NavBarLinks";
 import AuthButtons from "../Auth/AuthButton";
+import ThemeToggle from "./ThemeToggle";
 
 function Navbar() {
   let { islocation, setIslocation } = useContext(locationContext);
@@ -179,6 +180,10 @@ function Navbar() {
                   </Link> */}
                 </div>
               )}
+            </div>
+
+            <div className="ms-2">
+              <ThemeToggle />
             </div>
 
             <AuthButtons

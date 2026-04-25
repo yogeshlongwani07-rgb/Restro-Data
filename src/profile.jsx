@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./css/profile.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const USER = {
   name: "Yogesh Longwani",
@@ -115,6 +115,7 @@ export default function Profile() {
   const [logoutConfirm, setLogoutConfirm] = useState(false);
   const [saved, setSaved] = useState(false);
   const { state } = useLocation();
+  const navigate = useNavigate();
   console.log(state?.hiUser);
 
   const handleSave = (field, value) => {
@@ -145,6 +146,14 @@ export default function Profile() {
 
   return (
     <div className="pf-root">
+      {/* ── Back Button ── */}
+      <div className="pf-back-bar">
+        <button className="pf-back-btn" onClick={() => navigate(-1)}>
+          <i className="fa-solid fa-arrow-left"></i>
+          Back
+        </button>
+      </div>
+
       {/* ── Hero ── */}
       <div className="pf-hero">
         <div className="pf-hero-bg" />

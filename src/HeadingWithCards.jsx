@@ -1,20 +1,14 @@
 import RestroCards from "./Restro/RestroCards";
+
 function HeadingWithCards({ restaurants, city, headline }) {
   return (
     <div>
       {restaurants.length === 0 ? null : (
-        <h2 className="headingWithCards text-center fw-normal text-muted fst-italic mt-5">
+        <h2 className="headingWithCards">
           {headline} <strong>{city}</strong>
         </h2>
       )}
-      <div
-        style={{
-          display: "flex",
-          gap: "30px",
-          flexWrap: "wrap",
-          justifyContent: "center",
-        }}
-      >
+      <div className="restro-grid">
         {restaurants.map((el) => (
           <RestroCards key={el.id} restro={el} />
         ))}

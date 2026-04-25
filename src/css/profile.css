@@ -813,3 +813,39 @@
     justify-content: center;
   }
 }
+
+/* ── Back button bar ── */
+.pf-back-bar {
+  padding: 20px 24px 0;
+  max-width: 780px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.pf-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-med);
+  background: var(--surface-card);
+  color: var(--ink-mid);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition);
+  box-shadow: var(--shadow-card);
+}
+
+.pf-back-btn:hover {
+  background: var(--brand-subtle);
+  color: var(--brand);
+  border-color: var(--border-brand);
+  transform: translateX(-2px);
+}
+
+.pf-back-btn i {
+  font-size: 13px;
+}

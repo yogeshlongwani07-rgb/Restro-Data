@@ -1,4 +1,3 @@
-import "../css/Navbar.css";
 export default function SignUpDai({
   xerror,
   setError,
@@ -9,69 +8,84 @@ export default function SignUpDai({
   register,
 }) {
   return (
-    <div className="modal fade show d-block">
-      <div className="modal-dialog modal-dialog-centered">
-        <div className="modal-content rounded-4 shadow">
-          <div className="modal-header">
-            <h5 className="modal-title fw-bold">
-              {xerror.length > 0 ? (
-                <p style={{ color: "#EF4444" }}>{xerror}</p>
-              ) : (
-                "Let’s begin 👋"
-              )}
-            </h5>
+    <>
+      {/* Backdrop */}
+      <div
+        className="dia-backdrop"
+        onClick={() => {
+          setError("");
+          setShowModal2(false);
+        }}
+      />
+
+      {/* Dialog */}
+      <div className="dia-wrapper">
+        <div className="dia-box" onClick={(e) => e.stopPropagation()}>
+          {/* Header */}
+          <div className="dia-header">
+            <div>
+              <div className="dia-eyebrow">Create account</div>
+              <h2 className="dia-title">
+                {xerror.length > 0 ? (
+                  <span className="dia-error">{xerror}</span>
+                ) : (
+                  "Join us today"
+                )}
+              </h2>
+            </div>
             <button
-              className="btn-close"
+              className="dia-close"
               onClick={() => {
                 setError("");
                 setShowModal2(false);
               }}
-            ></button>
+              aria-label="Close"
+            >
+              <i className="fa-solid fa-xmark"></i>
+            </button>
           </div>
 
-          <div className="modal-body">
-            <div className="form-floating mb-3">
+          {/* Body */}
+          <div className="dia-body">
+            <div className="dia-field">
+              <label className="dia-label">Your name</label>
               <input
-                type="name"
-                className="form-control"
-                id="name"
+                type="text"
+                className="dia-input"
                 name="name"
-                placeholder="Name"
+                placeholder="Full name"
                 value={signUpData.name}
                 onChange={inputHandle(setSignUpData)}
               />
-              <label>Your Name</label>
             </div>
-            <div className="form-floating mb-3">
+            <div className="dia-field">
+              <label className="dia-label">Email address</label>
               <input
                 type="email"
-                className="form-control"
-                id="email"
+                className="dia-input"
                 name="email"
-                placeholder="name@example.com"
+                placeholder="you@example.com"
                 value={signUpData.email}
                 onChange={inputHandle(setSignUpData)}
               />
-              <label>Email address</label>
             </div>
-
-            <div className="form-floating">
+            <div className="dia-field">
+              <label className="dia-label">Password</label>
               <input
                 type="password"
-                className="form-control"
-                id="password"
+                className="dia-input"
                 name="password"
-                placeholder="Password"
+                placeholder="Create a password"
                 value={signUpData.password}
                 onChange={inputHandle(setSignUpData)}
               />
-              <label>Password</label>
             </div>
           </div>
 
-          <div className="modal-footer">
+          {/* Footer */}
+          <div className="dia-footer">
             <button
-              className="btn btn-outline-secondary"
+              className="dia-btn-ghost"
               onClick={() => {
                 setError("");
                 setShowModal2(false);
@@ -79,13 +93,13 @@ export default function SignUpDai({
             >
               Cancel
             </button>
-
-            <button className="btn btn-success px-4" onClick={register}>
-              SignUp
+            <button className="dia-btn-primary" onClick={register}>
+              <i className="fa-solid fa-user-plus"></i>
+              Sign Up
             </button>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
