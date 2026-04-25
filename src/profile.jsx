@@ -1,42 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "./css/profile.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "./main";
 
-const USER = {
-  name: "Yogesh Longwani",
-  initials: "YL",
-  email: "Yogesh@gmail.com",
-  mobile: "+91 98765XXXX",
-  gender: "Not specified",
-  dob: "Not provided",
-  memberSince: "Recently joined",
-  totalOrders: 4,
-  totalSaved: 840,
-  addresses: [
-    {
-      id: 1,
-      tag: "Home",
-      icon: "🏠",
-      line1: "Plot 42, DLF Phase 2",
-      line2: "Sector 14, Gurugram, Haryana 122002",
-      default: true,
-    },
-    {
-      id: 2,
-      tag: "Work",
-      icon: "💼",
-      line1: "Unitech Cyber Park, Tower B, Floor 7",
-      line2: "Sector 39, Gurugram, Haryana 122003",
-      default: false,
-    },
-  ],
-  preferences: {
-    notifications: true,
-    smsUpdates: false,
-    promoEmails: true,
-  },
-  recentBadge: "🍔 Burger Lover",
-};
+function getInitials(name) {
+  if (!name) return "U";
+  const parts = name.trim().split(" ");
+  return parts.length >= 2
+    ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+    : parts[0][0].toUpperCase();
+}
 
 function EditModal({ field, label, value, onClose, onSave }) {
   const [val, setVal] = useState(value);
@@ -108,15 +81,35 @@ function AddressCard({ address, onSetDefault, onDelete }) {
 }
 
 export default function Profile() {
-  const [user, setUser] = useState(USER);
-  const [editModal, setEditModal] = useState(null); // { field, label, value }
-  const [addresses, setAddresses] = useState(USER.addresses);
-  const [prefs, setPrefs] = useState(USER.preferences);
+  const { user: authUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const defaultUser = {
+    name: authUser?.name || "Guest User",
+    initials: getInitials(authUser?.name || "Guest User"),
+    email: authUser?.email || "Not provided",
+    mobile: "Not provided",
+    gender: "Not specified",
+    dob: "Not provided",
+    memberSince: authUser ? "Recently joined" : "Not logged in",
+    totalOrders: 0,
+    totalSaved: 0,
+    recentBadge: "🍔 Burger Lover",
+  };
+
+  const defaultAddresses = [];
+  const defaultPrefs = {
+    notifications: true,
+    smsUpdates: false,
+    promoEmails: true,
+  };
+
+  const [user, setUser] = useState(defaultUser);
+  const [editModal, setEditModal] = useState(null);
+  const [addresses, setAddresses] = useState(defaultAddresses);
+  const [prefs, setPrefs] = useState(defaultPrefs);
   const [logoutConfirm, setLogoutConfirm] = useState(false);
   const [saved, setSaved] = useState(false);
-  const { state } = useLocation();
-  const navigate = useNavigate();
-  console.log(state?.hiUser);
 
   const handleSave = (field, value) => {
     setUser((u) => ({ ...u, [field]: value }));
@@ -259,9 +252,9 @@ export default function Profile() {
               Your delivery locations
             </p>
           </div>
-          <button className="pf-add-btn">
+          {/* <button className="pf-add-btn">
             <span>+</span> Add New
-          </button>
+          </button> */}
         </div>
 
         <div className="pf-address-list">
@@ -351,9 +344,9 @@ export default function Profile() {
           >
             <span>🚪</span> Log Out
           </button>
-          <button className="pf-btn-delete">
+          {/* <button className="pf-btn-delete">
             <span>🗑️</span> Delete Account
-          </button>
+          </button> */}
         </div>
       </div>
 

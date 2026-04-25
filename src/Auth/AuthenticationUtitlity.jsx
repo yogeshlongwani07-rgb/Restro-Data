@@ -29,6 +29,7 @@ export default function useAuthUtility({
       });
 
       const data = await res.json();
+      console.log("Signup response data:", data);
 
       if (!res.ok) {
         console.log("Backend error:", data);
@@ -41,7 +42,7 @@ export default function useAuthUtility({
 
       setUser({
         id: data.userId,
-        name: data.userName,
+        name: data.userName || signUpData.name,
       });
 
       setSignUpData({

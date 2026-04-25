@@ -13,7 +13,7 @@
   position: relative;
   padding: 72px 24px 56px;
   text-align: center;
-  overflow: hidden;
+  overflow: visible;
 }
 
 /* Decorative blobs */

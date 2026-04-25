@@ -103,7 +103,7 @@ function Navbar() {
     <>
       <nav className="navbar navbar-expand-lg bg-white shadow-sm py-3 border-bottom">
         <div className="container">
-          <NavbarBrand hiUser={hiUser} />
+          <NavbarBrand />
           <button
             className="navbar-toggler"
             type="button"
