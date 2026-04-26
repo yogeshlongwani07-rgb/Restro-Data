@@ -6,7 +6,7 @@
 .sp-root {
   min-height: 100vh;
   background: var(--surface);
-  padding: 100px 32px 60px;
+  padding: 32px 32px 60px;
   font-family: var(--font-body);
   max-width: 1280px;
   margin: 0 auto;
@@ -609,7 +609,7 @@
 }
 
 @media (max-width: 600px) {
-  .sp-root { padding: 80px 14px 36px; }
+  .sp-root { padding: 16px 14px 36px; }
   .sp-page-header { padding: 14px 16px; gap: 12px; }
   .sp-page-title { font-size: 1.3rem; }
   .sp-info-grid { grid-template-columns: 1fr; }

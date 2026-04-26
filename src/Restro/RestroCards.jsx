@@ -2,24 +2,24 @@ import "../css/RestroCards.css";
 import { Link } from "react-router-dom";
 export default function RestroCards({ restro }) {
   return (
-    <div>
-      <Link
-        to={`/Restro/${restro.id}/${restro.name}`}
-        state={{ restro }}
-        style={{ textDecoration: "none" }}
-      >
-        <div className="card yyz" style={{ width: "18rem" }}>
-          <div className="card-header">{restro.name} </div>
-          <ul className="list-group list-group-flush">
-            <li className="list-group-item">⭐ {restro.avgRating}</li>
-            <li className="list-group-item">Locality : {restro.locality}</li>
-            <li className="list-group-item">
-              Delivery Time: {restro.sla.slaString}
-            </li>
-          </ul>
+    <Link
+      to={`/Restro/${restro.id}/${restro.name}`}
+      state={{ restro }}
+      className="restro-card-link"
+    >
+      <div className="restro-card">
+        <div className="restro-card-body">
+          <h3 className="restro-card-name">{restro.name}</h3>
+          <div className="restro-card-meta">
+            <span className="restro-card-rating">⭐ {restro.avgRating}</span>
+            <span className="restro-card-dot">·</span>
+            <span className="restro-card-time">{restro.sla.slaString}</span>
+          </div>
+          <p className="restro-card-locality">📍 {restro.locality}</p>
         </div>
-      </Link>
-    </div>
+        <span className="restro-card-arrow">›</span>
+      </div>
+    </Link>
   );
 }
 

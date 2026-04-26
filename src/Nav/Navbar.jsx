@@ -37,8 +37,17 @@ function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
   const [themeHovered, setThemeHovered] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const moreRef = useRef(null);
   const themeLeaveTimer = useRef(null);
+
+  useEffect(() => {
+    function handleScroll() {
+      setScrolled(window.scrollY > 20);
+    }
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem("theme-pref") || "system";
@@ -101,7 +110,7 @@ function Navbar() {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-white shadow-sm py-3 border-bottom">
+      <nav className={`navbar navbar-expand-lg${scrolled ? " scrolled" : ""}`}>
         <div className="container">
           <NavbarBrand />
           <button

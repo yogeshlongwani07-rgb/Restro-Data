@@ -30,7 +30,7 @@
 .otw-root {
   max-width: 1140px;
   margin: 0 auto;
-  padding: 28px 24px 80px;
+  padding: 24px 24px 80px;
   font-family: var(--font-body);
   animation: otwFadeIn 0.5s ease both;
 }
@@ -799,5 +799,13 @@
 
   .otw-sheet {
     padding: 12px 20px 36px;
+  }
+}
+
+/* ── Extra: cart-fab mobile fixes ── */
+@media (max-width: 380px) {
+  .cart-fab-btn {
+    width: 290px;
+    padding: 14px 18px;
   }
 }

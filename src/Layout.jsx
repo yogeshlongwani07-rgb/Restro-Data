@@ -38,7 +38,7 @@ export default function Layout({ children, islocation, setIslocation }) {
         style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
       >
         <Navbar />
-        <main style={{ flex: 1, paddingTop: "50px" }}>{children}</main>
+        <main style={{ flex: 1, paddingTop: "88px" }}>{children}</main>
 
         {isHome ? (
           /* Home page: footer slides up from bottom on scroll-up */
