@@ -126,7 +126,7 @@ export default function OnTheWay() {
   return (
     <div className="otw-root">
       {/* ══════════ BACK BUTTON ══════════ */}
-      <button className="otw-back-btn" onClick={() => navigate(-1)}>
+      {/* <button className="otw-back-btn" onClick={() => navigate(-1)}>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
           <path
             d="M19 12H5M5 12L12 19M5 12L12 5"
@@ -137,7 +137,7 @@ export default function OnTheWay() {
           />
         </svg>
         Back
-      </button>
+      </button> */}
 
       {/* ══════════ HERO HEADER ══════════ */}
       <header className="otw-header">

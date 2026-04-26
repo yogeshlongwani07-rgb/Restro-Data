@@ -265,9 +265,9 @@ export default function RestroMenu() {
 
   return (
     <div className="rd-root">
-      <button className="rd-back" onClick={() => navigate(-1)}>
+      {/* <button className="rd-back" onClick={() => navigate(-1)}>
         Back
-      </button>
+      </button> */}
       <header className="rd-hero">
         <div>
           <h1 className="rd-title">{state.restro.name}</h1>

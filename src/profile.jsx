@@ -141,10 +141,10 @@ export default function Profile() {
     <div className="pf-root">
       {/* ── Back Button ── */}
       <div className="pf-back-bar">
-        <button className="pf-back-btn" onClick={() => navigate(-1)}>
+        {/* <button className="pf-back-btn" onClick={() => navigate(-1)}>
           <i className="fa-solid fa-arrow-left"></i>
           Back
-        </button>
+        </button> */}
       </div>
 
       {/* ── Hero ── */}

@@ -4,13 +4,6 @@ import Navbar from "./Nav/Navbar";
 import Footer from "./footer";
 import { locationContext } from "./functions/Context";
 
-/**
- * Layout wraps every page with:
- *  - Navbar (always visible at top)
- *  - Footer (always visible on all pages EXCEPT "/" home page)
- *  - On home page ("/") the footer is fixed at the bottom and only
- *    peeks in when the user scrolls UP (like a reveal-on-scroll-up footer)
- */
 export default function Layout({ children, islocation, setIslocation }) {
   const { pathname } = useLocation();
   const isHome = pathname === "/";

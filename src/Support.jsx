@@ -182,7 +182,7 @@ export default function Support() {
 
   return (
     <div className="sp-root">
-      <button className="sp-back-btn" onClick={() => navigate(-1)}>
+      {/* <button className="sp-back-btn" onClick={() => navigate(-1)}>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
           <path
             d="M19 12H5M5 12L12 19M5 12L12 5"
@@ -193,7 +193,7 @@ export default function Support() {
           />
         </svg>
         Back
-      </button>
+      </button> */}
 
       <div className="sp-page-header">
         <div className="sp-header-icon">🎧</div>

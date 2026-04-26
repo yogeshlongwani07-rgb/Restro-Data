@@ -200,7 +200,7 @@ function Navbar() {
                       onClick={() => setMoreOpen(false)}
                     >
                       <span className="more-item-icon">
-                        <i class="fa-solid fa-house"></i>
+                        <i className="fa-solid fa-house"></i>
                       </span>
                       <div>
                         <div className="more-item-title">Find Your Stay</div>
