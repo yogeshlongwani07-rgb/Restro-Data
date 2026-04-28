@@ -1,30 +1,6 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./css/onTheWay.css";
-
-/* ── Mock data (swap with real props/context) ── */
-const ORDER = {
-  id: "SWG-48291",
-  restaurant: "Sher-E-Punjab",
-  restroAddress: "Old Itarsi Road, Hoshangabad",
-  items: ["Margherita Pizza", "Pepperoni Pizza", "Veggie Supreme"],
-  total: "₹876",
-  placedAt: new Date(Date.now() - 8 * 60 * 1000), // 8 min ago
-};
-
-const PARTNER = {
-  name: "Arjun Verma",
-  phone: "+91 98XXX X4821",
-  rating: 4.8,
-  trips: 1243,
-  vehicle: "Honda Activa · MH 12 AX 4821",
-  avatar: "AV",
-};
-
-const DELIVERY = {
-  address: "B-204, Emerald Heights, Sector 65, Gurugram",
-  eta: 2, // minutes from now (initial)
-};
 
 /* ── Delivery stages ── */
 const STAGES = [
@@ -36,42 +12,88 @@ const STAGES = [
 
 /* ── Fake map waypoints (normalised 0-1 coords on our SVG canvas) ── */
 const ROUTE = [
-  { x: 0.18, y: 0.72 }, // restaurant
+  { x: 0.18, y: 0.72 },
   { x: 0.25, y: 0.58 },
   { x: 0.38, y: 0.48 },
   { x: 0.52, y: 0.4 },
   { x: 0.63, y: 0.34 },
   { x: 0.74, y: 0.3 },
-  { x: 0.82, y: 0.28 }, // home
+  { x: 0.82, y: 0.28 },
 ];
 
 function lerp(a, b, t) {
   return a + (b - a) * t;
 }
 
-export default function OnTheWay() {
+/* ─────────────────────────────────────────────
+   Props reference
+   ─────────────────────────────────────────────
+   order: {
+     id          : string   – e.g. "SWG-48291"
+     restaurant  : string   – restaurant name
+     restroAddress: string  – restaurant address
+     items       : string[] – item name strings
+     total       : string   – formatted total e.g. "₹876"
+     placedAt    : Date     – when order was placed
+   }
+   partner: {
+     name    : string
+     phone   : string
+     rating  : number
+     trips   : number
+     vehicle : string
+     avatar  : string       – initials e.g. "AV"
+   }
+   delivery: {
+     address : string       – customer delivery address
+     eta     : number       – minutes from now (initial ETA)
+   }
+   ───────────────────────────────────────────── */
+
+export default function OnTheWay({
+  order = {
+    id: "SWG-48291",
+    restaurant: "Sher-E-Punjab",
+    restroAddress: "Old Itarsi Road, Hoshangabad",
+    items: ["Margherita Pizza", "Pepperoni Pizza", "Veggie Supreme"],
+    total: "₹876",
+    placedAt: new Date(Date.now() - 8 * 60 * 1000),
+  },
+  partner = {
+    name: "Arjun Verma",
+    phone: "+91 98XXX X4821",
+    rating: 4.8,
+    trips: 1243,
+    vehicle: "Honda Activa · MH 12 AX 4821",
+    avatar: "AV",
+  },
+  delivery = {
+    address: "B-204, Emerald Heights, Sector 65, Gurugram",
+    eta: 2,
+  },
+}) {
   const navigate = useNavigate();
 
   /* ── ETA countdown ── */
-  const [eta, setEta] = useState(DELIVERY.eta * 60); // seconds
+  const [eta, setEta] = useState(delivery.eta * 60); // seconds
   useEffect(() => {
     const id = setInterval(() => setEta((s) => Math.max(0, s - 1)), 1000);
     return () => clearInterval(id);
-  }, []);
+  }, [delivery.eta]);
   const etaMins = Math.floor(eta / 60);
   const etaSecs = String(eta % 60).padStart(2, "0");
 
   /* ── Rider position along route ── */
   const [progress, setProgress] = useState(0); // 0→1
   useEffect(() => {
-    const total = DELIVERY.eta * 60 * 1000;
+    const total = delivery.eta * 60 * 1000;
     const start = Date.now();
     const id = setInterval(() => {
       const elapsed = Date.now() - start;
       setProgress(Math.min(1, elapsed / total));
     }, 200);
     return () => clearInterval(id);
-  }, []);
+  }, [delivery.eta]);
 
   /* Compute rider XY from progress along polyline */
   const riderPos = (() => {
@@ -108,7 +130,7 @@ export default function OnTheWay() {
     Math.floor(progress * (ROUTE.length - 1)),
     ROUTE.length - 2,
   );
-  const travelledPts = ROUTE.slice(0, travelledIdx + 2).map((p, i, arr) => {
+  const travelledPts = ROUTE.slice(0, travelledIdx + 2).map((p, i) => {
     if (i < travelledIdx) return p;
     const seg = progress * (ROUTE.length - 1);
     const t = seg - travelledIdx;
@@ -123,22 +145,13 @@ export default function OnTheWay() {
     .map((p, i) => `${i === 0 ? "M" : "L"} ${p.x * W} ${p.y * H}`)
     .join(" ");
 
+  /* ── Minutes since order was placed ── */
+  const minutesAgo = Math.round(
+    (Date.now() - new Date(order.placedAt)) / 60000,
+  );
+
   return (
     <div className="otw-root">
-      {/* ══════════ BACK BUTTON ══════════ */}
-      {/* <button className="otw-back-btn" onClick={() => navigate(-1)}>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-          <path
-            d="M19 12H5M5 12L12 19M5 12L12 5"
-            stroke="currentColor"
-            strokeWidth="2.2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-        Back
-      </button> */}
-
       {/* ══════════ HERO HEADER ══════════ */}
       <header className="otw-header">
         <div className="otw-header-center">
@@ -281,26 +294,29 @@ export default function OnTheWay() {
           </g>
 
           {/* ── Rider dot with pulse ── */}
+          {/* ── Rider dot with pulse ── */}
           <g transform={`translate(${riderPos.x * W}, ${riderPos.y * H})`}>
+            {/* pulse ring */}
             <circle
-              r={pulse ? 28 : 22}
+              r={pulse ? 32 : 24}
               fill="#E8572A"
               opacity="0.15"
               style={{ transition: "r 0.9s ease" }}
             />
+            {/* white background circle */}
             <circle
-              r="16"
-              fill="#E8572A"
-              stroke="#fff"
-              strokeWidth="3"
+              r="20"
+              fill="#fff"
+              stroke="#E8572A"
+              strokeWidth="2.5"
               filter="url(#shadow)"
             />
-            <text textAnchor="middle" dominantBaseline="central" fontSize="13">
+            {/* bike emoji — now visible on white bg */}
+            <text textAnchor="middle" dominantBaseline="central" fontSize="20">
               🛵
             </text>
           </g>
 
-          {/* Shadow filter */}
           <defs>
             <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
               <feDropShadow
@@ -336,7 +352,6 @@ export default function OnTheWay() {
           </text>
         </svg>
 
-        {/* Map attribution badge */}
         <div className="otw-map-badge">📍 Live Route</div>
       </div>
 
@@ -352,18 +367,18 @@ export default function OnTheWay() {
 
             <div className="otw-partner-body">
               <div className="otw-avatar-wrap">
-                <div className="otw-avatar">{PARTNER.avatar}</div>
+                <div className="otw-avatar">{partner.avatar}</div>
                 <div className="otw-avatar-online" />
               </div>
 
               <div className="otw-partner-info">
-                <p className="otw-partner-name">{PARTNER.name}</p>
+                <p className="otw-partner-name">{partner.name}</p>
                 <div className="otw-partner-meta">
-                  <span className="otw-star">⭐ {PARTNER.rating}</span>
+                  <span className="otw-star">⭐ {partner.rating}</span>
                   <span className="otw-dot-sep">·</span>
-                  <span>{PARTNER.trips.toLocaleString()} trips</span>
+                  <span>{partner.trips.toLocaleString()} trips</span>
                 </div>
-                <p className="otw-vehicle">{PARTNER.vehicle}</p>
+                <p className="otw-vehicle">{partner.vehicle}</p>
               </div>
 
               <div className="otw-contact-btns">
@@ -391,7 +406,7 @@ export default function OnTheWay() {
           <div className="otw-card otw-progress-card">
             <div className="otw-card-head">
               <h3>Order Progress</h3>
-              <span className="otw-order-id">#{ORDER.id}</span>
+              <span className="otw-order-id">#{order.id}</span>
             </div>
 
             <div className="otw-stages">
@@ -433,21 +448,21 @@ export default function OnTheWay() {
 
             <div className="otw-address-body">
               <div className="otw-address-icon">📍</div>
-              <p className="otw-address-text">{DELIVERY.address}</p>
+              <p className="otw-address-text">{delivery.address}</p>
             </div>
 
             <div className="otw-address-meta">
               <div className="otw-address-row">
                 <span className="otw-addr-label">Phone</span>
-                <span className="otw-addr-val">{PARTNER.phone}</span>
+                <span className="otw-addr-val">{partner.phone}</span>
               </div>
               <div className="otw-address-row">
                 <span className="otw-addr-label">Order ID</span>
-                <span className="otw-addr-val">#{ORDER.id}</span>
+                <span className="otw-addr-val">#{order.id}</span>
               </div>
               <div className="otw-address-row">
                 <span className="otw-addr-label">From</span>
-                <span className="otw-addr-val">{ORDER.restaurant}</span>
+                <span className="otw-addr-val">{order.restaurant}</span>
               </div>
             </div>
           </div>
@@ -456,11 +471,11 @@ export default function OnTheWay() {
           <div className="otw-card otw-summary-card">
             <div className="otw-card-head">
               <h3>Order Summary</h3>
-              <span className="otw-total-pill">{ORDER.total}</span>
+              <span className="otw-total-pill">{order.total}</span>
             </div>
 
             <ul className="otw-items-list">
-              {ORDER.items.map((item, i) => (
+              {order.items.map((item, i) => (
                 <li key={i} className="otw-item-row">
                   <span className="otw-item-dot" />
                   <span className="otw-item-name">{item}</span>
@@ -469,10 +484,9 @@ export default function OnTheWay() {
             </ul>
 
             <div className="otw-summary-footer">
-              <span className="otw-from-line">From {ORDER.restaurant}</span>
+              <span className="otw-from-line">From {order.restaurant}</span>
               <span className="otw-placed-line">
-                Placed {Math.round((Date.now() - ORDER.placedAt) / 60000)} min
-                ago
+                Placed {minutesAgo} min ago
               </span>
             </div>
           </div>
@@ -497,9 +511,9 @@ export default function OnTheWay() {
 
             {sheet === "call" ? (
               <>
-                <div className="otw-sheet-avatar">{PARTNER.avatar}</div>
-                <p className="otw-sheet-name">{PARTNER.name}</p>
-                <p className="otw-sheet-phone">{PARTNER.phone}</p>
+                <div className="otw-sheet-avatar">{partner.avatar}</div>
+                <p className="otw-sheet-name">{partner.name}</p>
+                <p className="otw-sheet-phone">{partner.phone}</p>
                 <a href="#" className="otw-sheet-cta otw-sheet-call">
                   📞 Call Now
                 </a>
@@ -512,8 +526,8 @@ export default function OnTheWay() {
               </>
             ) : (
               <>
-                <div className="otw-sheet-avatar">{PARTNER.avatar}</div>
-                <p className="otw-sheet-name">Message {PARTNER.name}</p>
+                <div className="otw-sheet-avatar">{partner.avatar}</div>
+                <p className="otw-sheet-name">Message {partner.name}</p>
                 <div className="otw-quick-msgs">
                   {[
                     "Please call on arrival 🔔",

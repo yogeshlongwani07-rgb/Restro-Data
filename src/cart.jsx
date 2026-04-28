@@ -5,6 +5,11 @@ import { AuthContext } from "./main";
 
 export default function Cart() {
   const { state } = useLocation();
+  const {
+    items,
+    restaurantName = "Restaurant",
+    restaurantAddress = "",
+  } = state ?? {};
   const navigate = useNavigate();
   const { user: authUser } = useContext(AuthContext);
 
@@ -28,7 +33,7 @@ export default function Cart() {
     return Object.values(map);
   };
 
-  const [cart, setCart] = useState(() => buildCart(state));
+  const [cart, setCart] = useState(() => buildCart(items));
   const [instruction, setInstruction] = useState("");
   const [showInstruction, setShowInstruction] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
@@ -37,7 +42,7 @@ export default function Cart() {
 
   /* ── derived totals ── */
   const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
-  const delivery = subtotal > 0 ? 39 : 0;
+  const delivery = subtotal > 299 ? 0 : 39;
   const taxes = Math.round(subtotal * 0.05);
   const total = subtotal + delivery + taxes;
 
@@ -66,7 +71,30 @@ export default function Cart() {
     setTimeout(() => {
       setConfirmed(false);
       setConfettiList([]);
-      navigate("/onTheWay");
+      navigate("/onTheWay", {
+        state: {
+          order: {
+            id: `SWG-${Math.floor(10000 + Math.random() * 90000)}`,
+            restaurant: restaurantName,
+            restroAddress: restaurantAddress,
+            items: cart.map((i) => i.name),
+            total: `₹${total.toLocaleString("en-IN")}`,
+            placedAt: new Date(),
+          },
+          partner: {
+            name: "Arjun Verma",
+            phone: "+91 98XXX X4821",
+            rating: 4.8,
+            trips: 1243,
+            vehicle: "Honda Activa · MH 12 AX 4821",
+            avatar: "AV",
+          },
+          delivery: {
+            address: CUSTOMER.address,
+            eta: 22,
+          },
+        },
+      });
     }, 5000);
   };
 

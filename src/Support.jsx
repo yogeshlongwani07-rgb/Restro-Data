@@ -86,6 +86,7 @@ const QUICK = [
 
 function getSmartReply(text, order) {
   const t = text.toLowerCase();
+
   if (
     t.includes("where") ||
     t.includes("track") ||
@@ -96,24 +97,90 @@ function getSmartReply(text, order) {
       return `Your order #${order.id} was successfully delivered on ${order.date} in ${order.deliveryTime}. Hope you enjoyed your meal!`;
     return `Your order #${order.id} is currently on its way! Estimated arrival is within 20-30 minutes.`;
   }
+
   if (t.includes("missing") || t.includes("wrong") || t.includes("item")) {
     return `Sorry to hear that! For order #${order.id}, please describe which item was missing. We will arrange a replacement or refund within 24 hours.`;
   }
+
   if (t.includes("refund") || t.includes("money") || t.includes("payment")) {
     return `For order #${order.id} (paid via ${order.paymentMode}), refunds are processed within 5-7 business days. Shall I initiate a refund request?`;
   }
+
   if (t.includes("address") || t.includes("deliver")) {
     return `Your order #${order.id} is set for delivery to: "${order.address}". If not picked up yet, I can try to update the address.`;
   }
+
   if (t.includes("late") || t.includes("delay")) {
     return `We apologize for the delay! As a goodwill gesture, we will add 50 credits to your account.`;
   }
+
   if (t.includes("rate") || t.includes("review") || t.includes("rating")) {
     return `Thanks for rating your order from ${order.restaurant}! Your feedback helps us serve you better. ⭐`;
   }
+
+  // Added 20+ more replies
+
+  if (t.includes("cancel"))
+    return `Order #${order.id} can be cancelled only before preparation starts. Would you like me to check cancellation eligibility?`;
+
+  if (t.includes("coupon") || t.includes("discount") || t.includes("offer"))
+    return `If a coupon was missed on order #${order.id}, please share the code used and we’ll review it for you.`;
+
+  if (t.includes("invoice") || t.includes("bill") || t.includes("receipt"))
+    return `Your invoice for order #${order.id} can be downloaded from the Orders section.`;
+
+  if (t.includes("driver") || t.includes("rider") || t.includes("delivery boy"))
+    return `Your delivery partner for order #${order.id} is assigned and heading your way.`;
+
+  if (t.includes("contact") || t.includes("call"))
+    return `You can contact the delivery partner from the live tracking page once the order is picked up.`;
+
+  if (t.includes("change item") || t.includes("modify"))
+    return `Changes to order #${order.id} may be possible before preparation starts.`;
+
+  if (t.includes("extra spicy") || t.includes("less spicy"))
+    return `Special cooking requests for order #${order.id} depend on restaurant approval.`;
+
+  if (t.includes("not delivered"))
+    return `Sorry about that. We are checking the delivery status of order #${order.id} right now.`;
+
+  if (t.includes("cold food"))
+    return `We’re sorry your food was not hot enough. We’ll review order #${order.id} and assist you.`;
+
+  if (t.includes("bad food") || t.includes("quality"))
+    return `Sorry to hear that. Your complaint for order #${order.id} has been noted for quality review.`;
+
+  if (t.includes("packaging") || t.includes("spill"))
+    return `We apologize for the packaging issue with order #${order.id}.`;
+
+  if (t.includes("tip"))
+    return `Tips for your delivery partner can be added from the order summary page.`;
+
+  if (t.includes("pickup"))
+    return `Order #${order.id} is marked as delivery. Pickup changes depend on restaurant approval.`;
+
+  if (t.includes("restaurant"))
+    return `Your order #${order.id} was placed from ${order.restaurant}.`;
+
+  if (t.includes("time taken"))
+    return `Order #${order.id} is expected within ${order.deliveryTime}.`;
+
+  if (t.includes("resend"))
+    return `We can resend your invoice or order details for order #${order.id}.`;
+
+  if (t.includes("complaint"))
+    return `Your complaint regarding order #${order.id} has been registered with support.`;
+
+  if (t.includes("help"))
+    return `I’m here to help with tracking, refunds, delays, missing items, and more for order #${order.id}.`;
+
+  if (t.includes("hi") || t.includes("hello") || t.includes("hey"))
+    return `Hello! 👋 How can I help you with order #${order.id}?`;
+
   if (t.includes("thanks") || t.includes("ok") || t.includes("great")) {
     return `You are welcome! Is there anything else I can assist you with for order #${order.id}?`;
   }
+
   return `Thanks for reaching out about order #${order.id}. I have noted your concern. Our support team will review this within 2 hours.`;
 }
 

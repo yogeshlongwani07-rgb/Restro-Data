@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import App from "./App.jsx";
 import RestroMenu from "./Restro/RestroMenu.jsx";
 import Cities from "./Cities.jsx";
@@ -59,6 +59,11 @@ function AuthProvider({ children }) {
   );
 }
 
+function OnTheWayRoute() {
+  const { state } = useLocation();
+  return <OnTheWay {...(state ?? {})} />;
+}
+
 function Root() {
   const [islocation, setIslocation] = useState(false);
 
@@ -82,7 +87,8 @@ function Root() {
           <Route path="/Restro/cities" element={<Cities />} />
           <Route path="*" element={<NopageFound />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/onTheWay" element={<OnTheWay />} />
+          <Route path="/onTheWay" element={<OnTheWayRoute />} />
+
           <Route path="/profile" element={<Profile />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/terms" element={<Terms />}></Route>

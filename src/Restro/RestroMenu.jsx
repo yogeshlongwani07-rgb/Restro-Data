@@ -33,66 +33,170 @@ function RestroSupportChat({ onClose, restaurantName }) {
       chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
     }
   }, [messages, typing]);
-
   function getSmartReply(text) {
-    const t = text.toLowerCase();
-    if (
-      t.includes("hour") ||
-      t.includes("open") ||
-      t.includes("close") ||
-      t.includes("time")
-    )
-      return `${restaurantName} is open daily from 10:00 AM to 11:00 PM. Orders placed before 10:45 PM will be accepted for same-day delivery.`;
-    if (
-      t.includes("veg") ||
-      t.includes("vegetarian") ||
-      t.includes("vegan") ||
-      t.includes("jain")
-    )
-      return `Yes! ${restaurantName} offers a wide range of vegetarian options. All vegetarian items are clearly marked with a green dot on the menu. Jain options are available on request.`;
-    if (
-      t.includes("delivery") ||
-      t.includes("long") ||
-      t.includes("time") ||
-      t.includes("eta") ||
-      t.includes("fast")
-    )
-      return `Delivery from ${restaurantName} typically takes 25–40 minutes depending on your distance and current order volume. You'll see a live ETA once your order is confirmed.`;
-    if (
-      t.includes("discount") ||
-      t.includes("offer") ||
-      t.includes("coupon") ||
-      t.includes("promo") ||
-      t.includes("deal")
-    )
-      return `🎉 Current offers: Use code FIRST50 for 50% off your first order (up to ₹100). Members also get 10% cashback every weekend!`;
-    if (
-      t.includes("minimum") ||
-      t.includes("min order") ||
-      t.includes("order value")
-    )
-      return `The minimum order value for ${restaurantName} is ₹149. Free delivery is available on orders above ₹299.`;
-    if (
-      t.includes("allerg") ||
-      t.includes("nut") ||
-      t.includes("gluten") ||
-      t.includes("dairy")
-    )
-      return `For allergen information, please check individual item descriptions or contact the restaurant directly. You can add allergy notes in your order before checkout.`;
-    if (t.includes("cancel") || t.includes("refund"))
-      return `You can cancel your order within 2 minutes of placing it for a full refund. After that, please go to Orders > Chat Support for assistance.`;
-    if (t.includes("track") || t.includes("where") || t.includes("order"))
-      return `Once you place your order, you can track it live on the "On The Way" page. You'll also get SMS and in-app notifications at each stage.`;
-    if (
-      t.includes("thanks") ||
-      t.includes("thank") ||
-      t.includes("ok") ||
-      t.includes("great")
-    )
-      return `Happy to help! 😊 Enjoy your meal from ${restaurantName}! Is there anything else you'd like to know?`;
-    return `Thanks for your question! Our support team will get back to you within 30 minutes. You can also browse the menu or check our FAQ for quick answers. Anything else I can help with?`;
-  }
+    const t = (text || "").toLowerCase().trim();
 
+    const hasAny = (keywords) => keywords.some((k) => t.includes(k));
+
+    // Greetings
+    if (
+      hasAny([
+        "hi",
+        "hello",
+        "hey",
+        "hii",
+        "hola",
+        "good morning",
+        "good afternoon",
+        "good evening",
+      ])
+    ) {
+      return `Hi! 👋 Welcome to ${restaurantName}. How can I help you today?`;
+    }
+
+    // Bye
+    if (hasAny(["bye", "goodbye", "see you", "later"])) {
+      return `Thanks for visiting ${restaurantName}. Hope to serve you again soon! 👋`;
+    }
+
+    // How are you
+    if (hasAny(["how are you", "how r you", "how's it going"])) {
+      return `I'm doing great and ready to help you with ${restaurantName}! 😊`;
+    }
+
+    // Hours
+    if (hasAny(["hour", "open", "close", "time", "timing"])) {
+      return `${restaurantName} is open daily from 10:00 AM to 11:00 PM.`;
+    }
+
+    // Veg
+    if (hasAny(["veg", "vegetarian", "vegan", "jain"])) {
+      return `Yes! ${restaurantName} offers many vegetarian options. Jain options are available on request.`;
+    }
+
+    // Delivery
+    if (hasAny(["delivery", "eta", "fast", "late", "how long"])) {
+      return `Delivery usually takes 25–40 minutes depending on distance and order volume.`;
+    }
+
+    // Offers
+    if (hasAny(["discount", "offer", "coupon", "promo", "deal"])) {
+      return `🎉 Use code FIRST50 for 50% off your first order (up to ₹100).`;
+    }
+
+    // Minimum order
+    if (hasAny(["minimum", "min order", "free delivery"])) {
+      return `Minimum order is ₹149. Free delivery on orders above ₹299.`;
+    }
+
+    // Allergies
+    if (hasAny(["allerg", "nut", "gluten", "dairy"])) {
+      return `Please check item descriptions for allergen info or add notes before checkout.`;
+    }
+
+    // Cancel / Refund
+    if (hasAny(["cancel", "refund"])) {
+      return `You can cancel within 2 minutes for a full refund.`;
+    }
+
+    // Track order
+    if (hasAny(["track", "where is my order", "status"])) {
+      return `You can track your order live from the Orders page.`;
+    }
+
+    // Payment
+    if (hasAny(["payment", "upi", "cash", "card", "wallet"])) {
+      return `We accept UPI, cards, wallets, and Cash on Delivery where available.`;
+    }
+
+    // Best seller
+    if (hasAny(["best", "popular", "top item", "recommended"])) {
+      return `Our bestsellers are Chef Special Burger, Paneer Wrap, and Loaded Fries.`;
+    }
+
+    // Spicy
+    if (hasAny(["spicy", "less spicy", "mild"])) {
+      return `Many dishes can be customized for spice level. Add notes before checkout.`;
+    }
+
+    // Combo
+    if (hasAny(["combo", "meal deal", "family pack"])) {
+      return `Yes! We offer combo meals and family packs at great prices.`;
+    }
+
+    // Freshness
+    if (hasAny(["fresh", "frozen", "quality"])) {
+      return `We prepare orders fresh using quality ingredients whenever possible.`;
+    }
+
+    // Ingredients
+    if (hasAny(["ingredient", "made of", "contains"])) {
+      return `Please check the menu item description for ingredients or ask support.`;
+    }
+
+    // Address
+    if (hasAny(["address", "located", "location", "where are you"])) {
+      return `${restaurantName} location details are available on the restaurant info page.`;
+    }
+
+    // Reservation
+    if (hasAny(["book table", "reservation", "reserve"])) {
+      return `Currently this page supports online ordering only. Please contact the restaurant directly for table reservations.`;
+    }
+
+    // Pickup
+    if (hasAny(["pickup", "takeaway", "self pickup"])) {
+      return `Yes, self-pickup may be available depending on your location.`;
+    }
+
+    // Packaging
+    if (hasAny(["packaging", "packed", "safe packing"])) {
+      return `Orders are securely packed to maintain hygiene and freshness.`;
+    }
+
+    // Kids
+    if (hasAny(["kids", "child", "children"])) {
+      return `We have several kid-friendly options available in the menu.`;
+    }
+
+    // Healthy
+    if (hasAny(["healthy", "diet", "low calorie"])) {
+      return `We offer salads, grilled items, and lighter meal options too.`;
+    }
+
+    // Birthday
+    if (hasAny(["birthday", "party", "celebration"])) {
+      return `Planning a celebration? We also offer group meals and party combos.`;
+    }
+
+    // Bulk order
+    if (hasAny(["bulk", "corporate", "office order", "large order"])) {
+      return `Yes! Bulk and corporate orders are available. Please contact support for assistance.`;
+    }
+
+    // App issue
+    if (hasAny(["not working", "error", "bug", "issue", "problem"])) {
+      return `Sorry for the inconvenience. Please refresh the page or contact support if the issue continues.`;
+    }
+
+    // Slow website
+    if (hasAny(["slow app", "lag", "loading"])) {
+      return `We're sorry for the delay. Please refresh once or check your internet connection.`;
+    }
+
+    // Contact support
+    if (hasAny(["support", "help", "agent", "customer care"])) {
+      return `Our support team is available to help you. Please use the Help section in the app.`;
+    }
+
+    // Thank you
+    if (hasAny(["thanks", "thank you", "ok", "great", "nice"])) {
+      return `Happy to help! 😊 Enjoy your meal from ${restaurantName}!`;
+    }
+
+    // Fallback
+    return `Thanks for your message! Our support team will get back to you shortly. Anything else I can help with?`;
+  }
   const sendMsg = (text) => {
     if (!text.trim()) return;
     const now = new Date().toLocaleTimeString([], {
@@ -410,7 +514,14 @@ export default function RestroMenu() {
 
       {/* ── Cart FAB ── */}
       {totalItems > 0 && (
-        <Link to={"/cart"} state={cart}>
+        <Link
+          to={"/cart"}
+          state={{
+            items: cart,
+            restaurantName: state.restro.name,
+            restaurantAddress: state.restro.locality,
+          }}
+        >
           <div className="cart-fab visible">
             <button className="cart-fab-btn">
               <div className="cart-fab-left">
