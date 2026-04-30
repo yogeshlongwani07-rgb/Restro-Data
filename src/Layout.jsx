@@ -8,7 +8,6 @@ export default function Layout({ children, islocation, setIslocation }) {
   const { pathname } = useLocation();
   const isHome = pathname === "/";
 
-  /* Track scroll direction for home-page footer reveal */
   const [footerVisible, setFooterVisible] = useState(false);
   const lastScrollY = useRef(0);
 
@@ -20,7 +19,6 @@ export default function Layout({ children, islocation, setIslocation }) {
       const scrollingUp = currentY < lastScrollY.current;
       lastScrollY.current = currentY;
 
-      // Show footer only when scrolling UP and not at very top
       if (scrollingUp && currentY > 60) {
         setFooterVisible(true);
       } else {
@@ -41,7 +39,6 @@ export default function Layout({ children, islocation, setIslocation }) {
         <main style={{ flex: 1, paddingTop: "88px" }}>{children}</main>
 
         {isHome ? (
-          /* Home page: footer slides up from bottom on scroll-up */
           <div
             style={{
               position: "fixed",
@@ -57,7 +54,6 @@ export default function Layout({ children, islocation, setIslocation }) {
             <Footer />
           </div>
         ) : (
-          /* All other pages: footer sits naturally at bottom */
           <Footer />
         )}
       </div>

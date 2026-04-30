@@ -98,7 +98,6 @@ export default function Cart() {
     }, 5000);
   };
 
-  /* focus textarea when shown */
   useEffect(() => {
     if (showInstruction && instructionRef.current) {
       instructionRef.current.focus();
@@ -122,7 +121,6 @@ export default function Cart() {
 
   return (
     <>
-      {/* ── Confirmation overlay ── */}
       {confirmed && (
         <div className="confirm-overlay">
           {confettiList.map((p) => (
@@ -174,13 +172,11 @@ export default function Cart() {
       )}
 
       <div className="cart-root">
-        {/* ── Back ── */}
         <button className="rd-back" onClick={() => navigate(-1)}>
           Back to Menu
         </button>
 
         <div className="cart-layout">
-          {/* ════════ LEFT COLUMN ════════ */}
           <div className="cart-left">
             {/* ── Items card ── */}
             <div className="cart-card">
@@ -205,7 +201,6 @@ export default function Cart() {
                     </div>
 
                     <div className="cart-item-right">
-                      {/* qty stepper */}
                       <div className="qty-stepper">
                         <button
                           className="qty-btn"
@@ -231,7 +226,6 @@ export default function Cart() {
                 ))}
               </ul>
 
-              {/* ── Add Instructions ── */}
               <div className="instruction-wrap">
                 {!showInstruction ? (
                   <button
@@ -271,7 +265,6 @@ export default function Cart() {
               </div>
             </div>
 
-            {/* ── Delivery address card ── */}
             <div className="cart-card">
               <div className="cart-card-head">
                 <h2>Delivery Details</h2>
@@ -299,7 +292,6 @@ export default function Cart() {
             </div>
           </div>
 
-          {/* ════════ RIGHT COLUMN (sticky) ════════ */}
           <div className="cart-right">
             <div className="bill-card">
               <h3 className="bill-title">Bill Summary</h3>
@@ -328,7 +320,6 @@ export default function Cart() {
                 </span>
               </div>
 
-              {/* ── Payment buttons ── */}
               <p className="pay-label">Choose payment</p>
               <div className="pay-btns">
                 <button className="pay-btn upi-btn" onClick={handlePay}>
@@ -353,7 +344,6 @@ export default function Cart() {
               </p>
             </div>
 
-            {/* ── Offer strip ── */}
             <div className="offer-strip">
               <span className="offer-tag">🎉 OFFER</span>
               <span className="offer-text">
