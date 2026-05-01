@@ -134,7 +134,6 @@ export default function RestroName() {
   }, [routeCity]);
   return (
     <div className="xyz">
-      {/* ── Hero ── */}
       {!serached && (
         <div className="home-hero">
           <div className="home-hero-eyebrow">
@@ -181,7 +180,6 @@ export default function RestroName() {
           />
         </div>
       )}
-      {/* ── Results ── */}
       <div className="card-container">
         {!serached && <EmptyState />}
 
@@ -202,3 +200,5 @@ export default function RestroName() {
     </div>
   );
 }
+
+//done

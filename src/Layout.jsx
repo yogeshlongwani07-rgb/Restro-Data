@@ -60,3 +60,5 @@ export default function Layout({ children, islocation, setIslocation }) {
     </locationContext.Provider>
   );
 }
+
+// function done

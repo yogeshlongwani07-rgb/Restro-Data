@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import restaurantMenu from "../Data/MenuData";
 import { useState, useRef, useEffect } from "react";
 
-// Smart support chat for RestroMenu page
+//chat bot AI specific for menu or restro
 function RestroSupportChat({ onClose, restaurantName }) {
   const chatBodyRef = useRef(null);
   const QUICK = [
@@ -38,7 +38,6 @@ function RestroSupportChat({ onClose, restaurantName }) {
 
     const hasAny = (keywords) => keywords.some((k) => t.includes(k));
 
-    // Greetings
     if (
       hasAny([
         "hi",
@@ -232,7 +231,6 @@ function RestroSupportChat({ onClose, restaurantName }) {
         onClick={(e) => e.stopPropagation()}
         style={{ padding: 0, maxWidth: 420, width: "95vw" }}
       >
-        {/* Header */}
         <div
           className="chat-header"
           style={{ padding: "14px 16px", borderBottom: "1px solid #f0f0f0" }}
@@ -254,8 +252,6 @@ function RestroSupportChat({ onClose, restaurantName }) {
             ✕
           </button>
         </div>
-
-        {/* Body */}
         <div
           className="chat-body"
           ref={chatBodyRef}
@@ -287,8 +283,6 @@ function RestroSupportChat({ onClose, restaurantName }) {
             </div>
           )}
         </div>
-
-        {/* Quick replies */}
         <div className="chat-quick-row" style={{ padding: "6px 14px" }}>
           {QUICK.map((q) => (
             <button
@@ -300,8 +294,6 @@ function RestroSupportChat({ onClose, restaurantName }) {
             </button>
           ))}
         </div>
-
-        {/* Input */}
         <div
           className="chat-input-row"
           style={{ padding: "10px 14px", borderTop: "1px solid #f0f0f0" }}
@@ -360,7 +352,6 @@ export default function RestroMenu() {
     });
   }
 
-  /* Build flat cart array from qtys map (Cart.jsx expects array of items) */
   const cart = restaurantMenu.items.flatMap((item) =>
     Array(qtys[item.id] || 0).fill(item),
   );
@@ -379,7 +370,7 @@ export default function RestroMenu() {
 
           <div className="rd-badges">
             <div className="rd-badge">
-              ⭐⭐⭐⭐☆{" "}
+              ⭐⭐⭐⭐☆
               <span className="rating-number">{state.restro.avgRating}</span>
             </div>
 
@@ -425,7 +416,6 @@ export default function RestroMenu() {
         </div>
       </header>
 
-      {/* ── Menu ── */}
       <main className="rd-main">
         <section className="rd-menu-col">
           <div className="category-card">
@@ -449,7 +439,6 @@ export default function RestroMenu() {
                       <div className="item-price">₹{el.price}</div>
 
                       {qty === 0 ? (
-                        /* ── First tap: plain Add button ── */
                         <button
                           className="cta menu-add-btn"
                           onClick={() => increment(el)}
@@ -457,7 +446,6 @@ export default function RestroMenu() {
                           Add
                         </button>
                       ) : (
-                        /* ── After first tap: stepper replaces the button ── */
                         <div className="menu-stepper">
                           <button
                             className="menu-step-btn"
@@ -484,7 +472,6 @@ export default function RestroMenu() {
           </div>
         </section>
 
-        {/* ── Aside ── */}
         <aside className="rd-aside">
           <div className="aside-card">
             <h4>About</h4>
@@ -512,7 +499,6 @@ export default function RestroMenu() {
         />
       )}
 
-      {/* ── Cart FAB ── */}
       {totalItems > 0 && (
         <Link
           to={"/cart"}
@@ -544,3 +530,5 @@ export default function RestroMenu() {
     </div>
   );
 }
+
+//increment - decrement and flatmap

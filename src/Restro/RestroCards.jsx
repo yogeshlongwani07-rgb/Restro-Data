@@ -57,3 +57,5 @@ export default function RestroCards({ restro }) {
 //     </div>
 //   );
 // }
+
+//need to check how the compent is called and props

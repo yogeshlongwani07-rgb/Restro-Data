@@ -14,3 +14,5 @@ export default function Shimmer() {
     </div>
   );
 }
+
+//function done

@@ -85,3 +85,5 @@ export default function Terms() {
     </div>
   );
 }
+
+// terms function - done

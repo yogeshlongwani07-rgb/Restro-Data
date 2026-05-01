@@ -5,7 +5,6 @@ export default function Footer() {
   return (
     <footer className="ft-root">
       <div className="ft-wrap">
-        {/* Navigation Links */}
         <div className="ft-links">
           <Link to="/">🏠 Home</Link>
           <Link to="/profile">👤 Profile</Link>
@@ -19,10 +18,10 @@ export default function Footer() {
             🏠 Find Your Stay
           </a>
         </div>
-
-        {/* Copyright */}
         <div className="ft-bottom">© 2025 All rights reserved.</div>
       </div>
     </footer>
   );
 }
+
+//function done
