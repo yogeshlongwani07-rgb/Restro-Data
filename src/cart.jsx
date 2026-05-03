@@ -13,14 +13,13 @@ export default function Cart() {
   const navigate = useNavigate();
   const { user: authUser } = useContext(AuthContext);
 
-  /* Use real logged-in user if available, otherwise fallback */
+  //Use real logged-in user if available
   const CUSTOMER = {
     name: authUser?.name || "Guest",
     phone: authUser?.phone || "XXXXXXXXXX",
     address: "B-204, Emerald Heights, Sector 65, Gurugram, Haryana – 122018",
   };
 
-  /* normalise incoming items — each item may appear multiple times */
   const buildCart = (items) => {
     const map = {};
     (items || []).forEach((item) => {
@@ -40,13 +39,11 @@ export default function Cart() {
   const [confettiList, setConfettiList] = useState([]);
   const instructionRef = useRef(null);
 
-  /* ── derived totals ── */
   const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
   const delivery = subtotal > 299 ? 0 : 39;
   const taxes = Math.round(subtotal * 0.05);
   const total = subtotal + delivery + taxes;
 
-  /* ── qty helpers ── */
   const change = (name, delta) => {
     setCart((prev) =>
       prev
@@ -55,9 +52,7 @@ export default function Cart() {
     );
   };
 
-  /* ── confirm animation ── */
   const handlePay = () => {
-    /* generate confetti positions */
     const pieces = Array.from({ length: 48 }, (_, k) => ({
       id: k,
       x: Math.random() * 100,
@@ -178,7 +173,6 @@ export default function Cart() {
 
         <div className="cart-layout">
           <div className="cart-left">
-            {/* ── Items card ── */}
             <div className="cart-card">
               <div className="cart-card-head">
                 <h2>Your Order</h2>
@@ -356,3 +350,5 @@ export default function Cart() {
     </>
   );
 }
+
+//done - confirmed pending

@@ -530,5 +530,3 @@ export default function RestroMenu() {
     </div>
   );
 }
-
-//increment - decrement and flatmap

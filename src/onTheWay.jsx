@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./css/onTheWay.css";
 
-/* ── Delivery stages ── */
 const STAGES = [
   { id: 0, icon: "✓", label: "Order Confirmed", done: true },
   { id: 1, icon: "👨‍🍳", label: "Preparing Food", done: true },
@@ -10,7 +9,6 @@ const STAGES = [
   { id: 3, icon: "📍", label: "Arriving Soon", done: false },
 ];
 
-/* ── Fake map waypoints (normalised 0-1 coords on our SVG canvas) ── */
 const ROUTE = [
   { x: 0.18, y: 0.72 },
   { x: 0.25, y: 0.58 },
@@ -24,31 +22,6 @@ const ROUTE = [
 function lerp(a, b, t) {
   return a + (b - a) * t;
 }
-
-/* ─────────────────────────────────────────────
-   Props reference
-   ─────────────────────────────────────────────
-   order: {
-     id          : string   – e.g. "SWG-48291"
-     restaurant  : string   – restaurant name
-     restroAddress: string  – restaurant address
-     items       : string[] – item name strings
-     total       : string   – formatted total e.g. "₹876"
-     placedAt    : Date     – when order was placed
-   }
-   partner: {
-     name    : string
-     phone   : string
-     rating  : number
-     trips   : number
-     vehicle : string
-     avatar  : string       – initials e.g. "AV"
-   }
-   delivery: {
-     address : string       – customer delivery address
-     eta     : number       – minutes from now (initial ETA)
-   }
-   ───────────────────────────────────────────── */
 
 export default function OnTheWay({
   order = {
@@ -74,8 +47,7 @@ export default function OnTheWay({
 }) {
   const navigate = useNavigate();
 
-  /* ── ETA countdown ── */
-  const [eta, setEta] = useState(delivery.eta * 60); // seconds
+  const [eta, setEta] = useState(delivery.eta * 60);
   useEffect(() => {
     const id = setInterval(() => setEta((s) => Math.max(0, s - 1)), 1000);
     return () => clearInterval(id);
@@ -83,8 +55,7 @@ export default function OnTheWay({
   const etaMins = Math.floor(eta / 60);
   const etaSecs = String(eta % 60).padStart(2, "0");
 
-  /* ── Rider position along route ── */
-  const [progress, setProgress] = useState(0); // 0→1
+  const [progress, setProgress] = useState(0);
   useEffect(() => {
     const total = delivery.eta * 60 * 1000;
     const start = Date.now();
@@ -95,7 +66,6 @@ export default function OnTheWay({
     return () => clearInterval(id);
   }, [delivery.eta]);
 
-  /* Compute rider XY from progress along polyline */
   const riderPos = (() => {
     const seg = progress * (ROUTE.length - 1);
     const i = Math.min(Math.floor(seg), ROUTE.length - 2);
@@ -106,26 +76,21 @@ export default function OnTheWay({
     };
   })();
 
-  /* ── Pulse animation tick for rider dot ── */
   const [pulse, setPulse] = useState(false);
   useEffect(() => {
     const id = setInterval(() => setPulse((p) => !p), 900);
     return () => clearInterval(id);
   }, []);
 
-  /* ── Call/message sheet ── */
-  const [sheet, setSheet] = useState(null); // null | 'call' | 'msg'
+  const [sheet, setSheet] = useState(null);
 
-  /* ── SVG dimensions (responsive via viewBox) ── */
   const W = 800,
     H = 420;
 
-  /* Build road path string */
   const roadPath = ROUTE.map(
     (p, i) => `${i === 0 ? "M" : "L"} ${p.x * W} ${p.y * H}`,
   ).join(" ");
 
-  /* Progress path (portion already travelled) */
   const travelledIdx = Math.min(
     Math.floor(progress * (ROUTE.length - 1)),
     ROUTE.length - 2,
@@ -145,14 +110,12 @@ export default function OnTheWay({
     .map((p, i) => `${i === 0 ? "M" : "L"} ${p.x * W} ${p.y * H}`)
     .join(" ");
 
-  /* ── Minutes since order was placed ── */
   const minutesAgo = Math.round(
     (Date.now() - new Date(order.placedAt)) / 60000,
   );
 
   return (
     <div className="otw-root">
-      {/* ══════════ HERO HEADER ══════════ */}
       <header className="otw-header">
         <div className="otw-header-center">
           <div className="otw-live-pill">
@@ -163,7 +126,6 @@ export default function OnTheWay({
           <p className="otw-sub">Your order is speeding towards you 🛵</p>
         </div>
 
-        {/* ── ETA pill ── */}
         <div className="otw-eta-blob">
           <span className="otw-eta-label">Arrives in</span>
           <div className="otw-eta-time">
@@ -175,17 +137,14 @@ export default function OnTheWay({
         </div>
       </header>
 
-      {/* ══════════ MAP ══════════ */}
       <div className="otw-map-shell">
         <svg
           className="otw-map-svg"
           viewBox={`0 0 ${W} ${H}`}
           preserveAspectRatio="xMidYMid slice"
         >
-          {/* ── Grid / terrain blocks ── */}
           <rect width={W} height={H} fill="#eae6df" />
 
-          {/* City blocks */}
           {[
             [20, 20, 110, 60],
             [160, 20, 90, 80],
@@ -227,7 +186,6 @@ export default function OnTheWay({
             />
           ))}
 
-          {/* Green patches */}
           {[
             [350, 280, 60, 50],
             [580, 320, 70, 60],
@@ -244,7 +202,6 @@ export default function OnTheWay({
             />
           ))}
 
-          {/* ── Road (unvisited) ── */}
           <path
             d={roadPath}
             stroke="#c4beb6"
@@ -264,7 +221,6 @@ export default function OnTheWay({
             opacity="0.6"
           />
 
-          {/* ── Road (travelled) ── */}
           <path
             d={travelledPath}
             stroke="#E8572A"
@@ -275,7 +231,6 @@ export default function OnTheWay({
             opacity="0.85"
           />
 
-          {/* ── Restaurant pin ── */}
           <g transform={`translate(${ROUTE[0].x * W}, ${ROUTE[0].y * H})`}>
             <circle r="18" fill="#fff" stroke="#E8572A" strokeWidth="2.5" />
             <text textAnchor="middle" dominantBaseline="central" fontSize="14">
@@ -283,7 +238,6 @@ export default function OnTheWay({
             </text>
           </g>
 
-          {/* ── Home pin ── */}
           <g
             transform={`translate(${ROUTE[ROUTE.length - 1].x * W}, ${ROUTE[ROUTE.length - 1].y * H})`}
           >
@@ -293,8 +247,6 @@ export default function OnTheWay({
             </text>
           </g>
 
-          {/* ── Rider dot with pulse ── */}
-          {/* ── Rider dot with pulse ── */}
           <g transform={`translate(${riderPos.x * W}, ${riderPos.y * H})`}>
             {/* pulse ring */}
             <circle
@@ -303,7 +255,7 @@ export default function OnTheWay({
               opacity="0.15"
               style={{ transition: "r 0.9s ease" }}
             />
-            {/* white background circle */}
+
             <circle
               r="20"
               fill="#fff"
@@ -311,7 +263,6 @@ export default function OnTheWay({
               strokeWidth="2.5"
               filter="url(#shadow)"
             />
-            {/* bike emoji — now visible on white bg */}
             <text textAnchor="middle" dominantBaseline="central" fontSize="20">
               🛵
             </text>
@@ -329,7 +280,6 @@ export default function OnTheWay({
             </filter>
           </defs>
 
-          {/* ── Map labels ── */}
           <text
             x={ROUTE[0].x * W}
             y={ROUTE[0].y * H + 32}
@@ -355,11 +305,8 @@ export default function OnTheWay({
         <div className="otw-map-badge">📍 Live Route</div>
       </div>
 
-      {/* ══════════ CONTENT GRID ══════════ */}
       <div className="otw-grid">
-        {/* ── LEFT: Partner + Progress ── */}
         <div className="otw-col-left">
-          {/* Partner card */}
           <div className="otw-card otw-partner-card">
             <div className="otw-card-head">
               <h3>Delivery Partner</h3>
@@ -402,7 +349,6 @@ export default function OnTheWay({
             </div>
           </div>
 
-          {/* Progress tracker */}
           <div className="otw-card otw-progress-card">
             <div className="otw-card-head">
               <h3>Order Progress</h3>
@@ -437,9 +383,7 @@ export default function OnTheWay({
           </div>
         </div>
 
-        {/* ── RIGHT: Address + Order summary ── */}
         <div className="otw-col-right">
-          {/* Delivery address */}
           <div className="otw-card otw-address-card">
             <div className="otw-card-head">
               <h3>Delivering To</h3>
@@ -467,7 +411,6 @@ export default function OnTheWay({
             </div>
           </div>
 
-          {/* Order summary */}
           <div className="otw-card otw-summary-card">
             <div className="otw-card-head">
               <h3>Order Summary</h3>
@@ -491,7 +434,6 @@ export default function OnTheWay({
             </div>
           </div>
 
-          {/* Support */}
           <div className="otw-card otw-support-card">
             <span className="otw-support-icon">🛟</span>
             <div>
@@ -503,7 +445,6 @@ export default function OnTheWay({
         </div>
       </div>
 
-      {/* ══════════ CONTACT BOTTOM SHEET ══════════ */}
       {sheet && (
         <div className="otw-sheet-overlay" onClick={() => setSheet(null)}>
           <div className="otw-sheet" onClick={(e) => e.stopPropagation()}>
