@@ -118,8 +118,6 @@ function getSmartReply(text, order) {
     return `Thanks for rating your order from ${order.restaurant}! Your feedback helps us serve you better. ⭐`;
   }
 
-  // Added 20+ more replies
-
   if (t.includes("cancel"))
     return `Order #${order.id} can be cancelled only before preparation starts. Would you like me to check cancellation eligibility?`;
 
@@ -190,7 +188,7 @@ export default function Support() {
   const [messages, setMessages] = useState([
     {
       from: "support",
-      text: `Hi! I am your support assistant for order #${ORDERS[0].id} from ${ORDERS[0].restaurant}. How can I help you today?`,
+      text: `Hi! I am Coco, your support assistant for order #${ORDERS[0].id} from ${ORDERS[0].restaurant}. How can I help you today?`,
       time: "now",
     },
   ]);
@@ -282,7 +280,7 @@ export default function Support() {
           <div className="sp-chat-head">
             <div className="sp-agent-avatar">🎧</div>
             <div className="sp-agent-info">
-              <div className="sp-agent-name">Restro Support</div>
+              <div className="sp-agent-name">Support</div>
               <div className="sp-agent-status">
                 <span className="sp-online-dot"></span>
                 Online · replies in ~2 mins
